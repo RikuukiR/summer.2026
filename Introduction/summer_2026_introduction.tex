@@ -1,0 +1,313 @@
+\documentclass[a4j,12pt]{jsarticle}
+
+\usepackage{newtxtext,newtxmath}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{margin=25mm}
+
+\titleformat{\section}
+  {\Large\normalfont\fontfamily{ptm}\mdseries\selectfont}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalsize\normalfont\fontfamily{ptm}\mdseries\selectfont}
+  {\thesubsection}{1em}{}
+
+\renewcommand{\cftsecfont}{\fontfamily{ptm}\mdseries\selectfont}
+\renewcommand{\cftsecpagefont}{\fontfamily{ptm}\mdseries\selectfont}
+\renewcommand{\cftsubsecfont}{\fontfamily{ptm}\mdseries\selectfont}
+\renewcommand{\cftsubsecpagefont}{\fontfamily{ptm}\mdseries\selectfont}
+\newcommand{\fitblank}[1]{\underline{\makebox[#1zw]{}}}
+\newcommand{\scorebox}{\makebox[1.5cm][c]{\underline{\hspace{1cm}}\,/\,100}}
+\newcommand{\totalscorebox}{\makebox[2cm][c]{\underline{\hspace{1cm}}\,/\,500}}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\title{2026年度 中学3年生夏期講習}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{flushright}
+  ITTO個別指導学院　札幌東校\\
+  Riku Sugawara\\
+  07.2026
+\end{flushright}
+
+% 目次
+\tableofcontents
+\clearpage
+
+% セクション：はじめに
+\section{Introduction}
+  \subsection{ \textbf{夏期講習のゴール}}
+    夏期講習のゴールは1つだけ!! ズバリ、
+
+    \vspace{1em}
+    \textbf{自分一人で学習していくためのヒントを得ること！}
+    \vspace{1em}
+
+    我々は、入試当日まで皆さんを全力でサポートしていく覚悟はできている。したがって、必要なのはあなた方自身のモチベーション。
+
+    そのそも、週に数百分の学習で志望校に合格することは非常に難しい。必然的に大人の目が届かない部分での努力が必要不可欠になる。つまり、一人で学習するための助けとなるようこの目標を設定した。
+
+    安くないお金を保護者に払ってもらって通塾できているわけだから、感謝の気持ちを持ちつつ、授業はもちろんのこと、自習室を積極的に活用し、講師を上手く利用していただきたい。
+
+\newpage
+
+  \subsection{\textbf{講習の予定}}
+    \begin{tabular}{l l p{6cm}}
+      \toprule
+      \textbf{日付} & \textbf{時刻} & \textbf{内容} \\
+      \midrule
+       {7月4日（土）}　& 10:00～10:50 & Introduction\\
+                      & 11:00～11:50 & 社会：地理（世界地理）\\
+                      &              & \qquad\;\; 復習 time ＆ 確認テスト \\
+                      & 12:00～12:50 & Introduction（理科） \\
+                      &              & 理科：化学（元素記号、化学式\\
+                      &              & \qquad\;\;\qquad\;\;       化学反応式） \\
+                      & 13:00～13:50 & \qquad\;\; 化学（イオン、イオン反応式）\\
+                      &              & \qquad\;\; 復習 time ＆ 確認テスト \\
+      \midrule
+       {7月11日（土）} & 10:00～10:50 & 社会：復習テスト \\
+                      &              & \qquad\;\; 地理（日本地理） \\
+                      & 11:00～11:50 & \qquad\;\; 地理（日本地理）\\
+                      &              & \qquad\;\; 復習 time ＆ 確認テスト \\
+                      & 12:00～12:50 & 理科：復習テスト \\
+                      &              & \qquad\;\; 化学（酸化還元反応\\
+                      &              & \qquad\;\;\qquad\;\; 発熱反応と吸熱反応） \\
+                      & 13:00～13:50 & \qquad\;\; 化学（電気分解、ダニエル電池）\\
+                      &              & \qquad\;\; 復習 time ＆ 確認テスト \\
+      \midrule
+       {7月18日（土）} & 10:00～10:50 & 社会：復習テスト \\
+                      &              & \qquad\;\; 歴史（世界史） \\
+                      & 11:00～11:50 & \qquad\;\; 歴史（世界史）\\
+                      &              & \qquad\;\; 復習 time ＆ 確認テスト \\
+                      & 12:00～12:50 & 理科：復習テスト \\
+                      &              & \qquad\;\; 物理（オームの法則\\
+                      &              & \qquad\;\;\qquad\;\; 電力、発熱量） \\
+                      & 13:00～13:50 & \qquad\;\; 物理（電流と磁界）\\
+                      &              & \qquad\;\; 復習 time ＆ 確認テスト \\
+      \midrule
+       {7月25日（土）} & 10:00～10:50 & 社会：復習テスト \\
+                      &              & \qquad\;\; 歴史（日本史） \\
+                      & 11:00～11:50 & \qquad\;\; 歴史（日本史）\\
+                      &              & \qquad\;\; 復習 time ＆ 確認テスト \\
+                      & 12:00～12:50 & 理科：復習テスト \\
+                      &              & \qquad\;\; 生物（脊椎動物、細胞、消化） \\
+                      & 13:00～13:50 & \qquad\;\; 生物（呼吸、血液、感覚器官）\\
+                      &              & \qquad\;\; 復習 time ＆ 確認テスト \\
+      \bottomrule
+    \end{tabular}
+
+  \newpage
+  \begin{tabular}{l l p{6cm}}
+      \toprule
+      \textbf{日付} & \textbf{時刻} & \textbf{内容} \\
+      \midrule
+       {8月1日（土）} & 10:00～10:50 & 社会：復習テスト \\
+                      &              & \qquad\;\; 公民（現代社会） \\
+                      & 11:00～11:50 & \qquad\;\; 総合テスト \& まとめ\\
+                      & 12:00～12:50 & 理科：復習テスト \\
+                      &              & \qquad\;\; 地学（火山と地層） \\
+                      & 13:00～13:50 & \qquad\;\; 総合テスト \& まとめ\\
+      \bottomrule
+    \end{tabular}
+    \vspace{1em}
+
+    ※講義内容は、予告なく変更・前後する可能性があります…
+
+  \subsection{\textbf{講習の進め方}}
+  〜講義中〜
+    \begin{enumerate}
+      \item 授業開始後、5分間を復習timeとする。
+      \item 5〜10分を復習テストの時間とする。
+      \item 復習テストの解答を終え次第、講義に入る。
+      \item 講義終了後、5分間を復習timeとする。
+      \item 5〜10分を確認テストの時間とする。
+      \item 確認テストの解答・解説をし、結果を記入。
+      \item 点数確認表を提出し、終了。
+    \end{enumerate}
+    \vspace{1em}
+  〜講義前〜
+    \begin{enumerate}
+        \item 講義開始前に、点数確認表を受け取る。
+        \item 復習テストに向けて時間を過ごす。
+        \item 復習time開始!!
+      \end{enumerate}
+      \vspace{1em}
+
+  \subsection{\textbf{注意事項}}
+      \begin{enumerate}
+      \item アウトプットが中心のため、この夏期講習の成功・失敗はみんな次第である。
+      \item 復習timeは単なる暗記の時間ではなく、頭の中にある知識を引っ張り出す時間である。
+      \item 体調管理をしっかりしよう!!
+      \item もし、急な予定が入ったり、体調不良により講義に参加出来ない場合は事前に講師か教室長に相談すること。（B日程に参加出来るかも！？）
+    \end{enumerate}
+    \vspace{1em}
+  \newpage
+
+% セクション：今後の予定
+\section{\textbf{自己分析}}
+  \subsection{\textbf{昨年度公立高校入試に触れよう}}
+    講義に入る前に数十分時間を欲しい。ここからは巻末の「自己分析シート」を使って、入試に向かってのVisionを固めよう！
+
+    実際に、昨年度北海道公立高校入試問題に触れることによって、入試をイメージしよう!!
+
+  \subsection{\textbf{今までの自分を把握しよう}}
+    まずは、前期期末テストについて結果を記入しよう!!
+
+  \subsection{\textbf{志望校をしっかりと理解しよう}}
+    次に、志望校についていろいろな情報を集めよう!!
+
+\subsection{\textbf{これからの自分を考えよう}}
+    学力テストA（9月10日）について。前期期末テストの結果を参考にして目標点を記入しよう!!
+
+
+  \subsection{\textbf{目標点を設定しよう}}
+  以上を踏まえて、入試当日の目標点を設定しよう!!
+
+  \newpage
+
+\section{\textbf{受験生の心構え}}
+  \subsection{\textbf{満点を取らなければいけない？}}
+    結論から言おう。\textbf{入試において満点を取らなければいけないわけがない。}
+
+    何故ならば、\textbf{入試は合計点勝負}であって、特定の教科において下限が設定されているわけではないからである。極端に言うと、１教科0点を取ったからといって必ずしも不合格になるという道理はないのである。
+
+  \subsection{\textbf{必要なメンタリティ}}
+    先生自身も受験生だった頃があり、塾講師としても多くの受験生をサポートしてきてわかったことがある。それは、
+
+    \textbf{「完璧主義」ではなく、「完了主義」}
+
+    が大切であるということである。
+
+  \subsection{\textbf{高校進学は人生の通過点！}}
+    みんなは、まだまだ若いけど、今この時期が人生の大半を左右するかもしれない時期にあることは理解しておいた方がいい。
+
+    長い人生、今よりキツい時が必ず来るけど、今を乗り越えると未来の自分に感謝されると思うよ!!
+
+  \newpage
+
+\clearpage
+
+% --- 提出欄 ---
+\begin{center}
+  {\Large \textbf{自己分析シート}}
+\end{center}
+
+% 提出期限
+\begin{flushleft}
+  \textbf{提出期限：7月11日（土）講義前}
+\end{flushleft}
+
+% 氏名欄
+\begin{flushright}
+  \textbf{氏名：} \underline{\hspace{6cm}}
+\end{flushright}
+
+\vspace{2em}
+
+% 本文
+\begin{enumerate}
+  \item 前期期末テスト（6月25日（木））結果\\
+
+    \begin{tabular}{C{1.5cm}C{1.5cm}C{1.5cm}C{1.5cm}C{1.5cm}C{2cm}}
+    \toprule
+    国語 & 数学 & 英語 & 理科 & 社会 & 合計 \\
+    \midrule
+    \scorebox & \scorebox & \scorebox & \scorebox & \scorebox & \totalscorebox \\
+    \bottomrule
+    \end{tabular}
+
+  \vspace{2em}
+
+  \item 将来の夢とそれに必要な資格・免許は？\\
+
+    将来の夢 \quad \;\;\;：\fitblank{20}\\
+    資格・免許等 ：\fitblank{20}
+  \vspace{2em}
+
+  \item 志望校は？\\
+
+    \begin{tabular}{l l c}
+      \toprule
+      区分 & 志望順位 & 学校名 \\
+      \midrule
+      公立 & 第1志望 & \underline{\hspace{9cm}} \\
+      公立 & 第2志望 & \underline{\hspace{9cm}} \\
+      公立 & 第3志望 & \underline{\hspace{9cm}} \\
+      私立 & 第1志望 & \underline{\hspace{9cm}} \\
+      私立 & 第2志望 & \underline{\hspace{9cm}} \\
+      \bottomrule
+      \end{tabular}
+  \vspace{2em}
+
+  \item 今のランクと志望校合格のために必要なランクは？\\
+
+    \begin{tabular}{c c}
+      \toprule
+      現在のランク & 必要なランク \\
+      \midrule
+      \underline{\hspace{5cm}} & \underline{\hspace{5cm}} \\
+      \bottomrule
+    \end{tabular}
+  \vspace{2em}
+\clearpage
+
+  \item 昨年度の合格ボーダーラインは？
+
+    \begin{table}[hbtp]
+      \centering
+      \renewcommand{\arraystretch}{1.0}
+      \begin{tabular}{
+        |>{\centering\arraybackslash}p{5cm}
+        |>{\centering\arraybackslash}p{2.5cm}
+        |>{\centering\arraybackslash}p{1.5cm}
+        |>{\centering\arraybackslash}p{2cm}|
+      }
+        \hline
+        高校名 & 学科 & 予想内申ランク & 予想ボーダー \\
+        \hline
+        \raggedright（公立） & & & \\
+        \hline
+        \raggedright（私立） & & & \\
+        \hline
+      \end{tabular}
+    \end{table}
+
+    （参考URL：北大学力増進会 入試解答速報2026 http://www.ejuku.jp/index.html）
+\vspace{2em}
+
+  \item 学力テストＡ（9月10日）目標は？\\
+
+\vspace{0.5em}
+    \begin{tabular}{C{1.5cm}C{1.5cm}C{1.5cm}C{1.5cm}C{1.5cm}C{2cm}}
+    \toprule
+    国語 & 数学 & 英語 & 理科 & 社会 & 合計 \\
+    \midrule
+    \scorebox & \scorebox & \scorebox & \scorebox & \scorebox & \totalscorebox \\
+    \bottomrule
+    \end{tabular}
+  \vspace{2em}
+
+  \item 入試当日の目標点は？\\
+
+\vspace{0.5em}
+    \begin{tabular}{C{1.5cm}C{1.5cm}C{1.5cm}C{1.5cm}C{1.5cm}C{2cm}}
+    \toprule
+    国語 & 数学 & 英語 & 理科 & 社会 & 合計 \\
+    \midrule
+    \scorebox & \scorebox & \scorebox & \scorebox & \scorebox & \totalscorebox \\
+    \bottomrule
+    \end{tabular}
+\vspace{2em}
+\end{enumerate}
+\clearpage
+
+\end{document}
