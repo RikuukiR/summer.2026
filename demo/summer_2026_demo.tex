@@ -1,0 +1,49 @@
+\documentclass[a4j,12pt]{jsarticle}
+
+\usepackage{newtxtext,newtxmath}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{margin=25mm}
+
+\titleformat{\section}
+  {\Large\normalfont\fontfamily{ptm}\mdseries\selectfont}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalsize\normalfont\fontfamily{ptm}\mdseries\selectfont}
+  {\thesubsection}{1em}{}
+
+\renewcommand{\cftsecfont}{\fontfamily{ptm}\mdseries\selectfont}
+\renewcommand{\cftsecpagefont}{\fontfamily{ptm}\mdseries\selectfont}
+\renewcommand{\cftsubsecfont}{\fontfamily{ptm}\mdseries\selectfont}
+\renewcommand{\cftsubsecpagefont}{\fontfamily{ptm}\mdseries\selectfont}
+\newcommand{\fitblank}[1]{\underline{\makebox[#1zw]{}}}
+\newcommand{\scorebox}{\makebox[1.5cm][c]{\underline{\hspace{1cm}}\,/\,100}}
+\newcommand{\totalscorebox}{\makebox[2cm][c]{\underline{\hspace{1cm}}\,/\,500}}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\title{2026年度 デモ（Introduction と同一環境）}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{flushright}
+  ITTO個別指導学院　札幌東校\\
+  Riku Sugawara\\
+  07.2026
+\end{flushright}
+
+\tableofcontents
+\clearpage
+
+\section{デモ}
+  \subsection{プレースホルダ}
+    \texttt{Introduction} と同じ \texttt{jsarticle}・パッケージ・余白・見出し体裁です。ここから試し書きしてください。
+
+\end{document}
