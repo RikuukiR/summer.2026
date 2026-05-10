@@ -10,14 +10,16 @@
 \geometry{margin=25mm}
 
 \titleformat{\section}
-  {\Large\normalfont\fontfamily{ptm}\mdseries\selectfont}
+  {\Large\normalfont\fontfamily{ptm}\bfseries\selectfont}
   {\thesection}{1em}{}
 \titleformat{\subsection}
-  {\normalsize\normalfont\fontfamily{ptm}\mdseries\selectfont}
+  {\normalsize\normalfont\fontfamily{ptm}\bfseries\selectfont}
   {\thesubsection}{1em}{}
 \newcommand{\fitblank}[1]{\underline{\makebox[#1zw]{}}}
 \newcommand{\scorebox}{\makebox[1.5cm][c]{\underline{\hspace{1cm}}\,/\,100}}
 \newcommand{\totalscorebox}{\makebox[2cm][c]{\underline{\hspace{1cm}}\,/\,500}}
+
+\def\labelenumi{(\theenumi)}
 
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
@@ -33,8 +35,54 @@
   05.2026
 \end{flushright}
 
-\section{デモ}
-  \subsection{プレースホルダ}
-    \texttt{Introduction} と同じ \texttt{jsarticle}・パッケージ・余白・見出し体裁です。ここから試し書きしてください。
+\section{講習の目的}
+  \subsection{講習全体を通しての目的}
+    \begin{enumerate}
+      \item 公立高校入試の問題形式や単元別出題割合などについて知ってもらう
+      \item 別紙の自己分析シートを使用した自己分析をしてもらう
+      \item 公立高校入試や北海道コンクールの問題形式に慣れてもらう
+      \item 受験生としての自覚も持ってもらう
+    \end{enumerate}
 
+  \subsection{数学の講習での目的}
+    \begin{enumerate}
+      \item 基礎計算能力を養ってもらう
+      \item 文章問題の立式に慣れてもらう
+      \item 文字を使った証明問題に慣れてもらう
+      \item 平面図形の証明問題に慣れてもらう
+      \item 自分の苦手な単元を見つけてもらう
+    \end{enumerate}
+
+  \subsection{英語の講習での目的}
+    \begin{enumerate}
+      \item リスニングに慣れてもらう
+      \item 基本的な語彙力を養ってもらう
+      \item 英作文に慣れてもらう
+      \item 頻出の文法を身につけてもらう
+      \item 長文読解に慣れてもらう
+      \item 自分の苦手な文法を見つけてもらう
+    \end{enumerate}
+\newpage
+
+\section{講習の内容}
+  \subsection{数学の講習での内容}
+    \begin{enumerate}
+      \item 基礎計算問題
+      \item 一次方程式の利用、連立方程式の利用（文章問題の立式）
+      \item 式の計算の利用（文字を使った証明問題）
+      \item 三角形の合同、二等辺三角形の性質、平行四辺形の性質
+      \item 予習（学校の授業の進度や生徒の様子を見て）
+      \item 公立高校入試過去問を使用した演習
+      \item 北海道コンクール過去問を使用した演習
+    \end{enumerate}
+
+  \subsection{英語の講習での内容}
+    \begin{enumerate}
+      \item リスニング問題
+      \item 基本的な語彙力を養ってもらう
+      \item 英作文に慣れてもらう
+      \item 頻出の文法を身につけてもらう
+      \item 長文読解に慣れてもらう
+      \item 自分の苦手な文法を見つけてもらう
+    \end{enumerate}
 \end{document}
