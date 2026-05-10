@@ -21,7 +21,7 @@
   "latex-workshop.latex.tools": [
     {
       "name": "platex",
-      "command": "platex",
+      "command": "/Library/TeX/texbin/platex",
       "args": [
         "-synctex=1",
         "-interaction=nonstopmode",
@@ -32,7 +32,7 @@
     },
     {
       "name": "uplatex",
-      "command": "uplatex",
+      "command": "/Library/TeX/texbin/uplatex",
       "args": [
         "-synctex=1",
         "-interaction=nonstopmode",
@@ -43,7 +43,7 @@
     },
     {
       "name": "dvipdfmx",
-      "command": "dvipdfmx",
+      "command": "/Library/TeX/texbin/dvipdfmx",
       "args": [
         "%DOCFILE%.dvi"
       ]
@@ -54,7 +54,7 @@
   "latex-workshop.view.pdf.viewer": "external",
   "latex-workshop.view.pdf.ref.viewer": "external",
   "latex-workshop.view.pdf.external.viewer.command": "/usr/bin/open",
-  "latex-workshop.view.pdf.external.viewer.args": ["-a", "Preview", "%PDF%"],
+  "latex-workshop.view.pdf.external.viewer.args": ["%PDF%"],
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
     "*.bbl",
