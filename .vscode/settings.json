@@ -1,4 +1,5 @@
 {
+  "latex-workshop.latex.recipe.default": "upLaTeX",
   "latex-workshop.latex.recipes": [
     {
       "name": "pLaTeX",
@@ -48,8 +49,12 @@
       ]
     }
   ],
-  "latex-workshop.latex.autoBuild.run": "onSave",
-  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.latex.autoBuild.run": "onFileChange",
+  "latex-workshop.latex.autoBuild.interval": 800,
+  "latex-workshop.view.pdf.viewer": "external",
+  "latex-workshop.view.pdf.ref.viewer": "external",
+  "latex-workshop.view.pdf.external.viewer.command": "/usr/bin/open",
+  "latex-workshop.view.pdf.external.viewer.args": ["-a", "Preview", "%PDF%"],
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
     "*.bbl",
