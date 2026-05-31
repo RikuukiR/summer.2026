@@ -1,39 +1,23 @@
 {
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
+  "latex-workshop.latex.external.build.command": "/bin/bash",
+  "latex-workshop.latex.external.build.args": [
+    "${workspaceFolder}/scripts/lw-external-build.sh",
+    "%DOC_EXT%"
+  ],
   "latex-workshop.latex.recipe.default": "upLaTeX",
   "latex-workshop.latex.recipes": [
-    {
-      "name": "pLaTeX",
-      "tools": [
-        "platex",
-        "platex",
-        "dvipdfmx",
-        "refresh-pdf-external"
-      ]
-    },
     {
       "name": "upLaTeX",
       "tools": [
         "uplatex",
         "uplatex",
-        "dvipdfmx",
-        "refresh-pdf-external"
+        "dvipdfmx"
       ]
     }
   ],
   "latex-workshop.latex.tools": [
-    {
-      "name": "platex",
-      "command": "/Library/TeX/texbin/platex",
-      "args": [
-        "-synctex=1",
-        "-interaction=nonstopmode",
-        "-file-line-error",
-        "-kanji=utf8",
-        "%DOC%"
-      ]
-    },
     {
       "name": "uplatex",
       "command": "/Library/TeX/texbin/uplatex",
@@ -51,14 +35,6 @@
       "args": [
         "%DOCFILE%.dvi"
       ]
-    },
-    {
-      "name": "refresh-pdf-external",
-      "command": "/bin/bash",
-      "args": [
-        "${workspaceFolder}/scripts/refresh-pdf.sh",
-        "%DOC%.pdf"
-      ]
     }
   ],
   "latex-workshop.latex.autoBuild.run": "never",
@@ -74,7 +50,12 @@
     "${workspaceFolder}/scripts/refresh-pdf.sh",
     "%PDF%"
   ],
-  "latex-workshop.synctex.afterBuild.enabled": false,
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.view.pdf.external.synctex.command": "/bin/bash",
+  "latex-workshop.view.pdf.external.synctex.args": [
+    "${workspaceFolder}/scripts/refresh-pdf.sh",
+    "%PDF%"
+  ],
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
     "*.bbl",

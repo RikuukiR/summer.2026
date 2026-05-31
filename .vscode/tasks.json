@@ -30,7 +30,7 @@
     },
     {
       "label": "Introduction: ビルドしてPDFを更新",
-      "dependsOn": ["Introduction: ビルド", "Introduction: PDFを再表示"],
+      "dependsOn": ["Introduction: ビルド"],
       "dependsOrder": "sequence",
       "problemMatcher": []
     },
