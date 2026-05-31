@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PDF を再ビルド後に表示へ反映する（Preview は自動更新しないため再オープンする）
+# PDF を再ビルド後に Preview / Skim へ反映する
 set -u
 
 if [ $# -lt 1 ] || [ -z "$1" ]; then
@@ -8,6 +8,7 @@ if [ $# -lt 1 ] || [ -z "$1" ]; then
 fi
 
 PDF="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+PDF_NAME="$(basename "$PDF")"
 
 if [ ! -f "$PDF" ]; then
   echo "PDF が見つかりません: $PDF" >&2
@@ -20,22 +21,19 @@ if [ -d "/Applications/Skim.app" ]; then
   exit 0
 fi
 
-# Preview: 起動中なら同じファイルを閉じてから開き直す
-if pgrep -x Preview >/dev/null 2>&1; then
-  osascript <<APPLESCRIPT 2>/dev/null || true
+# Preview: ファイル名で既存タブを閉じて開き直す（パス比較より確実）
+/usr/bin/osascript <<APPLESCRIPT 2>/dev/null || /usr/bin/open -a Preview "$PDF"
 tell application "Preview"
-  set targetPath to "$PDF"
+  set pdfName to "$PDF_NAME"
+  set pdfPath to POSIX file "$PDF"
   repeat with d in documents
     try
-      if (POSIX path of (path of d)) is targetPath then
+      if (name of d as text) is pdfName then
         close d saving no
       end if
     end try
   end repeat
+  open pdfPath
+  activate
 end tell
 APPLESCRIPT
-  sleep 0.2
-fi
-
-/usr/bin/open -a Preview "$PDF"
-osascript -e 'tell application "Preview" to activate' 2>/dev/null || true

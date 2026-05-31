@@ -43,7 +43,7 @@ while true; do
     sleep 0.5
     echo "[$(date '+%H:%M:%S')] 変更を検知 → ビルド..."
     if build; then
-      "${ROOT}/scripts/refresh-pdf.sh" "$PDF"
+      "${ROOT}/scripts/refresh-pdf.sh" "$PDF" >/dev/null
       echo "[$(date '+%H:%M:%S')] PDF を更新しました"
     else
       echo "[$(date '+%H:%M:%S')] ビルド失敗" >&2

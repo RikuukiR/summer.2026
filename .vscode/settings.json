@@ -1,4 +1,6 @@
 {
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
   "latex-workshop.latex.recipe.default": "upLaTeX",
   "latex-workshop.latex.recipes": [
     {
@@ -59,10 +61,8 @@
       ]
     }
   ],
-  "latex-workshop.latex.autoBuild.run": "onFileChange",
-  "latex-workshop.latex.autoBuild.interval": 2000,
+  "latex-workshop.latex.autoBuild.run": "never",
   "latex-workshop.latex.build.enableMagicComments": true,
-  "latex-workshop.latex.watch.pdf.delay": 500,
   "latex-workshop.latex.search.rootFiles.exclude": [
     "**/demo/**"
   ],

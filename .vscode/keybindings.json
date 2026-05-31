@@ -1,0 +1,26 @@
+[
+  {
+    "key": "cmd+s",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.files.save",
+        {
+          "command": "workbench.action.tasks.runTask",
+          "args": "Introduction: ビルドしてPDFを更新"
+        }
+      ]
+    },
+    "when": "editorTextFocus && resourceFilename == summer_2026_introduction.tex"
+  },
+  {
+    "key": "cmd+alt+w",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Introduction: 外部PDFを開いてリアルタイム更新"
+  },
+  {
+    "key": "cmd+alt+p",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Introduction: PDFをプレビューで開く（ビルド＋表示）"
+  }
+]
