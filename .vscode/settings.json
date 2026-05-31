@@ -49,8 +49,9 @@
       ]
     }
   ],
-  "latex-workshop.latex.autoBuild.run": "onSave",
-  "latex-workshop.latex.autoBuild.interval": 1000,
+  "latex-workshop.latex.autoBuild.run": "onFileChange",
+  "latex-workshop.latex.autoBuild.interval": 1500,
+  "latex-workshop.latex.watch.pdf.delay": 400,
   "latex-workshop.view.pdf.viewer": "external",
   "latex-workshop.view.pdf.ref.viewer": "external",
   "latex-workshop.view.pdf.external.viewer.command": "/usr/bin/open",
