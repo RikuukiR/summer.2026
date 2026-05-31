@@ -7,7 +7,7 @@
         "platex",
         "platex",
         "dvipdfmx",
-        "open-pdf-external"
+        "refresh-pdf-external"
       ]
     },
     {
@@ -16,7 +16,7 @@
         "uplatex",
         "uplatex",
         "dvipdfmx",
-        "open-pdf-external"
+        "refresh-pdf-external"
       ]
     }
   ],
@@ -51,7 +51,7 @@
       ]
     },
     {
-      "name": "open-pdf-external",
+      "name": "refresh-pdf-external",
       "command": "/bin/bash",
       "args": [
         "${workspaceFolder}/scripts/refresh-pdf.sh",
@@ -59,17 +59,21 @@
       ]
     }
   ],
-  "latex-workshop.latex.autoBuild.run": "never",
-  "latex-workshop.latex.autoBuild.interval": 1500,
-  "latex-workshop.latex.watch.pdf.delay": 400,
+  "latex-workshop.latex.autoBuild.run": "onFileChange",
+  "latex-workshop.latex.autoBuild.interval": 2000,
+  "latex-workshop.latex.build.enableMagicComments": true,
+  "latex-workshop.latex.watch.pdf.delay": 500,
   "latex-workshop.latex.search.rootFiles.exclude": [
     "**/demo/**"
   ],
   "latex-workshop.view.pdf.viewer": "external",
   "latex-workshop.view.pdf.ref.viewer": "external",
   "latex-workshop.view.autoFocus.enabled": false,
-  "latex-workshop.view.pdf.external.viewer.command": "/usr/bin/open",
-  "latex-workshop.view.pdf.external.viewer.args": ["-a", "Preview", "%PDF%"],
+  "latex-workshop.view.pdf.external.viewer.command": "/bin/bash",
+  "latex-workshop.view.pdf.external.viewer.args": [
+    "${workspaceFolder}/scripts/refresh-pdf.sh",
+    "%PDF%"
+  ],
   "latex-workshop.synctex.afterBuild.enabled": false,
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
