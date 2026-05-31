@@ -1,0 +1,13 @@
+[
+  {
+    "key": "cmd+s",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.files.save",
+        "latex-workshop.build"
+      ]
+    },
+    "when": "editorTextFocus && resourceExtname == .tex"
+  }
+]

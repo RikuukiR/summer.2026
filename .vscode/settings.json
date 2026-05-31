@@ -58,7 +58,7 @@
       ]
     }
   ],
-  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoBuild.run": "never",
   "latex-workshop.latex.autoBuild.interval": 1000,
   "latex-workshop.latex.watch.pdf.delay": 400,
   "latex-workshop.view.pdf.viewer": "external",
