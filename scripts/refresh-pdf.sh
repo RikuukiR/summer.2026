@@ -20,8 +20,9 @@ if [ -d "/Applications/Skim.app" ]; then
   exit 0
 fi
 
-# Preview: 同じファイルを開いている場合は一度閉じてから開き直す
-osascript <<APPLESCRIPT
+# Preview: 起動中なら同じファイルを閉じてから開き直す
+if pgrep -x Preview >/dev/null 2>&1; then
+  osascript <<APPLESCRIPT 2>/dev/null || true
 tell application "Preview"
   set targetPath to "$PDF"
   repeat with d in documents
@@ -33,7 +34,8 @@ tell application "Preview"
   end repeat
 end tell
 APPLESCRIPT
+  sleep 0.2
+fi
 
-sleep 0.2
 /usr/bin/open -a Preview "$PDF"
 osascript -e 'tell application "Preview" to activate' 2>/dev/null || true
