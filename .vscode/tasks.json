@@ -2,28 +2,12 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Introduction: 外部PDFを開いてリアルタイム更新",
+      "label": "Introduction: ビルド",
       "type": "shell",
-      "command": "${workspaceFolder}/scripts/watch-introduction.sh",
+      "command": "${workspaceFolder}/scripts/build-introduction.sh",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "isBackground": true,
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated",
-        "focus": false
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Introduction: PDFを外部で開く（ビルドしてから）",
-      "type": "shell",
-      "command": "/bin/bash",
-      "args": [
-        "-lc",
-        "${workspaceFolder}/scripts/build-introduction.sh && /usr/bin/open ${workspaceFolder}/Introduction/summer_2026_introduction.pdf"
-      ],
       "presentation": {
         "reveal": "silent",
         "panel": "shared"
@@ -31,12 +15,48 @@
       "problemMatcher": []
     },
     {
+      "label": "Introduction: PDFだけ開く",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/open-introduction-pdf.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Introduction: PDFをプレビューで開く（ビルド＋表示）",
+      "dependsOn": ["Introduction: ビルド", "Introduction: PDFだけ開く"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
+      "label": "Introduction: 外部PDFを開いてリアルタイム更新",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/watch-introduction.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "showReuseMessage": false
+      },
+      "problemMatcher": [],
+      "runOptions": {
+        "reevaluateOnRerun": false
+      }
+    },
+    {
       "label": "PDFを外部で開く（編集中のTeXと同名）",
       "type": "shell",
-      "command": "/usr/bin/open",
-      "args": ["${fileDirname}/${fileBasenameNoExtension}.pdf"],
+      "command": "/usr/bin/open -a Preview \"${fileDirname}/${fileBasenameNoExtension}.pdf\"",
       "presentation": {
-        "reveal": "never",
+        "reveal": "always",
         "panel": "shared"
       },
       "problemMatcher": []

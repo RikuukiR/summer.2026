@@ -9,5 +9,10 @@
       ]
     },
     "when": "editorTextFocus && resourceExtname == .tex"
+  },
+  {
+    "key": "cmd+alt+p",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Introduction: PDFをプレビューで開く（ビルド＋表示）"
   }
 ]

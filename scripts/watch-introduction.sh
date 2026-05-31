@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Introduction/summer_2026_introduction.tex を監視し、外部 PDF を更新する
-set -euo pipefail
+# Introduction/summer_2026_introduction.tex を監視し、Preview で PDF を更新する
+set -u
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIR="${ROOT}/Introduction"
@@ -11,12 +11,29 @@ build() {
   "${ROOT}/scripts/build-introduction.sh"
 }
 
-# 初回: 前面で開く
-build
-/usr/bin/open "$PDF"
+open_pdf() {
+  if [ ! -f "$PDF" ]; then
+    echo "PDF が見つかりません: $PDF" >&2
+    return 1
+  fi
+  /usr/bin/open -a Preview "$PDF"
+  osascript -e 'tell application "Preview" to activate' 2>/dev/null || true
+}
 
+echo "=== Introduction PDF プレビュー ==="
+echo "ビルド中..."
+if ! build; then
+  echo "ビルドに失敗しました。ターミナルのログを確認してください。" >&2
+  exit 1
+fi
+
+echo "Preview で開いています..."
+open_pdf
+echo ""
 echo "監視中: ${TEX}"
-echo "停止: ターミナルで Ctrl+C"
+echo "（.tex を保存すると自動で再ビルド・PDF更新）"
+echo "停止: このターミナルで Ctrl+C"
+echo "LWATCH_READY"
 
 mtime() {
   stat -f "%m" "$TEX" 2>/dev/null || stat -c "%Y" "$TEX"
@@ -28,9 +45,13 @@ while true; do
   cur=$(mtime)
   if [ "$cur" != "$last" ]; then
     last=$cur
-    sleep 0.4
+    sleep 0.5
+    echo "[$(date '+%H:%M:%S')] 変更を検知 → ビルド..."
     if build; then
-      /usr/bin/open -g "$PDF"
+      /usr/bin/open -a Preview "$PDF"
+      echo "[$(date '+%H:%M:%S')] PDF を更新しました"
+    else
+      echo "[$(date '+%H:%M:%S')] ビルド失敗" >&2
     fi
   fi
 done
