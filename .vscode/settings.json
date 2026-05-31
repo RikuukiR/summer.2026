@@ -52,10 +52,9 @@
     },
     {
       "name": "open-pdf-external",
-      "command": "/usr/bin/open",
+      "command": "/bin/bash",
       "args": [
-        "-a",
-        "Preview",
+        "${workspaceFolder}/scripts/refresh-pdf.sh",
         "%DOC%.pdf"
       ]
     }

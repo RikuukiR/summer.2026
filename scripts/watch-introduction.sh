@@ -12,12 +12,7 @@ build() {
 }
 
 open_pdf() {
-  if [ ! -f "$PDF" ]; then
-    echo "PDF が見つかりません: $PDF" >&2
-    return 1
-  fi
-  /usr/bin/open -a Preview "$PDF"
-  osascript -e 'tell application "Preview" to activate' 2>/dev/null || true
+  "${ROOT}/scripts/refresh-pdf.sh" "$PDF"
 }
 
 echo "=== Introduction PDF プレビュー ==="
@@ -48,7 +43,7 @@ while true; do
     sleep 0.5
     echo "[$(date '+%H:%M:%S')] 変更を検知 → ビルド..."
     if build; then
-      /usr/bin/open -a Preview "$PDF"
+      "${ROOT}/scripts/refresh-pdf.sh" "$PDF"
       echo "[$(date '+%H:%M:%S')] PDF を更新しました"
     else
       echo "[$(date '+%H:%M:%S')] ビルド失敗" >&2

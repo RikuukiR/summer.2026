@@ -5,10 +5,24 @@
     "args": {
       "commands": [
         "workbench.action.files.save",
+        {
+          "command": "workbench.action.tasks.runTask",
+          "args": "Introduction: ビルドしてPDFを更新"
+        }
+      ]
+    },
+    "when": "editorTextFocus && resourceFilename == summer_2026_introduction.tex"
+  },
+  {
+    "key": "cmd+s",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.files.save",
         "latex-workshop.build"
       ]
     },
-    "when": "editorTextFocus && resourceExtname == .tex"
+    "when": "editorTextFocus && resourceExtname == .tex && resourceFilename != summer_2026_introduction.tex"
   },
   {
     "key": "cmd+alt+p",

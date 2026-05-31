@@ -15,6 +15,26 @@
       "problemMatcher": []
     },
     {
+      "label": "Introduction: PDFを再表示",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/refresh-pdf.sh",
+      "args": ["${workspaceFolder}/Introduction/summer_2026_introduction.pdf"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Introduction: ビルドしてPDFを更新",
+      "dependsOn": ["Introduction: ビルド", "Introduction: PDFを再表示"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
       "label": "Introduction: PDFだけ開く",
       "type": "shell",
       "command": "${workspaceFolder}/scripts/open-introduction-pdf.sh",
@@ -46,17 +66,15 @@
         "focus": false,
         "showReuseMessage": false
       },
-      "problemMatcher": [],
-      "runOptions": {
-        "reevaluateOnRerun": false
-      }
+      "problemMatcher": []
     },
     {
       "label": "PDFを外部で開く（編集中のTeXと同名）",
       "type": "shell",
-      "command": "/usr/bin/open -a Preview \"${fileDirname}/${fileBasenameNoExtension}.pdf\"",
+      "command": "${workspaceFolder}/scripts/refresh-pdf.sh",
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.pdf"],
       "presentation": {
-        "reveal": "always",
+        "reveal": "never",
         "panel": "shared"
       },
       "problemMatcher": []
