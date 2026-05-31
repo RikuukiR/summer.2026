@@ -54,13 +54,17 @@
       "name": "open-pdf-external",
       "command": "/usr/bin/open",
       "args": [
+        "-g",
         "%DOC%.pdf"
       ]
     }
   ],
   "latex-workshop.latex.autoBuild.run": "never",
-  "latex-workshop.latex.autoBuild.interval": 1000,
+  "latex-workshop.latex.autoBuild.interval": 1500,
   "latex-workshop.latex.watch.pdf.delay": 400,
+  "latex-workshop.latex.search.rootFiles.exclude": [
+    "**/demo/**"
+  ],
   "latex-workshop.view.pdf.viewer": "external",
   "latex-workshop.view.pdf.ref.viewer": "external",
   "latex-workshop.view.autoFocus.enabled": false,
