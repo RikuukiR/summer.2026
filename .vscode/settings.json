@@ -6,7 +6,8 @@
       "tools": [
         "platex",
         "platex",
-        "dvipdfmx"
+        "dvipdfmx",
+        "open-pdf-external"
       ]
     },
     {
@@ -14,7 +15,8 @@
       "tools": [
         "uplatex",
         "uplatex",
-        "dvipdfmx"
+        "dvipdfmx",
+        "open-pdf-external"
       ]
     }
   ],
@@ -47,18 +49,24 @@
       "args": [
         "%DOCFILE%.dvi"
       ]
+    },
+    {
+      "name": "open-pdf-external",
+      "command": "/usr/bin/open",
+      "args": [
+        "%DOC%.pdf"
+      ]
     }
   ],
-  "latex-workshop.latex.autoBuild.run": "onFileChange",
-  "latex-workshop.latex.autoBuild.interval": 1500,
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoBuild.interval": 1000,
   "latex-workshop.latex.watch.pdf.delay": 400,
   "latex-workshop.view.pdf.viewer": "external",
   "latex-workshop.view.pdf.ref.viewer": "external",
+  "latex-workshop.view.autoFocus.enabled": false,
   "latex-workshop.view.pdf.external.viewer.command": "/usr/bin/open",
-  "latex-workshop.view.pdf.external.viewer.args": ["-g", "%PDF%"],
-  "latex-workshop.synctex.afterBuild.enabled": true,
-  "latex-workshop.view.pdf.external.synctex.command": "/usr/bin/open",
-  "latex-workshop.view.pdf.external.synctex.args": ["-g", "%PDF%"],
+  "latex-workshop.view.pdf.external.viewer.args": ["%PDF%"],
+  "latex-workshop.synctex.afterBuild.enabled": false,
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
     "*.bbl",

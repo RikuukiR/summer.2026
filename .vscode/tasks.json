@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "PDFを外部で開く（編集中のTeXと同名）",
+      "type": "shell",
+      "command": "/usr/bin/open",
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.pdf"],
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
