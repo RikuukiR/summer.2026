@@ -4,6 +4,7 @@
 MAIN = main
 TEX = $(MAIN).tex
 PDF = $(MAIN).pdf
+BOOKLET = $(MAIN)-book.pdf
 DVI = $(MAIN).dvi
 AUX = $(MAIN).aux
 LOG = $(MAIN).log
@@ -51,9 +52,16 @@ watch-poll:
 		sleep 2; \
 	done
 
+# Booklet PDF (A4 folded to A5, short-edge binding)
+booklet: $(BOOKLET)
+
+$(BOOKLET): $(PDF)
+	@./scripts/make-booklet.sh
+
 # Clean auxiliary files
 clean:
 	rm -f *.aux *.log *.dvi *.toc *.out *.fdb_latexmk *.fls *.synctex.gz
+	rm -f $(BOOKLET) .crop-tmp*.pdf
 
 # Clean all generated files
 cleanall: clean
@@ -81,6 +89,7 @@ help:
 	@echo "  cleanall    - Remove all generated files"
 	@echo "  rebuild     - Clean and rebuild"
 	@echo "  answer      - Create answer version"
+	@echo "  booklet     - Create booklet PDF (main-book.pdf)"
 	@echo "  help        - Show this help"
 
-.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer help
+.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet help
