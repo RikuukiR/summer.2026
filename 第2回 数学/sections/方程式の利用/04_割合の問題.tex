@@ -21,11 +21,42 @@
 
         \[\textbf{(男子の増減) + (女子の増減) = (その年の生徒数の増減)}\]
 
+        \vspace{1.5em}
         という式を立てることができると計算が楽になる。
 
+% 例題３
         \begin{example}[【例題 3】]
-            （ここに過不足の問題の例題文を書く）
+            ある中学校の昨年の入学者数は360人であった。
+            今年は昨年より男子が3\%減少し、女子が5\%増加して、
+            全体では2人増加したという。昨年の男子、女子の入学者数をそれぞれ求めなさい。
         \end{example}
+
+        \begin{proof}\mbox{}\\
+            \[（昨年の男子の入学者数）+（昨年の女子の入学者数）=（昨年の入学者数）\]
+            \[（今年の男子の入学者数）+（今年の女子の入学者数）=（今年の入学者数）\]
+
+            という方針にしたがって、方程式を立てる。
+
+            \begin{hiddenanswer}
+                昨年の男子の入学者数を $x$ 人, 女子の入学者数を $y$ 人とすると、
+                \vspace{1em}
+
+                \begin{align*}
+                    \left\{
+                    \begin{array}{@{} r @{\quad+\quad} l @{\quad=\quad} r @{}}
+                        x\phantom{\times \dfrac{97}{100}} & y\phantom{\times \dfrac{105}{100}} & 360 \\
+                        x \times \dfrac{97}{100} & y \times \dfrac{105}{100} & 362
+                    \end{array}
+                    \right.
+                \end{align*}
+
+                \vspace{1em}
+                これを解いて、$x = 200, y = 160$ となる。
+
+                \finalanswer{答え：昨年の男子200人,女子160人}
+            \end{hiddenanswer}
+        \end{proof}
+    \newpage
 
     \subsubsection{食塩水の問題}
     \vspace{1em}
@@ -38,8 +69,37 @@
 
         \[\textbf{(塩の量) = (食塩水の量)} \times \left(\dfrac{\text{\textbf{濃度}}}{\bm{100}}\right)\]
 
+% 例題４
         \begin{example}[【例題 4】]
-            （ここに過不足の問題の例題文を書く）
+            5\%の食塩水と8\%の食塩水を混ぜて、6\%の食塩水を300gつくりたい。
+            2種類の食塩水をそれぞれ何gずつ混ぜればよいか求めなさい。
         \end{example}
 
+        \begin{proof}\mbox{}\\
+            \begin{align*}
+                （5\%の食塩水の量）+（8\%の食塩水の量） &=（6\%の食塩水の量） \\
+                （5\%の食塩水の塩の量）+（8\%の食塩水の塩の量） &=（6\%の食塩水の塩の量）
+            \end{align*}
+
+            という方針にしたがって、方程式を立てる。
+
+            \begin{hiddenanswer}
+                5\%の食塩水の量を $x$ g, 8\%の食塩水の量を $y$ gとすると、
+                \vspace{1em}
+                
+                \begin{align*}
+                    \left\{
+                    \begin{array}{@{} r @{\quad+\quad} l @{\quad=\quad} r @{}}
+                        x\phantom{\times \dfrac{5}{100}} & y\phantom{\times \dfrac{8}{100}} & 300 \\
+                        x \times \dfrac{5}{100} & y \times \dfrac{8}{100} & 300 \times \dfrac{6}{100}
+                    \end{array}
+                    \right.
+                \end{align*}
+
+                \vspace{1em}
+                これを解いて、$x = 200, y = 100$ となる。
+
+                \finalanswer{答え：5\%の食塩水200g, 8\%の食塩水100g}
+            \end{hiddenanswer}
+        \end{proof}
 \newpage
