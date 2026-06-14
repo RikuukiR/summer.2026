@@ -23,6 +23,7 @@ $(PDF): $(TEX) preamble.tex $(SECTIONS)
 	@echo "=== Converting DVI to PDF ==="
 	dvipdfmx $(MAIN).dvi
 	@echo "=== Build completed successfully ==="
+	@$(MAKE) --no-print-directory booklet-only
 
 # Auto-watch and compile on file changes
 watch:
@@ -53,10 +54,14 @@ watch-poll:
 	done
 
 # Booklet PDF (A4 folded to A5, short-edge binding)
-booklet: $(BOOKLET)
+# main.pdf の \showanswer 設定に連動（make all のたびに更新）
+.PHONY: booklet booklet-only
+booklet: $(PDF)
+	@echo "=== Booklet ready: $(BOOKLET) ==="
 
-$(BOOKLET): $(PDF)
-	@./scripts/make-booklet.sh
+booklet-only:
+	@echo "=== Creating booklet PDF ($$(grep -E '^\\showanswer(true|false)' preamble.tex | tr -d ' ')) ==="
+	pdfbook2 --paper=a4paper --short-edge $(PDF)
 
 # Clean auxiliary files
 clean:
@@ -89,7 +94,7 @@ help:
 	@echo "  cleanall    - Remove all generated files"
 	@echo "  rebuild     - Clean and rebuild"
 	@echo "  answer      - Create answer version"
-	@echo "  booklet     - Create booklet PDF (main-book.pdf)"
+	@echo "  booklet     - Create booklet PDF (synced with \\showanswer)"
 	@echo "  help        - Show this help"
 
-.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet help
+.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet booklet-only help
