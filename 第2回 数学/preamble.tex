@@ -184,6 +184,18 @@
   \fi%
 }
 
+% 証明環境内の隠し解答ブロック
+% 使い方: \begin{hiddenanswer} ... \end{hiddenanswer}
+% 空欄時: 白文字で出力（レイアウト・手書きスペースを確保）
+% 解答版: 青文字で表示（preamble の \showanswertrue で切り替え）
+\NewEnviron{hiddenanswer}{%
+  \ifshowanswer
+    {\color{blue}\BODY}%
+  \else
+    {\color{white}\BODY}%
+  \fi
+}
+
 % ========================================
 % 解答表示の切り替え設定
 % ========================================
@@ -191,7 +203,7 @@
 % 解答を隠したい場合：\showanswerfalse
 \newif\ifshowanswer
 % ←ここを \showanswertrue に変更すると解答が表示されます
-\showanswerfalse
+\showanswertrue
 % 穴埋めコマンドの修正版（upLaTeX対応）
 \newcommand{\Blank}[2][3cm]{%
   ~%
@@ -341,6 +353,22 @@
   \else
     \hspace{1em}\phantom{#1}\hspace{1em}%  空欄時は答えの幅 + 両端1em
   \fi
+}
+
+% 証明環境の右下用の最終回答（証明ブロック内・右端から 3em 内側）
+% 使い方: \finalanswer{答え：220円}
+\newcommand{\finalanswer}[1]{%
+  \par\vspace{0.5em}%
+  \noindent\hbox to \linewidth{%
+    \hss
+    \ifshowanswer
+      \textcolor{blue}{#1}%
+    \else
+      \phantom{#1}%
+    \fi
+    \hspace{3em}%
+  }%
+  \par
 }
 
 % 数式ブロック用（align環境など内部で使用）

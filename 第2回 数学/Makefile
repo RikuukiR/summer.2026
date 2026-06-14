@@ -8,7 +8,7 @@ DVI = $(MAIN).dvi
 AUX = $(MAIN).aux
 LOG = $(MAIN).log
 TOC = $(MAIN).toc
-SECTIONS := $(wildcard sections/*.tex)
+SECTIONS := $(wildcard sections/*.tex sections/*/*.tex)
 
 # Default target
 all: $(PDF)

@@ -44,7 +44,7 @@ echo "（.tex を保存すると自動で再ビルド）"
 echo "停止: このターミナルで Ctrl+C"
 
 mtime_all() {
-  find "$ROOT" -maxdepth 2 \( -name 'main.tex' -o -name 'preamble.tex' -o -path '*/sections/*.tex' \) -print0 2>/dev/null \
+  find "$ROOT" \( -maxdepth 1 -name 'main.tex' -o -maxdepth 1 -name 'preamble.tex' -o -path '*/sections/*.tex' -o -path '*/sections/*/*.tex' \) -print0 2>/dev/null \
     | sort -z \
     | xargs -0 stat -f "%m %N" 2>/dev/null \
     | md5 -q 2>/dev/null || echo 0
