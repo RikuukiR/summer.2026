@@ -81,13 +81,17 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem*{theorem*}{Theorem}
 
+\newcounter{technique}
+
 % 定理・定義番号をsectionごとにリセット
 \numberwithin{theorem}{section}
 \numberwithin{definition}{section}
+\numberwithin{technique}{section}
 
 % 定理番号を「1.1」形式に
 \renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
 \renewcommand{\thedefinition}{\arabic{section}.\arabic{definition}}
+\renewcommand{\thetechnique}{\arabic{section}.\arabic{technique}}
 
 % 式番号を「1.1」形式に（sectionごとにリセット）
 \numberwithin{equation}{section}
@@ -294,6 +298,20 @@
     left=10pt, right=10pt, top=8pt, bottom=8pt,
     fonttitle=\bfseries,
     title=#1
+}
+
+% テクニック環境（緑系：薄い緑背景 + 緑枠）- 自動番号付き
+% 注: #1はラベル（オプション）、#2はタイトル（必須）
+\newtcolorbox{techniquebox}[2][]{
+    enhanced,
+    colback=green!5,
+    colframe=green!70!black,
+    boxrule=0.8pt,
+    sharp corners,
+    left=10pt, right=10pt, top=8pt, bottom=8pt,
+    fonttitle=\bfseries,
+    code={\refstepcounter{technique}\if\relax\detokenize{#1}\relax\else\label{#1}\fi},
+    title={Technique \thetechnique\if\relax\detokenize{#2}\relax\else\quad\textbf{#2}\fi}
 }
 
 % ========================================

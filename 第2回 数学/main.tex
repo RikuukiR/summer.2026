@@ -1,19 +1,18 @@
 \documentclass[12pt,a4paper]{jsarticle}
 \usepackage[margin=20truemm]{geometry}
 
-% 節番号を「第1節」形式に
-\renewcommand{\thesection}{第\arabic{section}節}
+% 大見出し「1」、小見出し「1.1」形式
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 
 \input{preamble.tex}
-
-% subsection番号を「1.1」形式に（thesectionの影響を受けないように）
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 
 % カウンターの初期値を設定
 \setcounter{section}{0}
 \setcounter{subsection}{0}
 \setcounter{definition}{0}
 \setcounter{theorem}{0}
+\setcounter{technique}{0}
 
 \title{【2026年度】 第2回 数学}                % タイトル
 \author{}                     % 著者（空白でOK）
@@ -32,6 +31,8 @@
 % ========================================
 % 各セクションの読み込み
 % ========================================
+
+\section{方程式の利用}
 
 \input{sections/方程式の利用の問題について.tex}
 
