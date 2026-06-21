@@ -1,0 +1,52 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "latex-workshop.latex.external.build.command": "/bin/bash",
+  "latex-workshop.latex.external.build.args": [
+    "scripts/lw-external-build.sh",
+    "%DOC_EXT%"
+  ],
+  "latex-workshop.latex.recipe.default": "lastUsed",
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "upLaTeX",
+      "tools": [
+        "uplatex",
+        "uplatex",
+        "dvipdfmx"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "uplatex",
+      "command": "/Library/TeX/texbin/uplatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-kanji=utf8",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "dvipdfmx",
+      "command": "/Library/TeX/texbin/dvipdfmx",
+      "args": [
+        "%DOCFILE%.dvi"
+      ]
+    }
+  ],
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.build.enableMagicComments": true,
+  "latex-workshop.latex.rootFile.useSubFile": true,
+  "latex-workshop.view.pdf.viewer": "external",
+  "latex-workshop.view.pdf.ref.viewer": "external",
+  "latex-workshop.view.autoFocus.enabled": false,
+  "latex-workshop.view.pdf.external.viewer.command": "/bin/bash",
+  "latex-workshop.view.pdf.external.viewer.args": [
+    "scripts/refresh-pdf.sh",
+    "%PDF%"
+  ],
+  "latex-workshop.synctex.afterBuild.enabled": false
+}

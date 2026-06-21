@@ -24,7 +24,47 @@
 \renewcommand{\cftsecpagefont}{\fontfamily{ptm}\mdseries\selectfont}
 \renewcommand{\cftsubsecfont}{\fontfamily{ptm}\mdseries\selectfont}
 \renewcommand{\cftsubsecpagefont}{\fontfamily{ptm}\mdseries\selectfont}
+\setlength{\cftbeforetoctitleskip}{0.5em}
+\setlength{\cftaftertoctitleskip}{0.8em}
+\setlength{\cftbeforesecskip}{0.35em}
+\setlength{\cftbeforesubsecskip}{0.15em}
+
+\makeatletter
+% 別冊付録用：点線・ページ番号なし（通常見出しと同じ字下げ）
+\newcommand*{\l@appendixsec}[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{\cftbeforesecskip}%
+    {\leftskip \cftsecindent\relax
+     \rightskip \@tocrmarg\parfillskip-\rightskip
+     \parindent \cftsecindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftsecnumwidth\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {\cftsecfont #1}\hfill\nobreak\par}%
+  \fi}
+\newcommand*{\l@appendixsub}[2]{%
+  \ifnum \c@tocdepth >\@ne
+    \vskip \cftbeforesubsecskip
+    {\leftskip \cftsubsecindent\relax
+     \rightskip \@tocrmarg\parfillskip-\rightskip
+     \parindent \cftsubsecindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftsubsecnumwidth\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {\cftsubsecfont #1}\hfill\nobreak\par}%
+  \fi}
+\makeatother
+
 \newcommand{\fitblank}[1]{\underline{\makebox[#1zw]{}}}
+\newcommand{\tocappendixsecentry}[1]{%
+  \addtocontents{toc}{\protect\contentsline{appendixsec}{\protect\textbf{#1}}{}{}}%
+}
+\newcommand{\tocappendixsubentry}[1]{%
+  \addtocontents{toc}{\protect\contentsline{appendixsub}{\protect\textbf{#1}}{}{}}%
+}
 \newcommand{\scorebox}{\makebox[1.5cm][c]{\underline{\hspace{1cm}}\,/\,100}}
 \newcommand{\totalscorebox}{\makebox[2cm][c]{\underline{\hspace{1cm}}\,/\,500}}
 
@@ -36,11 +76,13 @@
 
 \begin{document}
 \maketitle
+\vspace{-3.5em}
 \begin{flushright}
   ITTO個別指導学院 札幌東校\\
   Riku Sugawara\\
   07.2026
 \end{flushright}
+\vspace{-0.5em}
 
 % 目次
 \tableofcontents
@@ -57,12 +99,20 @@
 \input{sections/introduction/03_講習の進め方.tex}
 \input{sections/introduction/04_注意事項.tex}
 
-\section{北海道公立高校入試分析}
+\section{\textbf{北海道公立高校入試分析}}
 \input{sections/analysis/公立高校入試分析.tex}
 
-\section{自己分析}
+\section{\textbf{自己分析}}
 \input{sections/identity/自己分析.tex}
+
+\section{\textbf{受験生の心構え}}
 \input{sections/identity/受験生の心構え.tex}
+
+% 別冊付録（目次掲載のみ・ページ番号なし）
+\tocappendixsecentry{別冊付録}
+\tocappendixsubentry{北海道公立高校入試　数学　分析結果}
+\tocappendixsubentry{北海道公立高校入試　英語　分析結果}
+
 \input{sections/identity/自己分析シート.tex}
 
 \end{document}

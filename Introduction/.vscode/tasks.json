@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Introduction: ビルド",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/build-introduction.sh",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Introduction: PDFを再表示",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/refresh-pdf.sh",
+      "args": ["${workspaceFolder}/summer_2026_introduction.pdf"],
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Introduction: 外部PDFを開いてリアルタイム更新",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/watch-introduction.sh",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "showReuseMessage": false
+      },
+      "problemMatcher": []
+    }
+  ]
+}
