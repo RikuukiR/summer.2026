@@ -5,6 +5,7 @@ MAIN = main
 TEX = $(MAIN).tex
 PDF = $(MAIN).pdf
 BOOKLET = $(MAIN)-book.pdf
+SHOWANSWER_STAMP = .showanswer-stamp
 DVI = $(MAIN).dvi
 AUX = $(MAIN).aux
 LOG = $(MAIN).log
@@ -12,7 +13,7 @@ TOC = $(MAIN).toc
 SECTIONS := $(wildcard sections/*.tex sections/*/*.tex)
 
 # Default target
-all: $(PDF)
+all: $(PDF) $(BOOKLET)
 
 # Compile PDF via DVI (for Japanese support)
 $(PDF): $(TEX) preamble.tex $(SECTIONS)
@@ -23,7 +24,21 @@ $(PDF): $(TEX) preamble.tex $(SECTIONS)
 	@echo "=== Converting DVI to PDF ==="
 	dvipdfmx $(MAIN).dvi
 	@echo "=== Build completed successfully ==="
-	@$(MAKE) --no-print-directory booklet-only
+
+# \showanswer の状態を記録（変更時に main-book.pdf を再生成）
+$(SHOWANSWER_STAMP): preamble.tex
+	@grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' > $@
+
+# Booklet PDF (A3 print, 2-up, fold to A4 booklet, short-edge binding)
+# main.pdf の \showanswer 設定に連動
+$(BOOKLET): $(PDF) $(SHOWANSWER_STAMP)
+	@echo "=== Creating booklet PDF ($$(cat $(SHOWANSWER_STAMP))) ==="
+	pdfbook2 --paper=a3paper --short-edge $(PDF)
+
+.PHONY: booklet booklet-only
+booklet: $(BOOKLET)
+
+booklet-only: $(BOOKLET)
 
 # Auto-watch and compile on file changes
 watch:
@@ -53,20 +68,10 @@ watch-poll:
 		sleep 2; \
 	done
 
-# Booklet PDF (A3 print, 2-up, fold to A4 booklet, short-edge binding)
-# main.pdf の \showanswer 設定に連動（make all のたびに更新）
-.PHONY: booklet booklet-only
-booklet: $(PDF)
-	@echo "=== Booklet ready: $(BOOKLET) ==="
-
-booklet-only:
-	@echo "=== Creating booklet PDF ($$(grep -E '^\\showanswer(true|false)' preamble.tex | tr -d ' ')) ==="
-	pdfbook2 --paper=a3paper --short-edge $(PDF)
-
 # Clean auxiliary files
 clean:
 	rm -f *.aux *.log *.dvi *.toc *.out *.fdb_latexmk *.fls *.synctex.gz
-	rm -f $(BOOKLET) .crop-tmp*.pdf
+	rm -f $(BOOKLET) $(SHOWANSWER_STAMP) .crop-tmp*.pdf
 
 # Clean all generated files
 cleanall: clean
@@ -81,13 +86,15 @@ answer:
 	mv preamble_tmp.tex preamble.tex
 	$(MAKE) all
 	mv $(PDF) $(MAIN)_answer.pdf
+	@if [ -f $(BOOKLET) ]; then mv $(BOOKLET) $(MAIN)-book_answer.pdf; fi
 	sed 's/\\showanswertrue/\\showanswerfalse/' preamble.tex > preamble_tmp.tex
 	mv preamble_tmp.tex preamble.tex
+	$(MAKE) all
 
 # Help
 help:
 	@echo "Available targets:"
-	@echo "  all         - Compile the PDF (default)"
+	@echo "  all         - Compile main.pdf and main-book.pdf (synced with \\showanswer)"
 	@echo "  watch       - Auto-compile on file changes (using fswatch)"
 	@echo "  watch-poll  - Auto-compile with polling (works everywhere)"
 	@echo "  clean       - Remove auxiliary files"
