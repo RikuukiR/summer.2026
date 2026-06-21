@@ -53,7 +53,7 @@ watch-poll:
 		sleep 2; \
 	done
 
-# Booklet PDF (A4 folded to A5, short-edge binding)
+# Booklet PDF (A3 print, 2-up, fold to A4 booklet, short-edge binding)
 # main.pdf の \showanswer 設定に連動（make all のたびに更新）
 .PHONY: booklet booklet-only
 booklet: $(PDF)
@@ -61,7 +61,7 @@ booklet: $(PDF)
 
 booklet-only:
 	@echo "=== Creating booklet PDF ($$(grep -E '^\\showanswer(true|false)' preamble.tex | tr -d ' ')) ==="
-	pdfbook2 --paper=a4paper --short-edge $(PDF)
+	pdfbook2 --paper=a3paper --short-edge $(PDF)
 
 # Clean auxiliary files
 clean:

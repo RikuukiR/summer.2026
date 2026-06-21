@@ -198,6 +198,38 @@
 }
 
 % ========================================
+% 冊子用ページ調整（中綴じ：末尾に白ページを追加して4の倍数に）
+% ========================================
+\makeatletter
+\newcount\booklet@last
+\newcount\booklet@rem
+\newcount\booklet@pad
+\newcommand{\bookletpadpages}{%
+  \booklet@last=\c@page
+  \ifdim\pagetotal=\z@
+    \advance\booklet@last by -1
+  \fi
+  \booklet@rem=\booklet@last
+  \booklet@pad=\booklet@last
+  \divide\booklet@pad by 4
+  \multiply\booklet@pad by 4
+  \advance\booklet@rem by -\booklet@pad
+  \ifnum\booklet@rem=\z@
+    \booklet@pad=\z@
+  \else
+    \booklet@pad=4
+    \advance\booklet@pad by -\booklet@rem
+  \fi
+  \loop\ifnum\booklet@pad>\z@
+    \advance\booklet@pad by -1
+    \newpage
+    \thispagestyle{empty}%
+    \vbox to \textheight{}%
+  \repeat
+}
+\makeatother
+
+% ========================================
 % 解答表示の切り替え設定
 % ========================================
 % 解答を表示したい場合：\showanswertrue
