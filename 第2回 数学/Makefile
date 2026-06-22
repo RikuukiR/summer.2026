@@ -29,11 +29,11 @@ $(PDF): $(TEX) preamble.tex $(SECTIONS)
 $(SHOWANSWER_STAMP): preamble.tex
 	@grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' > $@
 
-# Booklet PDF (A3 print, 2-up, fold to A4 booklet, short-edge binding)
-# main.pdf の \showanswer 設定に連動
+# Booklet PDF (A3 print, 2-up, fold to A4 booklet, long-edge binding)
+# --short-edge を使うと奇数シートが180°回転してプレビューで逆さまになるため長辺とじを使用
 $(BOOKLET): $(PDF) $(SHOWANSWER_STAMP)
 	@echo "=== Creating booklet PDF ($$(cat $(SHOWANSWER_STAMP))) ==="
-	pdfbook2 --paper=a3paper --short-edge $(PDF)
+	pdfbook2 --paper=a3paper $(PDF)
 
 .PHONY: booklet booklet-only
 booklet: $(BOOKLET)
