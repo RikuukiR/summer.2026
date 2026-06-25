@@ -5,6 +5,8 @@ MAIN = main
 TEX = $(MAIN).tex
 PDF = $(MAIN).pdf
 BOOKLET = $(MAIN)-book.pdf
+BOOKLET_SRC = .booklet-src.pdf
+BOOKLET_TMP = $(BOOKLET_SRC:.pdf=-book.pdf)
 SHOWANSWER_STAMP = .showanswer-stamp
 DVI = $(MAIN).dvi
 AUX = $(MAIN).aux
@@ -12,12 +14,12 @@ LOG = $(MAIN).log
 TOC = $(MAIN).toc
 SECTIONS := $(wildcard sections/*.tex sections/*/*.tex)
 
-# Default target
+# Default target（main.pdf と main-book.pdf を常に同期）
 all: $(PDF) $(BOOKLET)
 
 # Compile PDF via DVI (for Japanese support)
 $(PDF): $(TEX) preamble.tex $(SECTIONS)
-	@echo "=== Compiling LaTeX document ==="
+	@echo "=== Compiling LaTeX document ($$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t')) ==="
 	uplatex -synctex=1 -interaction=nonstopmode -file-line-error $(TEX)
 	@echo "=== Running second pass for cross-references ==="
 	uplatex -synctex=1 -interaction=nonstopmode -file-line-error $(TEX)
@@ -30,10 +32,17 @@ $(SHOWANSWER_STAMP): preamble.tex
 	@grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' > $@
 
 # Booklet PDF (A3 print, 2-up, fold to A4 booklet, short-edge binding)
-# main.pdf の \showanswer 設定に連動
-$(BOOKLET): $(PDF) $(SHOWANSWER_STAMP)
+# main.pdf は閲覧用（白ページなし）→ pad 後に面付け → 閲覧向きに正規化
+# ソース変更時は main.pdf を先に更新してから面付け（解答表示も main.pdf に同期）
+BOOKLET_SCRIPT = scripts/rotate-booklet-even-pages.py
+PAD_SCRIPT = scripts/pad-pdf-for-booklet.py
+$(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP) $(BOOKLET_SCRIPT) $(PAD_SCRIPT)
 	@echo "=== Creating booklet PDF ($$(cat $(SHOWANSWER_STAMP))) ==="
-	pdfbook2 --paper=a3paper --short-edge $(PDF)
+	python3 $(PAD_SCRIPT) $(PDF) $(BOOKLET_SRC)
+	pdfbook2 --paper=a3paper --short-edge $(BOOKLET_SRC)
+	mv $(BOOKLET_TMP) $(BOOKLET)
+	python3 $(BOOKLET_SCRIPT) $(BOOKLET)
+	@python3 scripts/verify-pdf-sync.py
 
 .PHONY: booklet booklet-only
 booklet: $(BOOKLET)
@@ -71,7 +80,7 @@ watch-poll:
 # Clean auxiliary files
 clean:
 	rm -f *.aux *.log *.dvi *.toc *.out *.fdb_latexmk *.fls *.synctex.gz
-	rm -f $(BOOKLET) $(SHOWANSWER_STAMP) .crop-tmp*.pdf
+	rm -f $(BOOKLET) $(BOOKLET_SRC) $(BOOKLET_TMP) $(SHOWANSWER_STAMP) .crop-tmp*.pdf
 
 # Clean all generated files
 cleanall: clean

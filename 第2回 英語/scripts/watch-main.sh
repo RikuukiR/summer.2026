@@ -32,13 +32,8 @@ fi
 "${ROOT}/scripts/refresh-pdf.sh" "$PDF"
 
 echo ""
-if [ -d "/Applications/Skim.app" ]; then
-  echo "Skim で開きました: ${PDF}"
-  echo "（Skim はファイル更新を自動で再読み込みします。ウィンドウは開き直しません）"
-else
-  echo "Preview で開きました: ${PDF}"
-  echo "（Preview は自動更新されません。Skim の利用を推奨: brew install --cask skim）"
-fi
+echo "Preview で開きました: ${PDF}"
+echo "（更新後は Preview でファイルを開き直すか、再ビルド後に再度開いてください）"
 echo "監視中: main.tex, preamble.tex, sections/"
 echo "（.tex を保存すると自動で再ビルド）"
 echo "停止: このターミナルで Ctrl+C"

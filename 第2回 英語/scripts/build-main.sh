@@ -4,4 +4,4 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-make all
+exec "${ROOT}/scripts/lw-external-build.sh" "${1:-${ROOT}/main.tex}"
