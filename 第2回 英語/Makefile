@@ -44,10 +44,19 @@ $(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP) $(BOOKLET
 	python3 $(BOOKLET_SCRIPT) $(BOOKLET)
 	@python3 scripts/verify-pdf-sync.py
 
-.PHONY: booklet booklet-only
+.PHONY: booklet booklet-only student teacher
 booklet: $(BOOKLET)
 
 booklet-only: $(BOOKLET)
+
+# 解答表示を切り替えて PDF 2種を同期生成
+student:
+	@perl -i -pe 's/^\\showanswertrue/\\showanswerfalse/' preamble.tex
+	@$(MAKE) -B all
+
+teacher:
+	@perl -i -pe 's/^\\showanswerfalse/\\showanswertrue/' preamble.tex
+	@$(MAKE) -B all
 
 # Auto-watch and compile on file changes
 watch:
@@ -111,6 +120,8 @@ help:
 	@echo "  rebuild     - Clean and rebuild"
 	@echo "  answer      - Create answer version"
 	@echo "  booklet     - Create booklet PDF (synced with \\showanswer)"
+	@echo "  student     - 生徒用（\\showanswerfalse）で PDF 2種を生成"
+	@echo "  teacher     - 先生用（\\showanswertrue）で PDF 2種を生成"
 	@echo "  help        - Show this help"
 
-.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet booklet-only help
+.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet booklet-only student teacher help
