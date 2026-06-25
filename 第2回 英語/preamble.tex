@@ -331,14 +331,30 @@
 \newlength{\dialogueblankindent}
 \setlength{\dialogueblankindent}{2em}
 \newcommand{\dialogueblankwidth}{32em}
+\newcommand{\dialogueblank@print}[2]{%
+  \ifshowanswer
+    \underline{\makebox[#1][l]{\hspace{2em}{\color{blue}#2}\hspace{2em}}}%
+  \else
+    \underline{\makebox[#1][l]{\hspace{2em}\phantom{#2}\hspace{2em}}}%
+  \fi
+}
+\newcommand{\dialogueblank@printcolumn}[2]{%
+  \ifshowanswer
+    \underline{\makebox[#1][l]{\hspace{1em}{\color{blue}\small #2}\hspace{1em}}}%
+  \else
+    \underline{\makebox[#1][l]{\hspace{1em}{\small\phantom{#2}}\hspace{1em}}}%
+  \fi
+}
 \newcommand{\dialogueblank}[1]{%
   \par\vspace{0.3em}%
   \noindent\hspace{\dialogueblankindent}%
-  \ifshowanswer
-    \underline{\makebox[\dialogueblankwidth][l]{\hspace{2em}{\color{blue}#1}\hspace{2em}}}%
-  \else
-    \underline{\makebox[\dialogueblankwidth][l]{\hspace{2em}\phantom{#1}\hspace{2em}}}%
-  \fi
+  \dialogueblank@print{\dialogueblankwidth}{#1}%
+}
+% minipage 等の半分カラム用（\linewidth に合わせた下線）
+\newcommand{\dialogueblankcolumn}[1]{%
+  \par\vspace{0.3em}%
+  \noindent
+  \dialogueblank@printcolumn{\linewidth}{#1}%
 }
 \newcommand{\fitblankfixed}[2][\relax]{%
   \ifx#1\relax
