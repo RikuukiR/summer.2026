@@ -23,6 +23,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Introduction: 提出用シートをビルド",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/build-self-analysis-sheet.sh",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Introduction: 外部PDFを開いてリアルタイム更新",
       "type": "shell",
       "command": "${workspaceFolder}/scripts/watch-introduction.sh",

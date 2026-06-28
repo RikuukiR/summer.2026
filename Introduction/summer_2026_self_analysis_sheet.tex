@@ -1,0 +1,36 @@
+% !TEX program = uplatex
+% !TEX root = summer_2026_self_analysis_sheet.tex
+\documentclass[12pt,a4paper]{jsarticle}
+
+\usepackage{newtxtext,newtxmath}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=15mm}
+
+\setlength{\parindent}{0pt}
+\setlength{\baselineskip}{1.25em}
+\setlength{\extrarowheight}{0.35em}
+\setlist[enumerate]{leftmargin=1.8em, itemsep=2.5em, topsep=0.45em, parsep=0.4em, partopsep=0pt}
+
+\newcommand{\fitblank}[1]{\underline{\makebox[#1zw][c]{\rule{0pt}{1.85em}}}}
+\newcommand{\scorebox}{\makebox[1.65cm][c]{\underline{\rule{0pt}{1.55em}\hspace{1.05cm}}\,/\,100}}
+\newcommand{\totalscorebox}{\makebox[2.15cm][c]{\underline{\rule{0pt}{1.55em}\hspace{1.05cm}}\,/\,500}}
+\newcommand{\sheetline}[1][0.95\linewidth]{\underline{\makebox[#1][l]{\rule{0pt}{1.85em}}}}
+\newcommand{\scoretable}{%
+  \renewcommand{\arraystretch}{1.55}%
+  \begin{tabular}{C{1.55cm}C{1.55cm}C{1.55cm}C{1.55cm}C{1.55cm}C{2.05cm}}
+  \toprule
+  国語 & 数学 & 英語 & 理科 & 社会 & 合計 \\
+  \midrule
+  \scorebox & \scorebox & \scorebox & \scorebox & \scorebox & \totalscorebox \\
+  \bottomrule
+  \end{tabular}%
+}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\begin{document}
+\input{sections/identity/自己分析シート.tex}
+\end{document}
