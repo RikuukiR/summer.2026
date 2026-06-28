@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
-# Introduction/summer_2026_introduction.tex を監視し、外部 PDF を更新する
+# Introduction 配下の .tex を監視し、外部 PDF を更新する
 set -u
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIR="${ROOT}/Introduction"
-TEX="${DIR}/summer_2026_introduction.tex"
 PDF="${DIR}/summer_2026_introduction.pdf"
 
 build() {
   "${ROOT}/scripts/build-introduction.sh"
+}
+
+latest_mtime() {
+  find "$DIR" -name '*.tex' -print0 2>/dev/null \
+    | xargs -0 stat -f '%m' 2>/dev/null \
+    | sort -n \
+    | tail -1
 }
 
 echo "=== Introduction 外部 PDF プレビュー ==="
@@ -28,20 +34,18 @@ else
   echo "Preview で開きました: ${PDF}"
   echo "（Preview は自動更新されません。Skim の利用を推奨: brew install --cask skim）"
 fi
-echo "監視中: ${TEX}"
+echo "  画面確認: ${PDF}"
+echo "  印刷用:   ${DIR}/summer_2026_introduction-book.pdf"
+echo "監視中: ${DIR} 配下の .tex"
 echo "（.tex を保存すると自動で再ビルド）"
 echo "停止: このターミナルで Ctrl+C"
 
-mtime() {
-  stat -f "%m" "$TEX" 2>/dev/null || stat -c "%Y" "$TEX"
-}
-
-last=$(mtime)
+last="$(latest_mtime)"
 while true; do
   sleep 1
-  cur=$(mtime)
-  if [ "$cur" != "$last" ]; then
-    last=$cur
+  cur="$(latest_mtime)"
+  if [ -n "$cur" ] && [ "$cur" != "$last" ]; then
+    last="$cur"
     sleep 0.5
     echo "[$(date '+%H:%M:%S')] 変更を検知 → ビルド..."
     if build; then

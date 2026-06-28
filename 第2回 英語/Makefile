@@ -5,8 +5,6 @@ MAIN = main
 TEX = $(MAIN).tex
 PDF = $(MAIN).pdf
 BOOKLET = $(MAIN)-book.pdf
-BOOKLET_SRC = .booklet-src.pdf
-BOOKLET_TMP = $(BOOKLET_SRC:.pdf=-book.pdf)
 SHOWANSWER_STAMP = .showanswer-stamp
 DVI = $(MAIN).dvi
 AUX = $(MAIN).aux
@@ -32,14 +30,12 @@ $(SHOWANSWER_STAMP): preamble.tex
 	@grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' > $@
 
 # Booklet PDF (A3 2-up, fold to A4 booklet)
-# 回転なし面付け（--short-edge なし）→ Preview / 印刷とも正立
-# 印刷: A3・両面・長辺とじ → 真ん中で二つ折り（プリンターの冊子印刷はオフ）
-PAD_SCRIPT = scripts/pad-pdf-for-booklet.py
-$(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP) $(PAD_SCRIPT)
+# 共通: scripts/make-booklet-pdf.sh --pad（短辺とじ・偶数シート回転）
+# 印刷: A3・両面・短辺とじ → 真ん中で二つ折り（プリンターの冊子印刷はオフ）
+BOOKLET_SCRIPT = ../scripts/make-booklet-pdf.sh
+$(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP)
 	@echo "=== Creating booklet PDF ($$(cat $(SHOWANSWER_STAMP))) ==="
-	python3 $(PAD_SCRIPT) $(PDF) $(BOOKLET_SRC)
-	pdfbook2 --paper=a3paper $(BOOKLET_SRC)
-	mv $(BOOKLET_TMP) $(BOOKLET)
+	bash $(BOOKLET_SCRIPT) --pad $(PDF) $(BOOKLET)
 	@python3 scripts/verify-pdf-sync.py
 
 .PHONY: booklet booklet-only student teacher
@@ -87,7 +83,7 @@ watch-poll:
 # Clean auxiliary files
 clean:
 	rm -f *.aux *.log *.dvi *.toc *.out *.fdb_latexmk *.fls *.synctex.gz
-	rm -f $(BOOKLET) $(BOOKLET_SRC) $(BOOKLET_TMP) $(SHOWANSWER_STAMP) .crop-tmp*.pdf main-book-view.pdf
+	rm -f $(BOOKLET) $(SHOWANSWER_STAMP) .crop-tmp*.pdf
 
 # Clean all generated files
 cleanall: clean
@@ -117,7 +113,7 @@ help:
 	@echo "  cleanall    - Remove all generated files"
 	@echo "  rebuild     - Clean and rebuild"
 	@echo "  answer      - Create answer version"
-	@echo "  booklet     - Create main-book.pdf (A3 面付け・回転なし)"
+	@echo "  booklet     - Create main-book.pdf (A3 面付け・短辺とじ)"
 	@echo "  student     - 生徒用（\\showanswerfalse）で PDF 2種を生成"
 	@echo "  teacher     - 先生用（\\showanswertrue）で PDF 2種を生成"
 	@echo "  help        - Show this help"
