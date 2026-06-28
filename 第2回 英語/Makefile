@@ -14,7 +14,7 @@ LOG = $(MAIN).log
 TOC = $(MAIN).toc
 SECTIONS := $(wildcard sections/*.tex sections/*/*.tex)
 
-# Default target（main.pdf と main-book.pdf を常に同期）
+# Default target（main.pdf と main-book.pdf を同期）
 all: $(PDF) $(BOOKLET)
 
 # Compile PDF via DVI (for Japanese support)
@@ -31,17 +31,15 @@ $(PDF): $(TEX) preamble.tex $(SECTIONS)
 $(SHOWANSWER_STAMP): preamble.tex
 	@grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' > $@
 
-# Booklet PDF (A3 print, 2-up, fold to A4 booklet, short-edge binding)
-# main.pdf は閲覧用（白ページなし）→ pad 後に面付け → 閲覧向きに正規化
-# ソース変更時は main.pdf を先に更新してから面付け（解答表示も main.pdf に同期）
-BOOKLET_SCRIPT = scripts/rotate-booklet-even-pages.py
+# Booklet PDF (A3 2-up, fold to A4 booklet)
+# 回転なし面付け（--short-edge なし）→ Preview / 印刷とも正立
+# 印刷: A3・両面・長辺とじ → 真ん中で二つ折り（プリンターの冊子印刷はオフ）
 PAD_SCRIPT = scripts/pad-pdf-for-booklet.py
-$(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP) $(BOOKLET_SCRIPT) $(PAD_SCRIPT)
+$(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP) $(PAD_SCRIPT)
 	@echo "=== Creating booklet PDF ($$(cat $(SHOWANSWER_STAMP))) ==="
 	python3 $(PAD_SCRIPT) $(PDF) $(BOOKLET_SRC)
-	pdfbook2 --paper=a3paper --short-edge $(BOOKLET_SRC)
+	pdfbook2 --paper=a3paper $(BOOKLET_SRC)
 	mv $(BOOKLET_TMP) $(BOOKLET)
-	python3 $(BOOKLET_SCRIPT) $(BOOKLET)
 	@python3 scripts/verify-pdf-sync.py
 
 .PHONY: booklet booklet-only student teacher
@@ -89,7 +87,7 @@ watch-poll:
 # Clean auxiliary files
 clean:
 	rm -f *.aux *.log *.dvi *.toc *.out *.fdb_latexmk *.fls *.synctex.gz
-	rm -f $(BOOKLET) $(BOOKLET_SRC) $(BOOKLET_TMP) $(SHOWANSWER_STAMP) .crop-tmp*.pdf
+	rm -f $(BOOKLET) $(BOOKLET_SRC) $(BOOKLET_TMP) $(SHOWANSWER_STAMP) .crop-tmp*.pdf main-book-view.pdf
 
 # Clean all generated files
 cleanall: clean
@@ -119,7 +117,7 @@ help:
 	@echo "  cleanall    - Remove all generated files"
 	@echo "  rebuild     - Clean and rebuild"
 	@echo "  answer      - Create answer version"
-	@echo "  booklet     - Create booklet PDF (synced with \\showanswer)"
+	@echo "  booklet     - Create main-book.pdf (A3 面付け・回転なし)"
 	@echo "  student     - 生徒用（\\showanswerfalse）で PDF 2種を生成"
 	@echo "  teacher     - 先生用（\\showanswertrue）で PDF 2種を生成"
 	@echo "  help        - Show this help"
