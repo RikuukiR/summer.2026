@@ -18,12 +18,17 @@ if [[ "$DIR" == "$INTRO_DIR" || "$DIR" == "$INTRO_DIR"/* ]]; then
   exec "${ROOT}/scripts/build-introduction.sh"
 fi
 
-ENGLISH_DIR="${ROOT}/第2回 英語"
+ENGLISH1_DIR="${ROOT}/第1回 英語"
+ENGLISH2_DIR="${ROOT}/第2回 英語"
 MATH_DIR="${ROOT}/第2回 数学"
 
-# 第2回 英語 / 第2回 数学 配下の任意の .tex → make all（main.pdf + 冊子を同期）
-if [[ "$DIR" == "$ENGLISH_DIR" || "$DIR" == "$ENGLISH_DIR"/* ]]; then
-  exec "${ENGLISH_DIR}/scripts/lw-external-build.sh" "$TEX"
+# 第1回 英語 / 第2回 英語 / 第2回 数学 配下の任意の .tex → make all（main.pdf + 冊子を同期）
+if [[ "$DIR" == "$ENGLISH1_DIR" || "$DIR" == "$ENGLISH1_DIR"/* ]]; then
+  exec "${ENGLISH1_DIR}/scripts/lw-external-build.sh" "$TEX"
+fi
+
+if [[ "$DIR" == "$ENGLISH2_DIR" || "$DIR" == "$ENGLISH2_DIR"/* ]]; then
+  exec "${ENGLISH2_DIR}/scripts/lw-external-build.sh" "$TEX"
 fi
 
 if [[ "$DIR" == "$MATH_DIR" || "$DIR" == "$MATH_DIR"/* ]]; then

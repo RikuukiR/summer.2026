@@ -17,3 +17,7 @@
 *.swo
 *~
 .vscode/
+
+# ビルドキャッシュ
+.showanswer-stamp
+.booklet-src.pdf
