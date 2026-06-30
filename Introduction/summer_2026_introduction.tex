@@ -56,33 +56,6 @@
      \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
      {\cftsubsecfont #1}\hfill\nobreak\par}%
   \fi}
-% 冊子用ページ調整（中綴じ：末尾に白ページを追加して4の倍数に）
-\newcount\booklet@last
-\newcount\booklet@rem
-\newcount\booklet@pad
-\newcommand{\bookletpadpages}{%
-  \booklet@last=\c@page
-  \ifdim\pagetotal=\z@
-    \advance\booklet@last by -1
-  \fi
-  \booklet@rem=\booklet@last
-  \booklet@pad=\booklet@last
-  \divide\booklet@pad by 4
-  \multiply\booklet@pad by 4
-  \advance\booklet@rem by -\booklet@pad
-  \ifnum\booklet@rem=\z@
-    \booklet@pad=\z@
-  \else
-    \booklet@pad=4
-    \advance\booklet@pad by -\booklet@rem
-  \fi
-  \loop\ifnum\booklet@pad>\z@
-    \advance\booklet@pad by -1
-    \newpage
-    \thispagestyle{empty}%
-    \vbox to \textheight{}%
-  \repeat
-}
 \makeatother
 
 \newcommand{\fitblank}[1]{\underline{\makebox[#1zw]{}}}
@@ -121,8 +94,8 @@
 
 % セクション：A日程
 \section{Introduction}
-\input{sections/introduction/01_講習の予定_A日程.tex}
-% \input{sections/introduction/02_講習の予定_B日程.tex}
+% \input{sections/introduction/01_講習の予定_A日程.tex}
+\input{sections/introduction/02_講習の予定_B日程.tex}
 \input{sections/introduction/03_講習の進め方.tex}
 \input{sections/introduction/04_注意事項.tex}
 
@@ -140,5 +113,4 @@
 \tocappendixsubentry{北海道公立高校入試　数学　分析結果}
 \tocappendixsubentry{北海道公立高校入試　英語　分析結果}
 
-\bookletpadpages
 \end{document}
