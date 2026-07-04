@@ -6,6 +6,33 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+TEX="${1:-}"
+if [[ -n "$TEX" ]]; then
+  TEX_DIR="$(cd "$(dirname "$TEX")" && pwd)"
+  TEST1_DIR="${ROOT}/sections/test-1"
+  if [[ "$TEX_DIR" == "$TEST1_DIR" || "$TEX_DIR" == "$TEST1_DIR"/* ]]; then
+    MODE="$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' || true)"
+    case "$(basename "$TEX")" in
+      第1回\ 復習テスト.tex|review-main.tex)
+        echo "=== 第1回 復習テスト ビルド開始 (${MODE:-unknown}) ==="
+        bash "${ROOT}/scripts/build-test-1.sh" review
+        echo "=== 完了: sections/test-1/第1回 復習テスト.pdf を更新しました ==="
+        ;;
+      test-setup.tex)
+        echo "=== 第1回 テスト類 ビルド開始 (${MODE:-unknown}) ==="
+        bash "${ROOT}/scripts/build-test-1.sh" all
+        echo "=== 完了: sections/test-1/ のテスト PDF を更新しました ==="
+        ;;
+      *)
+        echo "=== 第1回 確認テスト ビルド開始 (${MODE:-unknown}) ==="
+        bash "${ROOT}/scripts/build-test-1.sh" confirm
+        echo "=== 完了: sections/test-1/第1回 確認テスト.pdf を更新しました ==="
+        ;;
+    esac
+    exit 0
+  fi
+fi
+
 MODE="$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' || true)"
 echo "=== 第1回 英語 ビルド開始 (${MODE:-unknown}) ==="
 

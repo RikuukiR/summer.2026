@@ -9,8 +9,8 @@
     "files.autoSaveDelay": 1000,
     "latex-workshop.latex.external.build.command": "/bin/bash",
     "latex-workshop.latex.external.build.args": [
-      "${workspaceFolder}/scripts/lw-external-build.sh",
-      "${workspaceFolder}/main.tex"
+      "scripts/lw-external-build.sh",
+      "%DOC_EXT%"
     ],
     "latex-workshop.latex.recipes": [],
     "latex-workshop.latex.tools": [],
@@ -23,8 +23,8 @@
     "latex-workshop.view.pdf.ref.viewer": "external",
     "latex-workshop.view.pdf.external.viewer.command": "/bin/bash",
     "latex-workshop.view.pdf.external.viewer.args": [
-      "${workspaceFolder}/scripts/refresh-pdf.sh",
-      "${workspaceFolder}/main.pdf"
+      "scripts/refresh-pdf.sh",
+      "%PDF%"
     ],
     "latex-workshop.linting.chktex.enabled": false,
     "latex-workshop.linting.lacheck.enabled": false
