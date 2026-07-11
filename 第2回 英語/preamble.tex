@@ -95,12 +95,12 @@
 
 % 定理・定義番号をsectionごとにリセット
 \numberwithin{theorem}{section}
-\numberwithin{definition}{section}
+\numberwithin{definition}{subsection}
 \numberwithin{technique}{subsection}
 
 % 定理番号を「1.1」形式に
 \renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
-\renewcommand{\thedefinition}{\arabic{section}.\arabic{definition}}
+\renewcommand{\thedefinition}{\thesubsection.\arabic{definition}}
 \renewcommand{\thetechnique}{\thesubsection.\arabic{technique}}
 
 % 式番号を「1.1」形式に（sectionごとにリセット）

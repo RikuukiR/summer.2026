@@ -1,0 +1,19 @@
+\input{test-setup.tex}
+
+% 復習テストは問題文が多いため、1枚収納用に行間・解答欄をやや詰める
+\linespread{1.05}\selectfont
+\makeatletter
+\renewcommand{\testblank@line}[2]{%
+  \par\vspace{0.25em}%
+  \noindent
+  \ifshowanswer
+    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+  \else
+    \underline{\makebox[#1][l]{\rule{0pt}{1.35\baselineskip}}}%
+  \fi
+}
+\makeatother
+
+\begin{document}
+\input{第2回 復習テスト.tex}
+\end{document}

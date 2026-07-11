@@ -10,12 +10,16 @@ DVI = $(MAIN).dvi
 AUX = $(MAIN).aux
 LOG = $(MAIN).log
 TOC = $(MAIN).toc
-SECTIONS := $(wildcard sections/*.tex sections/*/*.tex)
+SECTIONS := sections
 
-# Default target（main.pdf と main-book.pdf を同期）
-all: $(PDF) $(BOOKLET)
+# Default target（main.pdf / main-book.pdf / テスト PDF を同期）
+all: $(PDF) $(BOOKLET) test-2
+
+test-2:
+	@bash scripts/build-test-2.sh
 
 # Compile PDF via DVI (for Japanese support)
+# sections/ はディレクトリ単位で依存（ファイル名に空白があっても make が壊れない）
 $(PDF): $(TEX) preamble.tex $(SECTIONS)
 	@echo "=== Compiling LaTeX document ($$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t')) ==="
 	uplatex -synctex=1 -interaction=nonstopmode -file-line-error $(TEX)
@@ -38,7 +42,7 @@ $(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP)
 	bash $(BOOKLET_SCRIPT) --pad $(PDF) $(BOOKLET)
 	@python3 scripts/verify-pdf-sync.py
 
-.PHONY: booklet booklet-only student teacher
+.PHONY: booklet booklet-only student teacher test-2
 booklet: $(BOOKLET)
 
 booklet-only: $(BOOKLET)
@@ -116,6 +120,7 @@ help:
 	@echo "  booklet     - Create main-book.pdf (A3 面付け・短辺とじ)"
 	@echo "  student     - 生徒用（\\showanswerfalse）で PDF 2種を生成"
 	@echo "  teacher     - 先生用（\\showanswertrue）で PDF 2種を生成"
+	@echo "  test-2      - Create sections/test2/ の確認・復習テスト PDF"
 	@echo "  help        - Show this help"
 
-.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet booklet-only student teacher help
+.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet booklet-only student teacher test-2 help

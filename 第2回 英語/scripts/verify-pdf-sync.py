@@ -13,8 +13,8 @@ MAIN = ROOT / "main.pdf"
 BOOK = ROOT / "main-book.pdf"
 PREAMBLE = ROOT / "preamble.tex"
 
-# 解答が表示されるときだけ PDF テキストに現れる目印
-MARKERS = ("35", "smart", "Could you tell", "減点方式", "主語と動詞")
+# 解答が表示されるときだけ PDF テキストに現れる目印（第2回 英語）
+MARKERS = ("What a big cake", "How old")
 
 
 def read_showanswer() -> str:
