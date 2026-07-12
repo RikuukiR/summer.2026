@@ -15,6 +15,8 @@ build_test() {
   MODE="$(grep -E '^\\showanswer(true|false)' "${ROOT}/preamble.tex" | tail -1 | tr -d ' \t' || true)"
   echo "=== ${label} ビルド開始 (${MODE:-unknown}) ==="
 
+  rm -f "${main_tex%.tex}.aux" "${main_tex%.tex}.log" "${main_tex%.tex}.dvi"
+
   uplatex -synctex=1 -interaction=nonstopmode -file-line-error "$main_tex"
   uplatex -synctex=1 -interaction=nonstopmode -file-line-error "$main_tex"
   dvipdfmx "${main_tex%.tex}.dvi"

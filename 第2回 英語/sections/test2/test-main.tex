@@ -1,5 +1,19 @@
 \input{test-setup.tex}
 
+% 確認テスト：1枚・解答欄を大きく・下端まで使う
+\linespread{1.03}\selectfont
+\makeatletter
+\renewcommand{\testblank@line}[2]{%
+  \par\vspace{0.3em}%
+  \noindent
+  \ifshowanswer
+    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+  \else
+    \underline{\makebox[#1][l]{\rule{0pt}{1.48\baselineskip}}}%
+  \fi
+}
+\makeatother
+
 \begin{document}
 \input{第2回 確認テスト.tex}
 \end{document}

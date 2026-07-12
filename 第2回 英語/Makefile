@@ -15,12 +15,13 @@ SECTIONS := sections
 # Default target（main.pdf / main-book.pdf / テスト PDF を同期）
 all: $(PDF) $(BOOKLET) test-2
 
-test-2:
+# preamble.tex の \showanswer 変更時にテスト PDF も再生成
+test-2: preamble.tex $(SHOWANSWER_STAMP)
 	@bash scripts/build-test-2.sh
 
 # Compile PDF via DVI (for Japanese support)
 # sections/ はディレクトリ単位で依存（ファイル名に空白があっても make が壊れない）
-$(PDF): $(TEX) preamble.tex $(SECTIONS)
+$(PDF): $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP)
 	@echo "=== Compiling LaTeX document ($$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t')) ==="
 	uplatex -synctex=1 -interaction=nonstopmode -file-line-error $(TEX)
 	@echo "=== Running second pass for cross-references ==="

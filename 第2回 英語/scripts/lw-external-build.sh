@@ -17,16 +17,20 @@ if [[ -n "$TEX" ]]; then
         echo "=== 第2回 復習テスト ビルド開始 (${MODE:-unknown}) ==="
         bash "${ROOT}/scripts/build-test-2.sh" review
         echo "=== 完了: sections/test2/第2回 復習テスト.pdf を更新しました ==="
+        "${ROOT}/scripts/refresh-pdf.sh" "${TEST2_DIR}/第2回 復習テスト.pdf"
         ;;
       test-setup.tex)
         echo "=== 第2回 テスト類 ビルド開始 (${MODE:-unknown}) ==="
         bash "${ROOT}/scripts/build-test-2.sh" all
         echo "=== 完了: sections/test2/ のテスト PDF を更新しました ==="
+        "${ROOT}/scripts/refresh-pdf.sh" "${TEST2_DIR}/第2回 確認テスト.pdf"
+        "${ROOT}/scripts/refresh-pdf.sh" "${TEST2_DIR}/第2回 復習テスト.pdf"
         ;;
       *)
         echo "=== 第2回 確認テスト ビルド開始 (${MODE:-unknown}) ==="
         bash "${ROOT}/scripts/build-test-2.sh" confirm
         echo "=== 完了: sections/test2/第2回 確認テスト.pdf を更新しました ==="
+        "${ROOT}/scripts/refresh-pdf.sh" "${TEST2_DIR}/第2回 確認テスト.pdf"
         ;;
     esac
     exit 0
