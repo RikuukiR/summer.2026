@@ -24,7 +24,7 @@
 %   \showanswertrue   … 先生用（青字で解答表示）
 % 切替後: ターミナルで make all  または  Cmd+S で保存
 \newif\ifshowanswer
-\showanswerfalse
+\showanswertrue
 
 % 行間を少し広げる
 \linespread{1.15}
@@ -297,6 +297,20 @@
   \else
     \fitblank@resolvebf{#1}{#2}%
   \fi
+}
+% 語順式の短いブロック用（a[an]・! など、同じ幅の下線）
+\newcommand{\fitblankbfshort}[1]{%
+  \ifshowanswer
+    \underline{\makebox[4.6em][c]{{\color{blue}\textbf{#1}}}}%
+  \else
+    \underline{\makebox[4.6em][c]{\phantom{\textbf{#1}}}}%
+  \fi
+}
+% 定理ボックス内の語順式（tabular 1行）を1行に収める
+\newcommand{\fitblankbfresize}[1]{%
+  \par\noindent
+  #1%
+  \par
 }
 
 % 会話例リスト用：下線の始点・長さを揃える（\fitblank[]{英語} を複数行に並べる場合）
