@@ -15,7 +15,7 @@ PREAMBLE = ROOT / "preamble.tex"
 
 # 解答が表示されるときだけ PDF テキストに現れる目印
 # 教材の内容に合わせて更新すること
-MARKERS = ("答え",)
+MARKERS = ("動詞の前", "be 動詞", "断定")
 
 
 def read_showanswer() -> str:
