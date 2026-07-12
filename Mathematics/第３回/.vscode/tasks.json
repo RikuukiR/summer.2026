@@ -1,0 +1,59 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "第3回 数学: ビルド",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/build-main.sh",
+      "args": ["${file}"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "第3回 数学: PDFを外部で開く",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/open-main-pdf.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "第3回 数学: 外部PDFを開いてリアルタイム更新",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/watch-main.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "showReuseMessage": false
+      },
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "PDFを外部で開く（編集中のTeXと同名）",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/refresh-pdf.sh",
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.pdf"],
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

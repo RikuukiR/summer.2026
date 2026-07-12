@@ -1,0 +1,25 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "latex-workshop.latex.external.build.command": "/bin/bash",
+  "latex-workshop.latex.external.build.args": [
+    "scripts/lw-external-build.sh",
+    "%DOC_EXT%"
+  ],
+  "latex-workshop.latex.recipes": [],
+  "latex-workshop.latex.tools": [],
+  "latex-workshop.latex.autoBuild.run": "never",
+  "latex-workshop.latex.rootFile": "main.tex",
+  "latex-workshop.latex.rootFile.doNotPrompt": true,
+  "latex-workshop.latex.rootFile.useSubFile": true,
+  "latex-workshop.latex.build.enableMagicComments": true,
+  "latex-workshop.view.pdf.viewer": "external",
+  "latex-workshop.view.pdf.ref.viewer": "external",
+  "latex-workshop.view.pdf.external.viewer.command": "/bin/bash",
+  "latex-workshop.view.pdf.external.viewer.args": [
+    "scripts/refresh-pdf.sh",
+    "%PDF%"
+  ],
+  "latex-workshop.linting.chktex.enabled": false,
+  "latex-workshop.linting.lacheck.enabled": false
+}

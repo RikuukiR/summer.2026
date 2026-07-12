@@ -1,0 +1,21 @@
+\input{test-setup.tex}
+
+% 復習テスト：1枚・小問間 \vfill で用紙を使い切る
+\linespread{1.04}\selectfont
+\makeatletter
+\renewcommand{\testblank@line}[2]{%
+  \par\vspace{0.3em}%
+  \noindent
+  \ifshowanswer
+    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+  \else
+    \underline{\makebox[#1][l]{\rule{0pt}{1.4\baselineskip}}}%
+  \fi
+}
+\newcommand{\testqsep}{\vfill}
+\newcommand{\testsectsep}{\vspace{0.5em}}
+\makeatother
+
+\begin{document}
+\input{第3回 復習テスト.tex}
+\end{document}
