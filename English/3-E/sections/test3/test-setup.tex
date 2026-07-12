@@ -1,0 +1,40 @@
+\documentclass[12pt,a4paper]{jsarticle}
+\usepackage[margin=20truemm]{geometry}
+
+\input{../../preamble.tex}
+
+\pagestyle{empty}
+
+% テスト類：本文はやや広め、残り余白は問題間の \vfill で均等配分
+\linespread{1.1}\selectfont
+
+% テスト用：大きな解答欄（preamble.tex の \showanswerfalse / \showanswertrue で表示切替）
+\makeatletter
+\newcommand{\testblank@line}[2]{%
+  \par\vspace{0.4em}%
+  \noindent
+  \ifshowanswer
+    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+  \else
+    \underline{\makebox[#1][l]{\rule{0pt}{1.55\baselineskip}}}%
+  \fi
+}
+\newcommand{\testblank}[2][\relax]{%
+  \ifx#1\relax
+    \testblank@line{#2}{}%
+  \else
+    \testblank@line{#2}{#1}%
+  \fi
+}
+\newcommand{\testblankinline}[2][\relax]{%
+  \ifx#1\relax
+    \underline{\makebox[#2][l]{\rule{0pt}{1.35\baselineskip}}}%
+  \else
+    \ifshowanswer
+      \underline{\makebox[#2][l]{{\color{blue}\textbf{#1}}}}%
+    \else
+      \underline{\makebox[#2][l]{\rule{0pt}{1.35\baselineskip}}}%
+    \fi
+  \fi
+}
+\makeatother
