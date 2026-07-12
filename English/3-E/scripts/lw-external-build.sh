@@ -41,7 +41,7 @@ MODE="$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t'
 echo "=== 第3回 英語 ビルド開始 (${MODE:-unknown}) ==="
 
 # showanswer 切替を確実に反映（キャッシュでスキップされないよう強制再ビルド）
-make -B all
+make -B main.pdf main-book.pdf test-3
 
 python3 "${ROOT}/scripts/verify-pdf-sync.py"
 
