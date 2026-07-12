@@ -93,13 +93,13 @@
 
 \newcounter{technique}
 
-% 定理・定義番号をsectionごとにリセット
-\numberwithin{theorem}{section}
+% 定理・定義番号を subsection ごとにリセット
+\numberwithin{theorem}{subsection}
 \numberwithin{definition}{subsection}
 \numberwithin{technique}{subsection}
 
-% 定理番号を「1.1」形式に
-\renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
+% 定理・定義番号を「1.1.1」形式に
+\renewcommand{\thetheorem}{\thesubsection.\arabic{theorem}}
 \renewcommand{\thedefinition}{\thesubsection.\arabic{definition}}
 \renewcommand{\thetechnique}{\thesubsection.\arabic{technique}}
 
@@ -317,6 +317,10 @@
 \newcommand{\dialogueblank}[1]{%
   \par\vspace{0.3em}%
   \noindent\hspace{\dialogueblankindent}%
+  \dialogueblank@print{\dialogueblankwidth}{#1}%
+}
+% 矢印の直後など、同じ行に続けて使う版
+\newcommand{\dialogueblankinline}[1]{%
   \dialogueblank@print{\dialogueblankwidth}{#1}%
 }
 % minipage 等の半分カラム用（\linewidth に合わせた下線）
