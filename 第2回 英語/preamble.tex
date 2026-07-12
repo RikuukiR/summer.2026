@@ -63,6 +63,9 @@
 % 丸囲み文字コマンド
 \newcommand{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
 
+% 回答行のラベル（伸ばし棒ではなく短い横線）
+\newcommand{\answermark}{\rule[0.5ex]{1.1em}{0.5pt}}
+
 % 定理スタイルのカスタマイズ（最後のピリオドを削除）
 \newtheoremstyle{myplain}
   {3pt}   % Space above
@@ -328,6 +331,7 @@
   \par\vspace{0.3em}%
   \noindent
   \dialogueblank@printcolumn{\linewidth}{#1}%
+  \par\vspace{0.8em}%
 }
 \newcommand{\fitblankfixed}[2][\relax]{%
   \ifx#1\relax
