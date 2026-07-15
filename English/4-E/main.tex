@@ -1,0 +1,57 @@
+\documentclass[12pt,a4paper]{jsarticle}
+\usepackage[margin=20truemm]{geometry}
+
+% 大見出し「1」、小見出し「1.1」形式
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\input{preamble.tex}
+
+% カウンターの初期値を設定
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+\setcounter{definition}{0}
+\setcounter{theorem}{0}
+\setcounter{technique}{0}
+
+\title{【2026年度】 第4回 英語}                % タイトル
+\author{}                     % 著者（空白でOK）
+\date{}                       % 日付（空白）
+
+\begin{document}
+\begin{center}
+{\LARGE 【中学英語】比較}
+\end{center}
+
+% --- 著者と日付を右寄せで表示 ---
+\vspace{5mm}
+\begin{flushright}
+  菅原\ 陸\hspace{1.5zw}{\small\textsf{Riku Sugawara}}\\[1.2em]
+  07.2026
+\end{flushright}
+
+% ========================================
+% 各セクションの読み込み
+% ========================================
+
+\section{比較級のつくり方}
+
+\input{sections/比較級のつくり方/比較級のつくり方について.tex}
+
+\section{比較級を使った構文}
+
+\input{sections/比較級を使った構文/比較級を使った構文について.tex}
+
+\section{最上級のつくり方}
+
+\input{sections/最上級のつくり方/最上級のつくり方について.tex}
+
+\section{最上級を使った構文}
+
+\input{sections/最上級を使った構文/最上級を使った構文について.tex}
+
+\section{原級のつくり方と構文}
+
+\input{sections/原級のつくり方と構文/原級のつくり方と構文について.tex}
+
+\end{document}

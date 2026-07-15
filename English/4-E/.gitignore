@@ -1,0 +1,23 @@
+# LaTeX生成ファイル
+*.aux
+*.log
+*.dvi
+*.pdf
+*.synctex.gz
+*.toc
+*.out
+*.fdb_latexmk
+*.fls
+
+# macOS
+.DS_Store
+
+# エディタ
+*.swp
+*.swo
+*~
+.vscode/
+
+# ビルドキャッシュ
+.showanswer-stamp
+.booklet-src.pdf

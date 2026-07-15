@@ -1,0 +1,28 @@
+\input{test-setup.tex}
+
+% 確認テスト：1枚・余白は伸縮（plus fill）で均等配分
+\linespread{1.0}\selectfont
+\setlength{\parskip}{0pt}
+\makeatletter
+\renewcommand{\testblank@line}[2]{%
+  \par\vspace{0.35em}%
+  \noindent
+  \ifshowanswer
+    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+  \else
+    \underline{\makebox[#1][l]{\rule{0pt}{1.55\baselineskip}}}%
+  \fi
+}
+% 小問間：最低余白を確保しつつ、残りを均等配分
+\newcommand{\testqsep}{\par\vspace{0.5em plus 1.2fil minus 0.1em}}
+% 大問間：細い区切り線 + やや広めの余白
+\newcommand{\testsectsep}{%
+  \par\vspace{0.55em plus 0.6fil}%
+  \noindent\hspace{0.04\linewidth}\rule{0.92\linewidth}{0.4pt}%
+  \par\vspace{0.55em plus 0.6fil}%
+}
+\makeatother
+
+\begin{document}
+\input{第4回 確認テスト.tex}
+\end{document}
