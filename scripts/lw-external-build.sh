@@ -18,22 +18,29 @@ if [[ "$DIR" == "$INTRO_DIR" || "$DIR" == "$INTRO_DIR"/* ]]; then
   exec "${ROOT}/scripts/build-introduction.sh"
 fi
 
-ENGLISH1_DIR="${ROOT}/第1回 英語"
-ENGLISH2_DIR="${ROOT}/第2回 英語"
-MATH_DIR="${ROOT}/第2回 数学"
+# English/*-E 配下
+for project_dir in "${ROOT}/English"/*-E; do
+  [ -d "$project_dir" ] || continue
+  if [[ "$DIR" == "$project_dir" || "$DIR" == "$project_dir"/* ]]; then
+    if [ -f "${project_dir}/scripts/lw-external-build.sh" ]; then
+      exec "${project_dir}/scripts/lw-external-build.sh" "$TEX"
+    elif [ -f "${project_dir}/scripts/build-main.sh" ]; then
+      exec "${project_dir}/scripts/build-main.sh"
+    fi
+  fi
+done
 
-# 第1回 英語 / 第2回 英語 / 第2回 数学 配下の任意の .tex → make all（main.pdf + 冊子を同期）
-if [[ "$DIR" == "$ENGLISH1_DIR" || "$DIR" == "$ENGLISH1_DIR"/* ]]; then
-  exec "${ENGLISH1_DIR}/scripts/lw-external-build.sh" "$TEX"
-fi
-
-if [[ "$DIR" == "$ENGLISH2_DIR" || "$DIR" == "$ENGLISH2_DIR"/* ]]; then
-  exec "${ENGLISH2_DIR}/scripts/lw-external-build.sh" "$TEX"
-fi
-
-if [[ "$DIR" == "$MATH_DIR" || "$DIR" == "$MATH_DIR"/* ]]; then
-  exec "${MATH_DIR}/scripts/build-main.sh"
-fi
+# Mathematics/*-M 配下
+for project_dir in "${ROOT}/Mathematics"/*-M; do
+  [ -d "$project_dir" ] || continue
+  if [[ "$DIR" == "$project_dir" || "$DIR" == "$project_dir"/* ]]; then
+    if [ -f "${project_dir}/scripts/lw-external-build.sh" ]; then
+      exec "${project_dir}/scripts/lw-external-build.sh" "$TEX"
+    elif [ -f "${project_dir}/scripts/build-main.sh" ]; then
+      exec "${project_dir}/scripts/build-main.sh"
+    fi
+  fi
+done
 
 case "$NAME" in
   summer_2026_introduction.tex)

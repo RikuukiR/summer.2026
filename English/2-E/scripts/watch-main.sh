@@ -20,7 +20,7 @@ build() {
   return 0
 }
 
-echo "=== 第2回 英語 外部 PDF プレビュー ==="
+echo "=== 2-E 英語 外部 PDF プレビュー ==="
 echo "ビルド中..."
 build
 build_status=$?

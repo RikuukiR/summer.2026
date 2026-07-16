@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{jsarticle}
+\usepackage[margin=20truemm]{geometry}
+
+% 大見出し「1」、小見出し「1.1」形式
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\input{preamble.tex}
+
+% カウンターの初期値を設定
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+\setcounter{definition}{0}
+\setcounter{theorem}{0}
+\setcounter{technique}{0}
+
+\title{【2026年度】 数学}
+\author{}
+\date{}
+
+\begin{document}
+\begin{center}
+{\LARGE 【中学数学】関数}
+\end{center}
+
+\vspace{5mm}
+\begin{flushright}
+  菅原\ 陸\hspace{1.5zw}{\small\textsf{Riku Sugawara}}\\[1.2em]
+  07.2026
+\end{flushright}
+
+\section{正比例}
+
+\input{sections/正比例/01_正比例について.tex}
+
+\section{反比例}
+
+\input{sections/反比例/01_反比例について.tex}
+
+\section{一次関数}
+
+\input{sections/一次関数/01_一次関数について.tex}
+
+\section{テクニック}
+
+\input{sections/テクニック/01_テクニック.tex}
+
+\section{二次関数}
+
+\input{sections/二次関数/01_二次関数について.tex}
+
+\bookletpadpages
+\end{document}

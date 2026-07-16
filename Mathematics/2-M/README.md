@@ -1,22 +1,21 @@
-# 2-E 英語 - LaTeX 教材
+# 2-M 数学 - LaTeX 教材
 
 ## 概要
 
-この教材は2026年度一斉夏期講習「2-E 英語」用の LaTeX 教材です。
+この教材は2026年度一斉夏期講習「2-M 数学」用の LaTeX 教材です。
 リアルタイムで PDF の変更を確認できる自動コンパイル機能付きです。
 
 ## ディレクトリ構成
 
 ```
-2-E/
+2-M/
 ├── README.md      # このファイル
 ├── main.tex       # メインのLaTeX教材
 ├── preamble.tex   # LaTeXプリアンブル
 ├── Makefile       # LaTeXコンパイル用
 ├── watch.sh       # 自動コンパイルスクリプト
 └── sections/      # セクション別のTeXファイル
-    ├── Listening/
-    └── Writing/
+    └── 01_節1.tex
 ```
 
 ## 🚀 使用方法
@@ -37,7 +36,7 @@
    - コマンドパレット → "LaTeX Workshop: View LaTeX PDF"
 
 3. **タスクランナー**：
-   - `Ctrl+Shift+P` → "Tasks: Run Task" → "2-E 英語: ビルド"
+   - `Ctrl+Shift+P` → "Tasks: Run Task" → "LaTeX Build (uplatex)"
 
 ### コマンドラインでの使用
 
@@ -93,12 +92,63 @@ sudo apt-get install inotify-tools
 \showanswertrue   % 解答を表示
 ```
 
+### 穴埋め問題の追加
+
+```latex
+% 新しい答え付き形式（推奨）
+\fitblank[答え]{5}     % 5em幅の空欄（答え付き）
+\fitblank[相似]{5}     % 「相似」という答えが入る5em幅の空欄
+
+% 従来の形式（答えなし）
+\fitblank{5}           % 5em幅の空欄のみ
+
+% 旧形式（まだ使用可能）
+\Blank[3cm]{解答}      % 3cm幅の空欄（解答付き）
+```
+
 ## 🔧 必要な環境
 
 - **LaTeX**: pLaTeX または upLaTeX
 - **PDF 変換**: dvipdfmx
 - **自動監視**: fswatch（推奨）または inotify-tools
 - **必要パッケージ**: preamble.tex 参照
+
+## 📖 使用の流れ
+
+1. **初期セットアップ**:
+
+   ```bash
+   make all  # 初回コンパイル
+   ```
+
+2. **自動コンパイル開始**:
+
+   ```bash
+   ./watch.sh
+   ```
+
+3. **編集作業**:
+
+   - `main.tex` または `sections/` 内のファイルを編集・保存
+   - 自動的に PDF が更新される
+   - PDF ビューアーで変更を確認
+
+4. **終了**:
+   - `Ctrl+C`で自動コンパイルを停止
+
+## 🛠️ トラブルシューティング
+
+### LaTeX コンパイルエラー
+
+- 必要なパッケージがインストールされているか確認
+- 文字エンコーディングが UTF-8 になっているか確認
+- `make clean`で補助ファイルを削除してから再コンパイル
+
+### 自動監視が動作しない
+
+- `fswatch`がインストールされているか確認
+- `make watch-poll`でポーリング方式を試す
+- ファイルの権限を確認
 
 ## 作成者
 

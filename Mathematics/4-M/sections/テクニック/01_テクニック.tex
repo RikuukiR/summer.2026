@@ -1,0 +1,45 @@
+% !TeX root = ../../main.tex
+\subsection{関数のグラフと変域}
+
+関数の問題では，次の3つの視点を意識すると立式しやすい.
+
+\begin{techniquebox}[tech:01]{\textbf{グラフを読む3つのポイント}}
+    \begin{enumerate}
+        \item \textbf{傾き} … 右上がりか，右下がりか（$a$ の符号）
+        \item \textbf{切片・通過点} … グラフがどの点を通るか（代入して確認）
+        \item \textbf{変域} … $x$ の範囲が決まったとき，$y$ がとりうる範囲を考える
+    \end{enumerate}
+\end{techniquebox}
+
+\begin{techniquebox}[tech:02]{\textbf{比例定数を求める}}
+    正比例・反比例では，与えられた1組の値を代入して比例定数 $a$ を求める.
+    \begin{itemize}
+        \item 正比例：$y = ax$ に代入
+        \item 反比例：$y = \dfrac{a}{x}$ または $xy = a$ に代入
+    \end{itemize}
+\end{techniquebox}
+
+\begin{techniquebox}[tech:03]{\textbf{一次関数の式を求める}}
+    傾き $a$ と1点がわかれば $y = ax + b$ が定まる.
+    2点がわかれば，2つの方程式を連立して $a$，$b$ を求める.
+\end{techniquebox}
+
+\begin{example}[【例題 1】]
+    一次関数のグラフが点 $(1,\,4)$，$(3,\,10)$ を通る. この一次関数の式を求めなさい.
+\end{example}
+
+\begin{proof}\mbox{}\\
+    $y = ax + b$ とおく.
+
+    \begin{hiddenanswer}
+        2点を代入すると，
+        \begin{align*}
+            4 &= a + b \\
+            10 &= 3a + b
+        \end{align*}
+        連立して解くと $a = 3$，$b = 1$.
+        \finalanswer{答え：$y = 3x + 1$}
+    \end{hiddenanswer}
+\end{proof}
+
+\newpage

@@ -1,14 +1,14 @@
-# 第3回 英語 - LaTeX 教材
+# 3-E 英語 - LaTeX 教材
 
 ## 概要
 
-この教材は2026年度一斉夏期講習「第3回 英語」用の LaTeX 教材です。
+この教材は2026年度一斉夏期講習「3-E 英語」用の LaTeX 教材です。
 リアルタイムで PDF の変更を確認できる自動コンパイル機能付きです。
 
 ## ディレクトリ構成
 
 ```
-第3回 英語/
+3-E/
 ├── README.md      # このファイル
 ├── main.tex       # メインのLaTeX教材
 ├── preamble.tex   # LaTeXプリアンブル
@@ -37,7 +37,7 @@
    - コマンドパレット → "LaTeX Workshop: View LaTeX PDF"
 
 3. **タスクランナー**：
-   - `Ctrl+Shift+P` → "Tasks: Run Task" → "第3回 英語: ビルド"
+   - `Ctrl+Shift+P` → "Tasks: Run Task" → "3-E 英語: ビルド"
 
 ### コマンドラインでの使用
 

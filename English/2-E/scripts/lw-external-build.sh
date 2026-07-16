@@ -38,7 +38,7 @@ if [[ -n "$TEX" ]]; then
 fi
 
 MODE="$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' || true)"
-echo "=== 第2回 英語 ビルド開始 (${MODE:-unknown}) ==="
+echo "=== 2-E 英語 ビルド開始 (${MODE:-unknown}) ==="
 
 # showanswer 切替を確実に反映（キャッシュでスキップされないよう強制再ビルド）
 make -B all

@@ -1,4 +1,3 @@
-% !TeX root = main.tex
 \usepackage{amsmath}
 \usepackage{ascmac}
 \usepackage{amsthm}
@@ -16,15 +15,6 @@
 \usepackage[dvipdfmx]{xcolor}
 \usepackage{environ}
 \usetikzlibrary{intersections,calc,arrows.meta}
-
-% ========================================
-% 解答表示の切り替え（27行目だけ書き換える）
-% ========================================
-%   \showanswerfalse  … 生徒用（空欄・解答非表示）
-%   \showanswertrue   … 先生用（青字で解答表示）
-% 切替後: ターミナルで make all  または  Cmd+S で保存
-\newif\ifshowanswer
-\showanswerfalse
 
 % 行間を少し広げる
 \linespread{1.15}
@@ -63,9 +53,6 @@
 % 丸囲み文字コマンド
 \newcommand{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
 
-% 回答行のラベル（伸ばし棒ではなく短い横線）
-\newcommand{\answermark}{\rule[0.5ex]{1.1em}{0.5pt}}
-
 % 定理スタイルのカスタマイズ（最後のピリオドを削除）
 \newtheoremstyle{myplain}
   {3pt}   % Space above
@@ -96,15 +83,15 @@
 
 \newcounter{technique}
 
-% 定理・定義番号を subsection ごとにリセット
-\numberwithin{theorem}{subsection}
-\numberwithin{definition}{subsection}
-\numberwithin{technique}{subsection}
+% 定理・定義番号をsectionごとにリセット
+\numberwithin{theorem}{section}
+\numberwithin{definition}{section}
+\numberwithin{technique}{section}
 
-% 定理・定義番号を「1.1.1」形式に
-\renewcommand{\thetheorem}{\thesubsection.\arabic{theorem}}
-\renewcommand{\thedefinition}{\thesubsection.\arabic{definition}}
-\renewcommand{\thetechnique}{\thesubsection.\arabic{technique}}
+% 定理番号を「1.1」形式に
+\renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
+\renewcommand{\thedefinition}{\arabic{section}.\arabic{definition}}
+\renewcommand{\thetechnique}{\arabic{section}.\arabic{technique}}
 
 % 式番号を「1.1」形式に（sectionごとにリセット）
 \numberwithin{equation}{section}
@@ -211,209 +198,45 @@
 }
 
 % ========================================
-% 穴埋めコマンド（\showanswer で表示切替）
+% 冊子用ページ調整（中綴じ：末尾に白ページを追加して4の倍数に）
 % ========================================
-% 使い方:
-%   \fitblank[]{答え}        … 答え幅+計4文字分の下線（文中用）
-%   \fitblank[答え]{}        … 同上（数学教材と同じ書き方）
-%   \fitblank[答え]{幅}      … 幅（em）を指定
-%   \fitblank{幅}            … 答えなしの空欄のみ
 \makeatletter
-% 文中穴埋め（\fitblank[]{答え}）の下線：答えの幅 + 両側2em（計4文字分の余白）
-\newcommand{\fitblank@underlinewithpad}[1]{%
-  \underline{\hspace{2em}#1\hspace{2em}}%
-}
-\newcommand{\fitblank@showinline}[1]{%
-  \ifshowanswer
-    \fitblank@underlinewithpad{{\color{blue}#1}}%
-  \else
-    \fitblank@underlinewithpad{\phantom{#1}}%
+\newcount\booklet@last
+\newcount\booklet@rem
+\newcount\booklet@pad
+\newcommand{\bookletpadpages}{%
+  \booklet@last=\c@page
+  \ifdim\pagetotal=\z@
+    \advance\booklet@last by -1
   \fi
-}
-\newcommand{\fitblank@showbfinline}[1]{%
-  \ifshowanswer
-    \fitblank@underlinewithpad{{\color{blue}\textbf{#1}}}%
+  \booklet@rem=\booklet@last
+  \booklet@pad=\booklet@last
+  \divide\booklet@pad by 4
+  \multiply\booklet@pad by 4
+  \advance\booklet@rem by -\booklet@pad
+  \ifnum\booklet@rem=\z@
+    \booklet@pad=\z@
   \else
-    \fitblank@underlinewithpad{\phantom{\textbf{#1}}}%
+    \booklet@pad=4
+    \advance\booklet@pad by -\booklet@rem
   \fi
-}
-\newcommand{\fitblank@showwide}[1]{%
-  \ifshowanswer
-    \underline{\hspace{3em}{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
-  \else
-    \underline{\hspace{3em}\phantom{\ensuremath{#1}}\hspace{3em}}%
-  \fi
-}
-\newcommand{\fitblank@showbfwide}[1]{%
-  \ifshowanswer
-    \underline{\hspace{3em}{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
-  \else
-    \underline{\hspace{3em}\phantom{\ensuremath{#1}}\hspace{3em}}%
-  \fi
-}
-\newcommand{\fitblank@showwithwidth}[2]{%
-  \ifshowanswer
-    \underline{\hspace{3em}\makebox[#2em][c]{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
-  \else
-    \underline{\hspace{3em}\makebox[#2em][c]{\phantom{\ensuremath{#1}}}\hspace{3em}}%
-  \fi
-}
-\newcommand{\fitblank@resolve}[2]{%
-  \def\fitblank@opt{#1}%
-  \def\fitblank@mand{#2}%
-  \ifx\fitblank@mand\empty
-    \fitblank@showwide{#1}%
-  \else
-    \ifx\fitblank@opt\empty
-      \fitblank@showinline{#2}%
-    \else
-      \fitblank@showwithwidth{#1}{#2}%
-    \fi
-  \fi
-}
-\newcommand{\fitblank@resolvebf}[2]{%
-  \def\fitblank@opt{#1}%
-  \def\fitblank@mand{#2}%
-  \ifx\fitblank@mand\empty
-    \fitblank@showbfwide{#1}%
-  \else
-    \ifx\fitblank@opt\empty
-      \fitblank@showbfinline{#2}%
-    \else
-      \fitblank@showwithwidth{#1}{#2}%
-    \fi
-  \fi
-}
-\newcommand{\fitblank}[2][\relax]{%
-  \ifx#1\relax
-    \underline{\hspace*{#2em}}%
-  \else
-    \fitblank@resolve{#1}{#2}%
-  \fi
-}
-\newcommand{\fitblankbf}[2][\relax]{%
-  \ifx#1\relax
-    \underline{\hspace*{#2em}}%
-  \else
-    \fitblank@resolvebf{#1}{#2}%
-  \fi
-}
-% 語順式の短いブロック用（a[an]・! など、同じ幅の下線）
-\newcommand{\fitblankbfshort}[1]{%
-  \ifshowanswer
-    \underline{\makebox[4.6em][c]{{\color{blue}\textbf{#1}}}}%
-  \else
-    \underline{\makebox[4.6em][c]{\phantom{\textbf{#1}}}}%
-  \fi
-}
-% 定理ボックス内の語順式（tabular 1行）を1行に収める
-\newcommand{\fitblankbfresize}[1]{%
-  \par\noindent
-  #1%
-  \par
-}
-
-% 会話例リスト用：下線の始点・長さを揃える（\fitblank[]{英語} を複数行に並べる場合）
-\newlength{\dialogueblankindent}
-\setlength{\dialogueblankindent}{2em}
-\newcommand{\dialogueblankwidth}{32em}
-\newcommand{\dialogueblank@print}[2]{%
-  \ifshowanswer
-    \underline{\makebox[#1][l]{\hspace{2em}{\color{blue}#2}\hspace{2em}}}%
-  \else
-    \underline{\makebox[#1][l]{\hspace{2em}\phantom{#2}\hspace{2em}}}%
-  \fi
-}
-\newcommand{\dialogueblank@printcolumn}[2]{%
-  \ifshowanswer
-    \underline{\makebox[#1][l]{\hspace{1em}{\color{blue}\small #2}\hspace{1em}}}%
-  \else
-    \underline{\makebox[#1][l]{\hspace{1em}{\small\phantom{#2}}\hspace{1em}}}%
-  \fi
-}
-\newcommand{\dialogueblank}[1]{%
-  \par\vspace{0.3em}%
-  \noindent\hspace{\dialogueblankindent}%
-  \dialogueblank@print{\dialogueblankwidth}{#1}%
-}
-% 矢印の直後など、同じ行に続けて使う版
-\newcommand{\dialogueblankinline}[1]{%
-  \dialogueblank@print{\dialogueblankwidth}{#1}%
-}
-% minipage 等の半分カラム用（\linewidth に合わせた下線）
-\newcommand{\dialogueblankcolumn}[1]{%
-  \par\vspace{0.3em}%
-  \noindent
-  \dialogueblank@printcolumn{\linewidth}{#1}%
-  \par\vspace{0.8em}%
-}
-\newcommand{\fitblankfixed}[2][\relax]{%
-  \ifx#1\relax
-    \underline{\hspace*{#2em}}%
-  \else
-    \fitblank@resolve{#1}{#2}%
-  \fi
-}
-\newcommand{\fitblankblue}[2][\relax]{%
-  \ifx#1\relax
-    \underline{\hspace*{#2em}}%
-  \else
-    \def\fitblank@opt{#1}%
-    \def\fitblank@mand{#2}%
-    \ifx\fitblank@mand\empty
-      \ifshowanswer
-        \fitblank@underlinewithpad{{\color{blue}#1}}%
-      \else
-        \fitblank@underlinewithpad{\phantom{#1}}%
-      \fi
-    \else
-      \ifx\fitblank@opt\empty
-        \ifshowanswer
-          \fitblank@underlinewithpad{{\color{blue}#2}}%
-        \else
-          \fitblank@underlinewithpad{\phantom{#2}}%
-        \fi
-      \else
-        \ifshowanswer
-          \textcolor{blue}{\underline{\makebox[#2em][c]{#1}}}%
-        \else
-          \underline{\hspace*{#2em}}%
-        \fi
-      \fi
-    \fi
-  \fi
-}
-\newcommand{\fitblankbfblue}[2][\relax]{%
-  \ifx#1\relax
-    \underline{\hspace*{#2em}}%
-  \else
-    \def\fitblank@opt{#1}%
-    \def\fitblank@mand{#2}%
-    \ifx\fitblank@mand\empty
-      \ifshowanswer
-        \fitblank@underlinewithpad{{\color{blue}\textbf{#1}}}%
-      \else
-        \fitblank@underlinewithpad{\phantom{\textbf{#1}}}%
-      \fi
-    \else
-      \ifx\fitblank@opt\empty
-        \ifshowanswer
-          \fitblank@underlinewithpad{{\color{blue}\textbf{#2}}}%
-        \else
-          \fitblank@underlinewithpad{\phantom{\textbf{#2}}}%
-        \fi
-      \else
-        \ifshowanswer
-          \textcolor{blue}{\underline{\makebox[#2em][c]{\textbf{#1}}}}%
-        \else
-          \underline{\hspace*{#2em}}%
-        \fi
-      \fi
-    \fi
-  \fi
+  \loop\ifnum\booklet@pad>\z@
+    \advance\booklet@pad by -1
+    \newpage
+    \thispagestyle{empty}%
+    \vbox to \textheight{}%
+  \repeat
 }
 \makeatother
 
+% ========================================
+% 解答表示の切り替え設定
+% ========================================
+% 解答を表示したい場合：\showanswertrue
+% 解答を隠したい場合：\showanswertrue
+\newif\ifshowanswer
+% ←ここを \showanswertrue に変更すると解答が表示されます
+\showanswertrue
 % 穴埋めコマンドの修正版（upLaTeX対応）
 \newcommand{\Blank}[2][3cm]{%
   ~%
@@ -423,6 +246,58 @@
     \uline{\makebox[#1][l]{\hphantom{あ}}}%
   \fi
   ~%
+}
+
+% 正解に合わせて自動で空欄を作る（em単位版）- 太字表示に統一、青字で表示
+% 使用法: \fitblank[答え]{幅}
+% 注: 解答表示時も空欄時も、両端に3emの空白を確保
+\newcommand{\fitblank}[2][\relax]{%
+  \ifx#1\relax
+    % 答えが指定されていない場合（従来の使用法）
+    \underline{\hspace*{#2em}}%
+  \else
+    % 答えが指定されている場合
+    \ifshowanswer
+      \underline{\hspace{3em}{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
+    \else
+      \underline{\hspace{3em}\phantom{\ensuremath{#1}}\hspace{3em}}%
+    \fi
+  \fi
+}
+
+% 太文字版の空欄コマンド（数式と文字の両方に対応、青字で表示）
+% 使用法: \fitblankbf[答え]{幅} - 青字で表示
+%        {\color{red}\fitblankbf[答え]{幅}} - 色を上書き（赤など）
+% 注: 解答表示時も空欄時も、両端に3emの空白を確保
+\newcommand{\fitblankbf}[2][\relax]{%
+  \ifx#1\relax
+    % 答えが指定されていない場合（従来の使用法）
+    \underline{\hspace*{#2em}}%
+  \else
+    % 答えが指定されている場合
+    \ifshowanswer
+      \underline{\hspace{3em}{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
+    \else
+      \underline{\hspace{3em}\phantom{\ensuremath{#1}}\hspace{3em}}%
+    \fi
+  \fi
+}
+
+% 固定幅版の空欄コマンド（下線の長さを揃えたい場合に使用）
+% 使用法: \fitblankfixed[答え]{幅}
+% 注: 指定された幅を使用し、解答の周りに3emの空白を確保して中央揃えで表示
+\newcommand{\fitblankfixed}[2][\relax]{%
+  \ifx#1\relax
+    % 答えが指定されていない場合
+    \underline{\hspace*{#2em}}%
+  \else
+    % 答えが指定されている場合
+    \ifshowanswer
+      \underline{\hspace{3em}\makebox[#2em][c]{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
+    \else
+      \underline{\hspace{3em}\makebox[#2em][c]{\phantom{\ensuremath{#1}}}\hspace{3em}}%
+    \fi
+  \fi
 }
 
 
@@ -589,7 +464,34 @@
   \fi
 }
 
-% fitblankblue / fitblankbfblue は preamble 前半で定義
+% 既存の青色空欄コマンド（下線付き版も追加）
+% 青色版の fitblank
+\newcommand{\fitblankblue}[2][\relax]{%
+  \ifx#1\relax
+    % 答えが指定されていない場合
+    \underline{\hspace*{#2em}}%
+  \else
+    % 答えが指定されている場合
+    \ifshowanswer
+      \textcolor{blue}{\underline{\makebox[#2em][c]{#1}}}%
+    \else
+      \underline{\hspace*{#2em}}%
+    \fi
+  \fi
+}
+
+% 青色太文字版
+\newcommand{\fitblankbfblue}[2][\relax]{%
+  \ifx#1\relax
+    \underline{\hspace*{#2em}}%
+  \else
+    \ifshowanswer
+      \textcolor{blue}{\underline{\makebox[#2em][c]{\textbf{#1}}}}%
+    \else
+      \underline{\hspace*{#2em}}%
+    \fi
+  \fi
+}
 
 % 分数の青色版
 % 分数用コマンド（表専用 - 分子を空欄にしてレイアウト保持）

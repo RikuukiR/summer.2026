@@ -38,10 +38,10 @@ if [[ -n "$TEX" ]]; then
 fi
 
 MODE="$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' || true)"
-echo "=== 3-E 英語 ビルド開始 (${MODE:-unknown}) ==="
+echo "=== 3-M 数学 ビルド開始 (${MODE:-unknown}) ==="
 
 # showanswer 切替を確実に反映（キャッシュでスキップされないよう強制再ビルド）
-make -B main.pdf main-book.pdf test-3
+make -B all
 
 python3 "${ROOT}/scripts/verify-pdf-sync.py"
 
