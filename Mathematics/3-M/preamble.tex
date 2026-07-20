@@ -236,7 +236,7 @@
 % 解答を隠したい場合：\showanswerfalse
 \newif\ifshowanswer
 % ←ここを \showanswertrue に変更すると解答が表示されます
-\showanswertrue
+\showanswerfalse
 % 穴埋めコマンドの修正版（upLaTeX対応）
 \newcommand{\Blank}[2][3cm]{%
   ~%
@@ -260,28 +260,34 @@
 \setlength{\fitblankautopad}{3.5em}
 
 \makeatletter
+\newlength{\fitblankinnerpad}
 \newlength{\fitblankwidth}
+\setlength{\fitblankinnerpad}{0.5zw}
+
+\newcommand{\fitblankinner}[1]{%
+  \hspace{\fitblankinnerpad}#1\hspace{\fitblankinnerpad}%
+}
 \newcommand{\fitblankautounderline}[2]{%
   \sbox0{#2}%
-  \setlength{\fitblankwidth}{\dimexpr\wd0+\fitblankautopad\relax}%
-  \underline{\makebox[\fitblankwidth][c]{#1}}%
+  \setlength{\fitblankwidth}{\dimexpr\wd0+\fitblankautopad+2\fitblankinnerpad\relax}%
+  \underline{\makebox[\fitblankwidth][c]{\fitblankinner{#1}}}%
 }
 \newcommand{\fitblankunderline}[2]{%
   \sbox0{#2}%
   \ifdim\wd0<2em
     % 数字など短い答え：コンパクトな下線
-    \setlength{\fitblankwidth}{\dimexpr\wd0+2\fitblanknumpad\relax}%
+    \setlength{\fitblankwidth}{\dimexpr\wd0+2\fitblanknumpad+2\fitblankinnerpad\relax}%
     \ifdim\fitblankwidth<\fitblanknummin
       \setlength{\fitblankwidth}{\fitblanknummin}%
     \fi
   \else
     % 語句など長い答え：十分な長さの下線
-    \setlength{\fitblankwidth}{\dimexpr\wd0+2\fitblanksidepad\relax}%
+    \setlength{\fitblankwidth}{\dimexpr\wd0+2\fitblanksidepad+2\fitblankinnerpad\relax}%
     \ifdim\fitblankwidth<\fitblankminwidth
       \setlength{\fitblankwidth}{\fitblankminwidth}%
     \fi
   \fi
-  \underline{\makebox[\fitblankwidth][c]{#1}}%
+  \underline{\makebox[\fitblankwidth][c]{\fitblankinner{#1}}}%
 }
 \makeatother
 
@@ -303,9 +309,9 @@
       \fi
     \else
       \ifshowanswer
-        \underline{\makebox[#2em][c]{\color{blue}\ensuremath{\bm{#1}}}}%
+        \underline{\makebox[#2em][c]{\fitblankinner{\color{blue}\ensuremath{\bm{#1}}}}}%
       \else
-        \underline{\makebox[#2em][c]{\phantom{\ensuremath{\bm{#1}}}}}%
+        \underline{\makebox[#2em][c]{\fitblankinner{\phantom{\ensuremath{\bm{#1}}}}}}%
       \fi
     \fi
   \fi
@@ -330,9 +336,9 @@
       \fi
     \else
       \ifshowanswer
-        \underline{\makebox[#2em][c]{\color{blue}\ensuremath{\bm{#1}}}}%
+        \underline{\makebox[#2em][c]{\fitblankinner{\color{blue}\ensuremath{\bm{#1}}}}}%
       \else
-        \underline{\makebox[#2em][c]{\phantom{\ensuremath{\bm{#1}}}}}%
+        \underline{\makebox[#2em][c]{\fitblankinner{\phantom{\ensuremath{\bm{#1}}}}}}%
       \fi
     \fi
   \fi
@@ -346,9 +352,9 @@
     \underline{\hspace*{#2em}}%
   \else
     \ifshowanswer
-      \underline{\makebox[#2em][c]{\color{blue}\ensuremath{\bm{#1}}}}%
+      \underline{\makebox[#2em][c]{\fitblankinner{\color{blue}\ensuremath{\bm{#1}}}}}%
     \else
-      \underline{\makebox[#2em][c]{\phantom{\ensuremath{\bm{#1}}}}}%
+      \underline{\makebox[#2em][c]{\fitblankinner{\phantom{\ensuremath{\bm{#1}}}}}}%
     \fi
   \fi
 }
