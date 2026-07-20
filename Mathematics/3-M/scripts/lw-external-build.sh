@@ -1,12 +1,43 @@
 #!/usr/bin/env bash
 # LaTeX Workshop / 保存時ビルド用
-# どの .tex を保存しても main.pdf + main-book.pdf を必ず同期生成する
+# 編集中の教材に応じて該当 PDF のみを同期生成する
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+resolve_project() {
+  local tex_path="${1:-}"
+  local tex_dir=""
+
+  if [[ -n "$tex_path" && -f "$tex_path" ]]; then
+    tex_dir="$(cd "$(dirname "$tex_path")" && pwd)"
+  fi
+
+  case "$tex_dir" in
+    "$ROOT"/作図|"$ROOT"/作図/*)
+      echo "作図"
+      return 0
+      ;;
+    "$ROOT"/式の計算の利用|"$ROOT"/式の計算の利用/*)
+      echo "式の計算の利用"
+      return 0
+      ;;
+  esac
+
+  echo "作図"
+}
+
 TEX="${1:-}"
+if [[ -z "$TEX" ]]; then
+  MODE="$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' || true)"
+  echo "=== 3-M 数学 全教材ビルド開始 (${MODE:-unknown}) ==="
+  make -B all
+  python3 "${ROOT}/scripts/verify-pdf-sync.py"
+  echo "=== 完了: 作図 / 式の計算の利用 の PDF を更新しました ==="
+  exit 0
+fi
+
 if [[ -n "$TEX" ]]; then
   TEX_DIR="$(cd "$(dirname "$TEX")" && pwd)"
   TEST3_DIR="${ROOT}/sections/test3"
@@ -37,13 +68,14 @@ if [[ -n "$TEX" ]]; then
   fi
 fi
 
+PROJECT="$(resolve_project "$TEX")"
+PDF="${ROOT}/${PROJECT}/main.pdf"
+BOOK="${ROOT}/${PROJECT}/main-book.pdf"
 MODE="$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' || true)"
-echo "=== 3-M 数学 ビルド開始 (${MODE:-unknown}) ==="
 
-# showanswer 切替を確実に反映（キャッシュでスキップされないよう強制再ビルド）
-make -B all
+echo "=== 3-M 数学 (${PROJECT}) ビルド開始 (${MODE:-unknown}) ==="
+make -B "${PDF}" "${BOOK}"
+python3 "${ROOT}/scripts/verify-pdf-sync.py" "${PROJECT}"
 
-python3 "${ROOT}/scripts/verify-pdf-sync.py"
-
-echo "=== 完了: main.pdf / main-book.pdf を更新しました ==="
-"${ROOT}/scripts/refresh-pdf.sh" "${ROOT}/main.pdf"
+echo "=== 完了: ${PDF} / ${BOOK} を更新しました ==="
+"${ROOT}/scripts/refresh-pdf.sh" "${PDF}"

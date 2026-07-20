@@ -3,77 +3,47 @@
 ## 概要
 
 この教材は2026年度一斉夏期講習「3-M 数学」用の LaTeX 教材です。
-リアルタイムで PDF の変更を確認できる自動コンパイル機能付きです。
+**作図** と **式の計算の利用** は、それぞれ独立した PDF としてビルドします。
 
 ## ディレクトリ構成
 
 ```
 3-M/
-├── README.md      # このファイル
-├── main.tex       # メインのLaTeX教材
-├── preamble.tex   # LaTeXプリアンブル
-├── Makefile       # LaTeXコンパイル用
-├── watch.sh       # 自動コンパイルスクリプト
-├── scripts/       # ビルド・冊子・テスト生成
-└── sections/      # セクション別のTeXファイル
-    ├── 作図/
-    ├── 式の計算の利用/
-    └── test3/     # 確認テスト・復習テスト
+├── README.md
+├── preamble.tex          # 共通プリアンブル
+├── Makefile
+├── watch.sh
+├── scripts/
+├── 作図/
+│   ├── main.tex          # → 作図/main.pdf
+│   └── sections/
+└── 式の計算の利用/
+    ├── main.tex          # → 式の計算の利用/main.pdf
+    └── sections/
 ```
 
 ## 使用方法
 
 ### VS Code での使用（推奨）
 
-**前提条件**: LaTeX Workshop 拡張機能がインストールされていること
+1. **ビルド**：編集中の `.tex` を保存（`Cmd+S`）すると、該当教材のみビルドされます。
+2. **PDF プレビュー**：`Cmd+Option+P` / `Cmd+Option+W`（Preview で開く）
 
-1. **ビルド方法**：
-
-   - `Cmd+S`（保存と同時にビルド）
-   - `Cmd+Option+B`
-   - コマンドパレット → "Tasks: Run Task" → "3-M 数学: ビルド"
-
-2. **PDF プレビュー**：
-
-   - `Cmd+Option+P`（ビルドして外部 PDF を開く）
-   - `Cmd+Option+W`（外部 PDF + リアルタイム更新）
-
-### コマンドラインでの使用
+### コマンドライン
 
 ```bash
-make all          # PDF・冊子・テストの作成
-make clean        # 補助ファイルを削除
-make student      # 生徒用（解答非表示）
-make teacher      # 先生用（解答表示）
-make test-3       # 確認・復習テストのみ
+make all          # 両教材の PDF・冊子を生成
+make clean
+make student
+make teacher
 ```
 
-### リアルタイム自動コンパイル
+## 生成される PDF
 
-```bash
-./watch.sh
-# または
-make watch
-make watch-poll
-```
-
-## カスタマイズ
-
-### 解答の表示/非表示
-
-`preamble.tex` の以下の行を変更：
-
-```latex
-\showanswerfalse  % 解答を隠す（デフォルト）
-\showanswertrue   % 解答を表示
-```
-
-## 必要な環境
-
-- **LaTeX**: upLaTeX
-- **PDF 変換**: dvipdfmx
-- **冊子面付け**: pdfbook2（共通 `../scripts/make-booklet-pdf.sh`）
-- **自動監視**: fswatch（推奨）
+| 教材 | PDF | 冊子 |
+|---|---|---|
+| 作図 | `作図/main.pdf` | `作図/main-book.pdf` |
+| 式の計算の利用 | `式の計算の利用/main.pdf` | `式の計算の利用/main-book.pdf` |
 
 ## 作成者
 
