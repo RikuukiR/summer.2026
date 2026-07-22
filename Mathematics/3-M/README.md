@@ -45,6 +45,19 @@ make teacher
 | 作図 | `作図/main.pdf` | `作図/main-book.pdf` |
 | 式の計算の利用 | `式の計算の利用/main.pdf` | `式の計算の利用/main-book.pdf` |
 
+## 冊子印刷
+
+`main-book.pdf` は A3 面付け済みです。プリンターの「冊子印刷」は**オフ**にして、次の設定で印刷してください。
+
+- 用紙: A3
+- 両面印刷: 短辺とじ
+- 印刷後: 真ん中で二つ折り（A4 冊子）
+
+```bash
+make booklet          # 冊子 PDF のみ再生成
+bash scripts/make-booklet.sh
+```
+
 ## 作成者
 
 Riku Sugawara  

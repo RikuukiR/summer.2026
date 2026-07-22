@@ -11,6 +11,7 @@
 \usepackage{tikz}
 \usepackage{textcomp}
 \usepackage{enumitem}
+\usepackage{array}
 \usepackage[most]{tcolorbox}
 \usepackage[dvipdfmx]{xcolor}
 \usepackage{environ}
@@ -236,7 +237,7 @@
 % 解答を隠したい場合：\showanswerfalse
 \newif\ifshowanswer
 % ←ここを \showanswertrue に変更すると解答が表示されます
-\showanswerfalse
+\showanswertrue
 % 穴埋めコマンドの修正版（upLaTeX対応）
 \newcommand{\Blank}[2][3cm]{%
   ~%
@@ -262,7 +263,7 @@
 \makeatletter
 \newlength{\fitblankinnerpad}
 \newlength{\fitblankwidth}
-\setlength{\fitblankinnerpad}{0.5zw}
+\setlength{\fitblankinnerpad}{1.5zw}
 
 \newcommand{\fitblankinner}[1]{%
   \hspace{\fitblankinnerpad}#1\hspace{\fitblankinnerpad}%

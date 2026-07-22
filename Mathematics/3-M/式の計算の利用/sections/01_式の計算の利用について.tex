@@ -1,4 +1,53 @@
 % !TeX root = ../main.tex
-\subsection{式の計算の利用について}
+\subsection{式の計算の利用問題について}
 
-ここに式の計算の利用の内容を追加する.
+式の計算の利用における証明問題はせいぜい、\fitblankbf[3パターン]{}程度である。それは、
+
+\begin{enumerate}
+  \item \fitblankbf[数の性質]{}を利用して証明する問題
+  \item \fitblankbf[図形の性質]{}を利用して証明する問題
+  \item \fitblankbf[規則性]{}を利用して証明する問題
+\end{enumerate}
+
+ここで、それぞれの問題について深掘りする前に、前提となる知識を復習しておこう。
+
+\subsection{いろいろな数量の表し方}
+
+まずは、もっとも基本となる\fitblankbf[数の性質]{}を表す式について確認しておこう。
+
+ただし、以下 $n, m, a, b, c$ は\fitblankbf[整数]{}とする。
+\vspace{1.5em}
+
+\begin{techniquebox}{\textbf{数の性質}}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.62\linewidth}@{\quad$\Longrightarrow$\quad}l@{}}
+    \textbf{偶数} は\fitblankbf[2の倍数]{}である & \fitblankbf[2n]{} \\[0.35em]
+    \textbf{奇数} は\fitblankbf[偶数]{}に隣り合う数である & \fitblankbf[2n+1,\ (2n-1)]{} \\[0.35em]
+    \textbf{3で割ると1余る数} は(割られる数) $=$ (割る数) $\times$ (商) $+$ (余り) から & \fitblankbf[3n+1]{} \\[0.35em]
+    \textbf{連続する２つの整数} はそれらが隣り合っていることから & \fitblankbf[n,\ n+1]{} \\[0.35em]
+    \textbf{連続する3つの整数} はそれらが隣り合っていることから & \fitblankbf[n-1,\ n,\ n+1]{} \\[0.35em]
+    \textbf{2桁の整数} は十の位の数を $a$ 、一の位の数を $b$ とすると & \fitblankbf[10a+b]{} \\[0.35em]
+    \textbf{3桁の整数} は百の位の数を $a$ 、十の位の数を $b$ 、一の位の数を $c$ とすると & \fitblankbf[100a+10b+c]{} \\[0.35em]
+  \end{tabular}
+\end{techniquebox}
+
+次のものは証明も現段階で可能だが、使う頻度が高いため、覚えておくと良い。
+
+\begin{techniquebox}{\textbf{倍数の判定法}}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.62\linewidth}@{\quad$\Longrightarrow$\quad}l@{}}
+    \textbf{各位の和が3の倍数} & 数全体が \fitblankbf[3の倍数]{} \\[0.35em]
+    \textbf{一の位が0または5}  & 数全体が \fitblankbf[5の倍数]{} \\[0.35em]
+    \textbf{各位の和が9の倍数}  & 数全体が \fitblankbf[9の倍数]{} \\[0.35em]
+  \end{tabular}
+\end{techniquebox}
+
+\newpage
+
+次に、\fitblankbf[図形の性質]{}を表す式について確認しておこう。
+
+\begin{techniquebox}{\textbf{図形の性質}}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.62\linewidth}@{\quad$\Longrightarrow$\quad}l@{}}
+    縦が $a$,横が $b$ の \textbf{長方形の周の長さ} は & \fitblankbf[2(a+b)]{} \\[0.35em]
+    半径が $r$ の textbf{円の周の長さ} は & \fitblankbf[2\pi r]{} \\[0.35em]
+    全体の長さが $a$ である一部分の長さが$x$ のとき, \textbf{残りの長さ} は & \fitblankbf[a-x]{} \\[0.35em]
+  \end{tabular}
+\end{techniquebox}
