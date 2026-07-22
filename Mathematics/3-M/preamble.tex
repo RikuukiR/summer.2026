@@ -51,6 +51,12 @@
 \usepackage[normalem]{ulem} % 下線用
 \usepackage{stackengine} % 追加
 
+% 文中の波線強調（分数など：波線を分数の直下に近づけて表示）
+\newcommand{\uwaveemph}[1]{%
+  \setbox0=\hbox{#1}%
+  \stackunder[1pt]{\box0}{\uwave{\rule{\wd0}{0pt}}}%
+}
+
 % 丸囲み文字コマンド
 \newcommand{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
 
@@ -417,6 +423,26 @@
     fonttitle=\bfseries,
     code={\refstepcounter{technique}\if\relax\detokenize{#1}\relax\else\label{#1}\fi},
     title={Technique \thetechnique\if\relax\detokenize{#2}\relax\else\quad\textbf{#2}\fi}
+}
+
+% techniquebox 内の番号付き行（tabular + 矢印揃え）
+% 使用法:
+%   \begin{techniquetable}[左列幅]
+%     \techniquerow{説明}{式}
+%   \end{techniquetable}
+\newcounter{techniquerow}
+\newcommand{\techniquetablestretch}{1}
+\newcommand{\techniquetablesetup}[1]{\renewcommand{\techniquetablestretch}{#1}}
+\newenvironment{techniquetable}[1][0.58\linewidth]{%
+  \setcounter{techniquerow}{0}%
+  \renewcommand{\arraystretch}{\techniquetablestretch}%
+  \begin{tabular}{@{}c@{}>{\raggedright\arraybackslash}p{#1}@{\hspace{0.5em}}c@{\hspace{0.5em}}l@{}}%
+}{%
+  \end{tabular}%
+}
+\newcommand{\techniquerow}[2]{%
+  \stepcounter{techniquerow}%
+  （\arabic{techniquerow}） & #1 & $\Longrightarrow$ & #2 \\[0.35em]%
 }
 
 % ========================================

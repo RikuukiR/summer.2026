@@ -1,5 +1,5 @@
 % !TeX root = ../main.tex
-\subsection{式の計算の利用問題について}
+\subsection{式の計算の利用の問題について}
 
 式の計算の利用における証明問題はせいぜい、\fitblankbf[3パターン]{}程度である。それは、
 
@@ -16,38 +16,273 @@
 まずは、もっとも基本となる\fitblankbf[数の性質]{}を表す式について確認しておこう。
 
 ただし、以下 $n, m, a, b, c$ は\fitblankbf[整数]{}とする。
-\vspace{1.5em}
+\vspace{1em}
 
 \begin{techniquebox}{\textbf{数の性質}}
-  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.62\linewidth}@{\quad$\Longrightarrow$\quad}l@{}}
-    \textbf{偶数} は\fitblankbf[2の倍数]{}である & \fitblankbf[2n]{} \\[0.35em]
-    \textbf{奇数} は\fitblankbf[偶数]{}に隣り合う数である & \fitblankbf[2n+1,\ (2n-1)]{} \\[0.35em]
-    \textbf{3で割ると1余る数} は(割られる数) $=$ (割る数) $\times$ (商) $+$ (余り) から & \fitblankbf[3n+1]{} \\[0.35em]
-    \textbf{連続する２つの整数} はそれらが隣り合っていることから & \fitblankbf[n,\ n+1]{} \\[0.35em]
-    \textbf{連続する3つの整数} はそれらが隣り合っていることから & \fitblankbf[n-1,\ n,\ n+1]{} \\[0.35em]
-    \textbf{2桁の整数} は十の位の数を $a$ 、一の位の数を $b$ とすると & \fitblankbf[10a+b]{} \\[0.35em]
-    \textbf{3桁の整数} は百の位の数を $a$ 、十の位の数を $b$ 、一の位の数を $c$ とすると & \fitblankbf[100a+10b+c]{} \\[0.35em]
-  \end{tabular}
+    \label{techniquebox:数の性質}
+  \begin{techniquetable}
+    \techniquerow{\textbf{偶数} は\fitblankbf[2の倍数]{}であることから}{\fitblankbf[2n]{}}
+    \techniquerow{\textbf{奇数} は\fitblankbf[偶数]{}に隣り合う数であることから}{\fitblankbf[2n+1,\ (2n-1)]{}}
+    \techniquerow{\textbf{3で割ると1余る数} は(割られる数) $=$ (割る数) $\times$ (商) $+$ (余り)}{\fitblankbf[3n+1]{}}
+    \techniquerow{\textbf{連続する２つの整数} はそれらが隣り合っていることから}{\fitblankbf[n,\ n+1]{}}
+    \techniquerow{\textbf{連続する3つの整数} はそれらが隣り合っていることから}{\fitblankbf[n-1,\ n,\ n+1]{}}
+    \techniquerow{\textbf{2桁の整数} は十の位の数を $a$ 、一の位の数を $b$}{\fitblankbf[10a+b]{}}
+    \techniquerow{\textbf{3桁の整数} は百の位の数を $a$ 、十の位の数を $b$ 、一の位の数を $c$}{\fitblankbf[100a+10b+c]{}}
+  \end{techniquetable}
 \end{techniquebox}
 
 次のものは証明も現段階で可能だが、使う頻度が高いため、覚えておくと良い。
 
 \begin{techniquebox}{\textbf{倍数の判定法}}
-  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.62\linewidth}@{\quad$\Longrightarrow$\quad}l@{}}
-    \textbf{各位の和が3の倍数} & 数全体が \fitblankbf[3の倍数]{} \\[0.35em]
-    \textbf{一の位が0または5}  & 数全体が \fitblankbf[5の倍数]{} \\[0.35em]
-    \textbf{各位の和が9の倍数}  & 数全体が \fitblankbf[9の倍数]{} \\[0.35em]
-  \end{tabular}
+    \label{techniquebox:倍数の判定法}
+  \begin{techniquetable}[11.5em]
+    \techniquerow{\textbf{各位の和が3の倍数}}{数全体が \fitblankbf[3の倍数]{}}
+    \techniquerow{\textbf{一の位が0または5}}{数全体が \fitblankbf[5の倍数]{}}
+    \techniquerow{\textbf{各位の和が9の倍数}}{数全体が \fitblankbf[9の倍数]{}}
+  \end{techniquetable}
 \end{techniquebox}
+\newpage
+
+% 例題1
+\begin{example}[1]
+   連続する2つの奇数の和は4で割り切れることを証明しなさい。
+\end{example}
+\vspace{-3.5em}
+
+\begin{proof}\mbox{}\\
+    証明を書き始める前に、題意を読み取り、方針を確定させておこう。
+
+    今回の主役は「\fitblankbf[連続する2つの奇数]{}」である。連続することから、\fitblankbf[1種類]{}の文字を使う必要がある。
+
+    また、結論は「\fitblankbf[4で割り切れること]{}」である。したがって、最終的に1種類文字を使って \uwave{$4 \times \text{(整数)}$} の形になることを示せば良い。
+\vspace{1.5em}
+
+  \begin{hiddenanswer}
+    連続する2つの奇数を $2n-1,\ 2n+1$ とする。($n$ は整数)
+
+    このとき、これらの和は
+    \[2n-1 + 2n+1 = 4n\]
+
+\vspace{1em}
+    $n$ は整数であるから、$4n$ は4で割り切れる。
+
+    よって、連続する2つの奇数の和は4で割り切れる。
+  \end{hiddenanswer}
+\end{proof}
+
+% 例題2
+\begin{example}[2]
+  % 問題文を追加
+\end{example}
+
+\begin{proof}\mbox{}\\
+  \begin{hiddenanswer}
+    % 解答を追加
+  \end{hiddenanswer}
+\end{proof}
+
+\newpage
+
+% 練習1
+\begin{exercise}[1]
+  $a, b$ は1けたの自然数で $a > b$ とする。$M$ は4けたの自然数で,千と百の位の数は $a$ で,十と一の位の数は $b$ とする。
+  次に $N$ は4けたの自然数で,千と百の位の数は $b$ で,十と一の位の数は $a$ とする。さらに, $P = M - N$ とする。
+
+  (1) $P$ の一の位の数を $a, b$ で表しなさい。
+
+  (2) $P$ の十の位の数を $a, b$ で表しなさい。
+
+  (3) $P$ の各位の数の和が18になることを,文字を使って説明しなさい。
+\end{exercise}
+
+\begin{proof}\mbox{}\\
+  \begin{hiddenanswer}
+    $M - N$ を筆算で考えると，次のようになる。
+
+    \begin{center}
+    \begin{tikzpicture}[
+      x=0.21\textwidth, y=1.9em,
+      every node/.style={inner sep=4pt}
+    ]
+      \foreach \x in {-0.5, 0.5, 1.5, 2.5, 3.5} {
+        \draw[dashed, gray!70] (\x, -1.4) -- (\x, 3.2);
+      }
+
+      \node (ba1) at (1, 3.6) {$\textstyle\boxed{a-1}$};
+      \node (bb1) at (2, 3.6) {$\textstyle\boxed{b-1}$};
+
+      \node[align=left, font=\small] at (4.05, 3.6) {くり下がりにより\\1 小さくなる};
+      \draw[->] (3.35, 3.6) -- (bb1.east);
+
+      \node at (0, 1.5) {$\textstyle a$};
+      \node (ma1) at (1, 1.5) {$\textstyle a$};
+      \draw ([xshift=-2pt,yshift=2pt]ma1.north east) -- ([xshift=2pt,yshift=-2pt]ma1.south west);
+      \node (mb2) at (2, 1.5) {$\textstyle b$};
+      \draw ([xshift=-2pt,yshift=2pt]mb2.north east) -- ([xshift=2pt,yshift=-2pt]mb2.south west);
+      \node at (3, 1.5) {$\textstyle b$};
+
+      \node at (-0.28, 0.4) {$\textstyle -)$};
+      \node at (0, 0.4) {$\textstyle b$};
+      \node at (1, 0.4) {$\textstyle b$};
+      \node at (2, 0.4) {$\textstyle a$};
+      \node at (3, 0.4) {$\textstyle a$};
+
+      \draw (-0.38, -0.15) -- (3.6, -0.15);
+
+      \node at (0, -1) {$\textstyle a-b$};
+      \node at (1, -1) {$\textstyle a-1-b$};
+      \node at (2, -1) {$\textstyle 10+b-1-a$};
+      \node at (3, -1) {$\textstyle 10+b-a$};
+    \end{tikzpicture}
+    \end{center}
+
+    (1) $b - a < 0$ であるから，$P$ の一の位の数は
+    \[10 + b - a = b - a + 10\]
+
+    (2) $\boxed{b-1} < a$ であるから，$P$ の十の位の数は
+    \[10 + b - 1 - a = b - a + 9\]
+
+    (3) $\boxed{a-1} \ge b$ であるから，$P$ の百の位の数は
+    \[a - 1 - b = a - b - 1\]
+
+    $a > b$ であるから，$P$ の千の位の数は
+    \[a - b\]
+
+    よって，$P$ の各位の数の和は
+    \[(a - b) + (a - b - 1) + (b - a + 9) + (b - a + 10) = 18\]
+  \end{hiddenanswer}
+\end{proof}
 
 \newpage
 
 次に、\fitblankbf[図形の性質]{}を表す式について確認しておこう。
 
+ただし、以下 $a, b, c, x, r, h$ は\fitblankbf[自然数]{}とする。
+
 \begin{techniquebox}{\textbf{図形の性質}}
-  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.62\linewidth}@{\quad$\Longrightarrow$\quad}l@{}}
-    縦が $a$,横が $b$ の \textbf{長方形の周の長さ} は & \fitblankbf[2(a+b)]{} \\[0.35em]
-    半径が $r$ の textbf{円の周の長さ} は & \fitblankbf[2\pi r]{} \\[0.35em]
-    全体の長さが $a$ である一部分の長さが$x$ のとき, \textbf{残りの長さ} は & \fitblankbf[a-x]{} \\[0.35em]
-  \end{tabular}
+    \label{techniquebox:図形の性質}
+  \begin{techniquetable}
+    \techniquerow{縦が $a$,横が $b$ の \textbf{長方形の周の長さ} は}{\fitblankbf[2(a+b)]{}}
+    \techniquerow{半径が $r$ の \textbf{円の周の長さ} は}{\fitblankbf[2\pi r]{}}
+    \techniquerow{全体の長さが $a$ である一部分の長さが$x$ のとき, \textbf{残りの長さ} は}{\fitblankbf[a-x]{}}
+  \end{techniquetable}
 \end{techniquebox}
+
+\begin{techniquebox}{\textbf{立体の体積}}
+    \label{techniquebox:立体の体積}
+  \techniquetablesetup{1.45}
+  \begin{techniquetable}
+    \techniquerow{縦が $a$,横が $b$ 、高さが $c$ の \textbf{直方体の体積} は}{\fitblankbf[abc]{}}
+    \techniquerow{半径が $r$ 、高さが $h$ の \textbf{円柱の体積} は}{\fitblankbf[\pi r^2 h]{}}
+    \techniquerow{半径が $r$ 、高さが $h$ の \textbf{円錐の体積} は}{\fitblankbf[\frac{1}{3}\pi r^2 h]{}}
+    \techniquerow{半径が $r$ の \textbf{球の体積} は}{\fitblankbf[\frac{4}{3}\pi r^3]{}}
+    \techniquerow{半径が $r$ の \textbf{球の表面積} は}{\fitblankbf[4\pi r^2]{}}
+  \end{techniquetable}
+  \techniquetablesetup{1}
+\end{techniquebox}
+
+そもそも、球以外の立体の体積は全て \fitblankbf[底面積]{} $\times$ \fitblankbf[高さ]{}$^{*}$で求められるため、暗記は\mbox{ナンセンス}である。
+
+ただし、上が尖っている立体ならば全体を \textbf{$\dfrac{1}{3}\text{倍}$} しなければならないことに注意は必要である。
+\vspace{-1em}
+
+% 例題3
+\begin{example}[3]
+  大きい円の半径が小さい円の半径の2倍であるとき,大きい円の面積は小さい円の面積の何倍であるかを求めなさい。
+\end{example}
+\vspace{-3em}
+
+\begin{proof}\mbox{}\\
+  解き始める前に、題意を読み取り、方針を確定させておこう。
+
+  今回の主役は「\fitblankbf[大きい円と小さい円の面積]{}」である。それぞれの半径の関係が与えられていることから、
+  \fitblankbf[1種類]{}の文字を使うことでそれぞれの面積を表すことができる。
+
+  また、結論は「\fitblankbf[大きい円の面積は小さい円の面積の何倍か]{}」を求めることである。
+
+  したがって、それぞれの円の面積を \fitblankbf[文字]{}で表し、その \uwave{比} を求めれば良い。
+\vspace{2em}
+
+  \begin{hiddenanswer}
+    小さい円の半径を $r$ とすると，大きい円の半径は $2r$ と表される。
+
+    このとき，小さい円の面積は $\pi r^2$
+
+    大きい円の面積は $\pi \times (2r)^2 = 4\pi r^2$
+
+    よって $4\pi r^2 \div \pi r^2 = 4$ であるから、大きい円の面積は小さい円の面積の4倍である。
+  \end{hiddenanswer}
+\end{proof}
+
+\vfill
+\noindent\rule{\textwidth}{0.4pt}
+
+\noindent
+$^{*}$ これは \textbf{積分} の考え方に基づいている。数学Ⅱ「微分法・積分法」を学習すると証明可能である。
+
+\newpage
+
+最後に、\fitblankbf[規則性]{}を表す式について確認しておこう。
+
+しかし、規則性の問題は Technique\ref{techniquebox:数の性質} や Technique\ref{techniquebox:図形の性質} のような決まった表し方があるわけではない。
+\uwave{それぞれの問題に合わせて}適切な表し方を考える必要がある。一応、考え方は示しておくことにする。
+
+\begin{techniquebox}{\textbf{規則性の考え方}}
+    \label{techniquebox:規則性の考え方}
+    規則性は、\fitblankbf[仮説]{}と\fitblankbf[検証]{}で見つける!
+\end{techniquebox}
+
+% 例題4
+\begin{example}[4]
+  % 問題文を追加
+\end{example}
+
+\begin{proof}\mbox{}\\
+  \begin{hiddenanswer}
+    % 解答を追加
+  \end{hiddenanswer}
+\end{proof}
+\newpage
+
+\subsection{式の計算の利用における証明問題の型}
+
+中学数学で学習する証明問題にはある程度の\uwave{型}が存在する。それは、式の証明であろうが、図形の証明であろうが存在する。
+
+ここでは、\uwave{式の証明の型} について確認しておこう。
+
+\begin{techniquebox}{\textbf{式の証明のstep}}
+    \label{techniquebox:式の証明のstep}
+  \begin{enumerate}
+    \item 題意を読み取り、必要な \fitblankbf[文字]{} を設定する \textbf{（一般性の確保）}
+    \item 結論から \uwave{逆算} し \fitblankbf[式変形]{} をする
+    \item 式変形で得られた新しい式を \fitblankbf[説明]{} する
+    \item \fitblankbf[結論]{} を写す
+  \end{enumerate}
+\end{techniquebox}
+\vspace{1em}
+
+具体的な問題を使って、その型を確認しておこう。
+
+% 例題5
+\begin{example}[5]
+    2つの偶数の和は偶数になることを証明しなさい。
+  \end{example}
+
+  \begin{proof}\mbox{}\\
+    証明を書き始める前に、題意を読み取り、方針を確定させておこう。
+
+    今回の主役は「\fitblankbf[2つの偶数]{}」である。これら２つの偶数に関連性はないことから、\fitblankbf[2種類]{}の文字を使う必要がある。
+
+    また、結論は「\fitblankbf[偶数になること]{}」である。したがって、最終的に2種類文字を使って \uwave{$2 \times \text{(整数)}$} の形になることを示せば良い。
+\vspace{1.5em}
+
+    (1) $2$ つの偶数を $\fitblankbf[2m,\ 2n]{}$ とする。($m,\ n$ は整数)
+
+    (2) このとき、これらの和は
+    \[2m + 2n = 2(m + n)\]
+
+\vspace{1em}
+    (3) $m + n$ は\fitblankbf[整数]{}であるから、$2(m + n)$ は\fitblankbf[偶数]{}である。
+
+    (4) よって、2つの偶数の和は偶数になる。
+  \end{proof}
