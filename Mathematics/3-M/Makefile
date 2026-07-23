@@ -29,7 +29,7 @@ endef
 
 %/main-book.pdf: %/main.pdf %/main.tex preamble.tex %/sections $(SHOWANSWER_STAMP)
 	@echo "=== Creating booklet PDF: $(@) ($$(cat $(SHOWANSWER_STAMP))) ==="
-	bash $(BOOKLET_SCRIPT) --pad $*/main.pdf $@
+	bash $(BOOKLET_SCRIPT) $*/main.pdf $@
 	@python3 scripts/verify-pdf-sync.py $*
 
 .PHONY: booklet booklet-only student teacher test-3
