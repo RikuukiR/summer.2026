@@ -47,3 +47,4 @@ python3 "${ROOT}/scripts/verify-pdf-sync.py"
 
 echo "=== 完了: main.pdf / main-book.pdf を更新しました ==="
 "${ROOT}/scripts/refresh-pdf.sh" "${ROOT}/main.pdf"
+"${ROOT}/scripts/refresh-pdf.sh" "${ROOT}/main-book.pdf"
