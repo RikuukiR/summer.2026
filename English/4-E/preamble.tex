@@ -350,7 +350,9 @@
 
 % definitionbox 内の例示（2列・・位置揃え）と 3×3 練習問題
 \newlength{\compareexwd}
-\setlength{\compareexwd}{0.44\linewidth}
+\newlength{\compareexgap}
+\setlength{\compareexwd}{0.48\linewidth}
+\setlength{\compareexgap}{0.04\linewidth}
 \newlength{\comparebulwd}
 \setlength{\comparebulwd}{1.1em}
 \newcommand{\comparecellshort}[2]{%
@@ -375,23 +377,24 @@
   \end{tabular}\endgroup
 }
 \newcommand{\compareexrow}[2]{%
-  \par\vspace{0.5em}%
+  \par\vspace{0.35em}%
   \noindent
-  \begin{minipage}[t]{\compareexwd}#1\end{minipage}\hfill
-  \begin{minipage}[t]{\compareexwd}#2\end{minipage}%
-  \par\vspace{0.25em}%
+  \begin{tabular}[t]{@{}p{\compareexwd}@{\hspace{\compareexgap}}p{\compareexwd}@{}}
+    #1 & #2 \\
+  \end{tabular}%
+  \par\vspace{0.15em}%
 }
 \newlength{\praccolwd}
 \setlength{\praccolwd}{0.31\linewidth}
 \newcommand{\dialogueblankprac}[1]{%
-  \par\vspace{0.08em}%
+  \par\vspace{0.1em}%
   \noindent
   \ifshowanswer
     \underline{\makebox[\linewidth][l]{\hspace{0.5em}{\color{blue}\small #1}\hspace{0.5em}}}%
   \else
     \underline{\makebox[\linewidth][l]{\hspace{0.5em}{\small\phantom{#1}}\hspace{0.5em}}}%
   \fi
-  \par\vspace{0.12em}%
+  \par\vspace{0.14em}%
 }
 \newcommand{\praccell}[3]{%
   \begin{minipage}[t]{\praccolwd}
@@ -403,6 +406,16 @@
 }
 \newcommand{\pracrow}[3]{%
   \noindent #1\hfill#2\hfill#3\par
+}
+
+% 定理環境内：英文と日本語訳を1行（日本語は右寄せ）
+\newcommand{\theoremline}[2]{%
+  \noindent #1 \hfill #2\par
+}
+% 定理環境内の日本語訳（「」『』）を右寄せ（2行目用）
+\newcommand{\theoremmeaning}[1]{%
+  \par\vspace{0.12em}%
+  \begin{flushright}#1\end{flushright}%
 }
 
 \newcommand{\fitblankfixed}[2][\relax]{%
@@ -512,6 +525,7 @@
     sharp corners,
     left=10pt, right=10pt, top=8pt, bottom=8pt,
     fonttitle=\bfseries,
+    fontupper=\bfseries,
     code={\refstepcounter{theorem}\if\relax\detokenize{#1}\relax\else\label{#1}\fi}, % #1が空でない場合のみラベル設定
     title={Theorem \thetheorem\if\relax\detokenize{#2}\relax\else\quad\textbf{#2}\fi}
 }
