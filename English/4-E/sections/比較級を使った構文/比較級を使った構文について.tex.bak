@@ -25,21 +25,21 @@
     \end{theorembox}
 
 \subsection{練習問題}
-    \begin{enumerate}[leftmargin=*, nosep, itemsep=0.25em]
+    \begin{enumerate}[leftmargin=*, nosep, itemsep=0.15em]
         \item 彼は私より背が高い。
-        \dialogueblankpractice{He is taller than me.}
+        \dialogueblank{He is taller than me.}
         \item This problem is easier than that one.
-        \dialogueblankpractice{この問題はあの問題より簡単だ。}
+        \dialogueblank{この問題はあの問題より簡単だ。}
         \item 私のかばんはあなたのよりずっと重い。
-        \dialogueblankpractice{My bag is much heavier than yours.}
+        \dialogueblank{My bag is much heavier than yours.}
         \item Riku is much smarter than any other person.
-        \dialogueblankpractice{リクは他の人よりはるかに頭がいい。}
+        \dialogueblank{リクは他の人よりはるかに頭がいい。}
         \item 2人のうち、彼女のほうが若い。
-        \dialogueblankpractice{She is the younger of the two.}
+        \dialogueblank{She is the younger of the two.}
         \item This one is the newer of the two books.
-        \dialogueblankpractice{この2冊のうち、こちらのほうが新しい。}
+        \dialogueblank{この2冊のうち、こちらのほうが新しい。}
         \item サッカーと野球のうち、どちらがより人気がありますか。
-        \dialogueblankpractice{Which is more popular, soccer or baseball?}
+        \dialogueblank{Which is more popular, soccer or baseball?}
     \end{enumerate}
 
 \newpage

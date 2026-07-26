@@ -22,19 +22,19 @@
     ※副詞の最上級には \fitblankbf[]{the} を付けない場合もある。
 
 \subsection{練習問題}
-    \begin{enumerate}[leftmargin=*, nosep, itemsep=2.0em]
+    \begin{enumerate}[leftmargin=*, nosep, itemsep=0.65em]
         \item Mount Everest is the highest mountain in the world.
-        \dialogueblankpractice{エベレスト山は世界で一番高い山だ。}
+        \dialogueblank{エベレスト山は世界で一番高い山だ。}
         \item これは3つのうちで一番安い時計だ。
-        \dialogueblankpractice{This is the cheapest of the three watches.}
+        \dialogueblank{This is the cheapest of the three watches.}
         \item 彼は日本で最も有名な野球選手の1人だ。
-        \dialogueblankpractice{He is one of the most famous baseball players in Japan.}
+        \dialogueblank{He is one of the most famous baseball players in Japan.}
         \item 札幌は日本で5番目に大きな都市だ。
-        \dialogueblankpractice{Sapporo is the fifth largest city in Japan.}
+        \dialogueblank{Sapporo is the fifth largest city in Japan.}
         \item 彼はクラスの中で最も上手に英語を話す。
-        \dialogueblankpractice{He speaks English best in the class.}
+        \dialogueblank{He speaks English best in the class.}
         \item Which planet is the closest to the Sun?
-        \dialogueblankpractice{どの惑星が太陽に最も近いですか？}
+        \dialogueblank{どの惑星が太陽に最も近いですか？}
     \end{enumerate}
 
 \newpage

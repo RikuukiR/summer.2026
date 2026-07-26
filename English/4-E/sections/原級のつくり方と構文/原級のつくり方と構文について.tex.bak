@@ -1,0 +1,44 @@
+% !TeX root = ../../main.tex
+\subsection{原級のつくり方}\vspace{-0.2em}
+    原級は \fitblankbf[]{変化} させず\fitblankbf[]{as}と\fitblankbf[]{as}で 形容詞 [ 副詞 ] をはさむだけ。
+
+\subsection{原級を使った構文}\vspace{-0.4em}
+    \begin{theorembox}{\textbf{原級の基本構文}}
+        \theoremline{as + \fitblankbf[]{原級} + as + …}{「～と\fitblankbf[]{同じくらい}…」}
+    \end{theorembox}
+    \vspace{0.5em}
+
+    \begin{theorembox}{\textbf{〜 times as + 原級 + as + …}}
+        \theoremline{□ times as + 原級 + as + …}{「～の \fitblankbf[]{□倍} …」}
+    \end{theorembox}
+    \vspace{0.35em}
+
+    ※『2倍』のときは\fitblankbf[]{twice}(= two times)、『半分、$\dfrac{1}{2}$ 倍』のときは\fitblankbf[]{half}が使われることもある。
+    \vspace{0.5em}
+
+    \begin{theorembox}{\textbf{as + 原級 + as + 人 + can [ possible ]}}
+        \theoremline{as + 原級 + as + 人 + (\fitblankbf[]{can}) [ \fitblankbf[]{possible} ] 〜}{「\fitblankbf[]{できるだけ} ～」}
+    \end{theorembox}
+    \vspace{0.5em}
+
+    
+
+\subsection{練習問題}
+    \begin{enumerate}[leftmargin=*, nosep, itemsep=2.0em]
+        \item 彼は私と同じくらい速く泳げる。
+        \dialogueblank{He can swim as fast as me.}
+        \item My brother is as tall as my father.
+        \dialogueblank{私の兄は父と同じくらい背が高い。}
+        \item この部屋はあの部屋ほど広くない。
+        \dialogueblank{This room is not as large as that one.}
+        \item She doesn't run as fast as her sister.
+        \dialogueblank{彼女は姉ほど速く走らない。}
+        \item 東京は札幌の2倍大きい。
+        \dialogueblank{Tokyo is twice as large as Sapporo.}
+        \item This problem is three times as difficult as that one.
+        \dialogueblank{この問題はあの問題の3倍難しい。}
+        \item できるだけ大きな声で話してください。
+        \dialogueblank{Please speak as loudly as you can.}
+    \end{enumerate}
+
+\newpage
