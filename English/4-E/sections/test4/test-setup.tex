@@ -47,25 +47,21 @@
     「\testblankinline[#1]{#2}」%
   \fi
 }
-% 問5〜7向け：日本語空欄をやや大きく（1行・高さ拡大）
+% 問5〜7向け：日本語空欄をやや大きく
 \newcommand{\testjablankwide}[2][\relax]{%
   \par\vspace{0.08em}%
   \noindent
-  \ifx#1\relax
-    \ifshowanswer
+  \ifshowanswer
+    \ifx#1\relax
       「\testblankinline{#2}」%
     \else
-      「\underline{\makebox[#2][l]{\rule{0pt}{1.48\baselineskip}}}」%
+      「\underline{\makebox[#2][l]{{\color{blue}\textbf{#1}}}}」%
     \fi
   \else
-    \ifshowanswer
-      「\testblankinline[#1]{#2}」%
-    \else
-      「\underline{\makebox[#2][l]{\rule{0pt}{1.48\baselineskip}}}」%
-    \fi
+    「\underline{\makebox[#2][l]{\rule{0pt}{1.48\baselineskip}}}」%
   \fi
 }
-% 問5〜7向け：英文解答欄をやや大きく（1行・高さ拡大）
+% 問5〜7向け：英文解答欄をやや大きく
 \newcommand{\testblankwide}[2][\relax]{%
   \par\vspace{0.2em}%
   \noindent

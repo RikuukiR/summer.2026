@@ -1,6 +1,6 @@
 \input{test-setup.tex}
 
-% 復習テスト：1枚・小問間 \vfill で用紙を使い切る（確認テストと同設定）
+% 復習テスト：1枚・小問間 \vfill で用紙を使い切る（3-E 方式 + 問5〜7用余白調整）
 \linespread{1.0}\selectfont
 \setlength{\parskip}{0pt}
 \makeatletter
@@ -19,6 +19,6 @@
 \makeatother
 
 \begin{document}
-\enlargethispage{1\baselineskip}
+\ifshowanswer\else\enlargethispage{1\baselineskip}\fi
 \input{第4回 復習テスト.tex}
 \end{document}
