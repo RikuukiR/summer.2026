@@ -8,9 +8,9 @@
   \par\vspace{0.35em}%
   \noindent
   \ifshowanswer
-    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}}%
   \else
-    \underline{\makebox[#1][l]{\rule{0pt}{1.55\baselineskip}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{\rule{0pt}{1.55\baselineskip}}}}%
   \fi
 }
 % 小問間：最低余白を確保しつつ、残りを均等配分

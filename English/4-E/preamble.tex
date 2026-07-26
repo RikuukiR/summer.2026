@@ -219,9 +219,42 @@
 %   \fitblank[答え]{幅}      … 幅（em）を指定
 %   \fitblank{幅}            … 答えなしの空欄のみ
 \makeatletter
+% 下線の前後に半角スペース（読点・カンマ直後／直前は除く）
+\newif\iffitblank@afterpunct
+\fitblank@afterpunctfalse
+\chardef\fitblank@jcomma=12289
+\chardef\fitblank@commachar=44
+% カンマ直後に穴埋めを置くとき用（例：比較級\fitblankcomma\fitblankbf[]{...}）
+\newcommand{\fitblankcomma}{\global\fitblank@afterpuncttrue,}
+\newcommand{\fitblank@addprespace}{%
+  \iffitblank@afterpunct
+    \global\fitblank@afterpunctfalse
+  \else
+    \ %
+  \fi
+}
+\newcommand{\fitblank@addpostspace}{%
+  \futurelet\fitblank@nexttoken\fitblank@addpostspace@i
+}
+\newcommand{\fitblank@addpostspace@i}{%
+  \ifx\fitblank@nexttoken\fitblank@jcomma
+    \global\fitblank@afterpuncttrue
+  \else
+    \ifx\fitblank@nexttoken\fitblank@commachar
+      \global\fitblank@afterpuncttrue
+    \else
+      \ %
+    \fi
+  \fi
+}
+\newcommand{\fitblank@withspaces}[1]{%
+  \fitblank@addprespace
+  #1%
+  \fitblank@addpostspace
+}
 % 文中穴埋め（\fitblank[]{答え}）の下線：答えの幅 + 両側2em（計4文字分の余白）
 \newcommand{\fitblank@underlinewithpad}[1]{%
-  \underline{\hspace{2em}#1\hspace{2em}}%
+  \fitblank@withspaces{\underline{\hspace{2em}#1\hspace{2em}}}%
 }
 \newcommand{\fitblank@showinline}[1]{%
   \ifshowanswer
@@ -239,23 +272,23 @@
 }
 \newcommand{\fitblank@showwide}[1]{%
   \ifshowanswer
-    \underline{\hspace{3em}{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
+    \fitblank@withspaces{\underline{\hspace{3em}{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}}%
   \else
-    \underline{\hspace{3em}\phantom{\ensuremath{#1}}\hspace{3em}}%
+    \fitblank@withspaces{\underline{\hspace{3em}\phantom{\ensuremath{#1}}\hspace{3em}}}%
   \fi
 }
 \newcommand{\fitblank@showbfwide}[1]{%
   \ifshowanswer
-    \underline{\hspace{3em}{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
+    \fitblank@withspaces{\underline{\hspace{3em}{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}}%
   \else
-    \underline{\hspace{3em}\phantom{\ensuremath{#1}}\hspace{3em}}%
+    \fitblank@withspaces{\underline{\hspace{3em}\phantom{\ensuremath{#1}}\hspace{3em}}}%
   \fi
 }
 \newcommand{\fitblank@showwithwidth}[2]{%
   \ifshowanswer
-    \underline{\hspace{3em}\makebox[#2em][c]{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}%
+    \fitblank@withspaces{\underline{\hspace{3em}\makebox[#2em][c]{\color{blue}\ensuremath{\bm{#1}}}\hspace{3em}}}%
   \else
-    \underline{\hspace{3em}\makebox[#2em][c]{\phantom{\ensuremath{#1}}}\hspace{3em}}%
+    \fitblank@withspaces{\underline{\hspace{3em}\makebox[#2em][c]{\phantom{\ensuremath{#1}}}\hspace{3em}}}%
   \fi
 }
 \newcommand{\fitblank@resolve}[2]{%
@@ -286,14 +319,14 @@
 }
 \newcommand{\fitblank}[2][\relax]{%
   \ifx#1\relax
-    \underline{\hspace*{#2em}}%
+    \fitblank@withspaces{\underline{\hspace*{#2em}}}%
   \else
     \fitblank@resolve{#1}{#2}%
   \fi
 }
 \newcommand{\fitblankbf}[2][\relax]{%
   \ifx#1\relax
-    \underline{\hspace*{#2em}}%
+    \fitblank@withspaces{\underline{\hspace*{#2em}}}%
   \else
     \fitblank@resolvebf{#1}{#2}%
   \fi
@@ -301,9 +334,9 @@
 % 語順式の短いブロック用（a[an]・! など、同じ幅の下線）
 \newcommand{\fitblankbfshort}[1]{%
   \ifshowanswer
-    \underline{\makebox[4.6em][c]{{\color{blue}\textbf{#1}}}}%
+    \fitblank@withspaces{\underline{\makebox[4.6em][c]{{\color{blue}\textbf{#1}}}}}%
   \else
-    \underline{\makebox[4.6em][c]{\phantom{\textbf{#1}}}}%
+    \fitblank@withspaces{\underline{\makebox[4.6em][c]{\phantom{\textbf{#1}}}}}%
   \fi
 }
 % 定理ボックス内の語順式（tabular 1行）を1行に収める
@@ -319,16 +352,16 @@
 \newcommand{\dialogueblankwidth}{32em}
 \newcommand{\dialogueblank@print}[2]{%
   \ifshowanswer
-    \underline{\makebox[#1][l]{\hspace{2em}{\color{blue}#2}\hspace{2em}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{\hspace{2em}{\color{blue}#2}\hspace{2em}}}}%
   \else
-    \underline{\makebox[#1][l]{\hspace{2em}\phantom{#2}\hspace{2em}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{\hspace{2em}\phantom{#2}\hspace{2em}}}}%
   \fi
 }
 \newcommand{\dialogueblank@printcolumn}[2]{%
   \ifshowanswer
-    \underline{\makebox[#1][l]{\hspace{1em}{\color{blue}\small #2}\hspace{1em}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{\hspace{1em}{\color{blue}\small #2}\hspace{1em}}}}%
   \else
-    \underline{\makebox[#1][l]{\hspace{1em}{\small\phantom{#2}}\hspace{1em}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{\hspace{1em}{\small\phantom{#2}}\hspace{1em}}}}%
   \fi
 }
 \newcommand{\dialogueblank}[1]{%
@@ -379,7 +412,7 @@
   \begingroup\renewcommand{\arraystretch}{1.05}%
   \begin{tabular}[t]{@{}p{\comparebulwd}@{}p{\dimexpr\compareexwd-\comparebulwd\relax}@{}}
     \textbullet & #1 \\[0.12em]
-                 & \hspace{0.55em}#2 \\[0.2em]
+                 & \hspace{0.55em}\mbox{#2} \\[0.2em]
                  & \hspace{0.55em}$\longrightarrow$ #3 \\
   \end{tabular}\endgroup
 }
@@ -397,9 +430,9 @@
   \par\vspace{0.25em}%
   \noindent
   \ifshowanswer
-    \underline{\makebox[\linewidth][l]{\hspace{0.5em}{\color{blue}\small #1}\hspace{0.5em}}}%
+    \fitblank@withspaces{\underline{\makebox[\linewidth][l]{\hspace{0.5em}{\color{blue}\small #1}\hspace{0.5em}}}}%
   \else
-    \underline{\makebox[\linewidth][l]{\hspace{0.5em}{\small\phantom{#1}}\hspace{0.5em}}}%
+    \fitblank@withspaces{\underline{\makebox[\linewidth][l]{\hspace{0.5em}{\small\phantom{#1}}\hspace{0.5em}}}}%
   \fi
   \par\vspace{0.32em}%
 }
@@ -427,14 +460,14 @@
 
 \newcommand{\fitblankfixed}[2][\relax]{%
   \ifx#1\relax
-    \underline{\hspace*{#2em}}%
+    \fitblank@withspaces{\underline{\hspace*{#2em}}}%
   \else
     \fitblank@resolve{#1}{#2}%
   \fi
 }
 \newcommand{\fitblankblue}[2][\relax]{%
   \ifx#1\relax
-    \underline{\hspace*{#2em}}%
+    \fitblank@withspaces{\underline{\hspace*{#2em}}}%
   \else
     \def\fitblank@opt{#1}%
     \def\fitblank@mand{#2}%
@@ -453,9 +486,9 @@
         \fi
       \else
         \ifshowanswer
-          \textcolor{blue}{\underline{\makebox[#2em][c]{#1}}}%
+          \fitblank@withspaces{\textcolor{blue}{\underline{\makebox[#2em][c]{#1}}}}%
         \else
-          \underline{\hspace*{#2em}}%
+          \fitblank@withspaces{\underline{\hspace*{#2em}}}%
         \fi
       \fi
     \fi
@@ -463,7 +496,7 @@
 }
 \newcommand{\fitblankbfblue}[2][\relax]{%
   \ifx#1\relax
-    \underline{\hspace*{#2em}}%
+    \fitblank@withspaces{\underline{\hspace*{#2em}}}%
   \else
     \def\fitblank@opt{#1}%
     \def\fitblank@mand{#2}%
@@ -482,9 +515,9 @@
         \fi
       \else
         \ifshowanswer
-          \textcolor{blue}{\underline{\makebox[#2em][c]{\textbf{#1}}}}%
+          \fitblank@withspaces{\textcolor{blue}{\underline{\makebox[#2em][c]{\textbf{#1}}}}}%
         \else
-          \underline{\hspace*{#2em}}%
+          \fitblank@withspaces{\underline{\hspace*{#2em}}}%
         \fi
       \fi
     \fi

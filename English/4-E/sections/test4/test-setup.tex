@@ -14,9 +14,9 @@
   \par\vspace{0.4em}%
   \noindent
   \ifshowanswer
-    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}}%
   \else
-    \underline{\makebox[#1][l]{\rule{0pt}{1.55\baselineskip}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{\rule{0pt}{1.55\baselineskip}}}}%
   \fi
 }
 \newcommand{\testblank}[2][\relax]{%
@@ -28,13 +28,15 @@
 }
 \newcommand{\testblankinline}[2][\relax]{%
   \ifx#1\relax
-    \underline{\makebox[#2][l]{\rule{0pt}{1.35\baselineskip}}}%
+    \fitblank@withspaces{\underline{\makebox[#2][l]{\rule{0pt}{1.35\baselineskip}}}}%
   \else
     \ifshowanswer
-      \underline{\makebox[#2][l]{{\color{blue}\textbf{#1}}}}%
+      \fitblank@withspaces{\underline{\makebox[#2][l]{{\color{blue}\textbf{#1}}}}}%
     \else
-      \underline{\makebox[#2][l]{\rule{0pt}{1.35\baselineskip}}}%
+      \fitblank@withspaces{\underline{\makebox[#2][l]{\rule{0pt}{1.35\baselineskip}}}}%
     \fi
   \fi
 }
+\newcommand{\testnameblank}{\fitblank@withspaces{\underline{\hspace{14em}}}}
+\newcommand{\testscoreblank}{\fitblank@withspaces{\underline{\hspace{8em}}}}
 \makeatother

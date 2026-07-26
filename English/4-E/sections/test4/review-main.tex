@@ -7,9 +7,9 @@
   \par\vspace{0.3em}%
   \noindent
   \ifshowanswer
-    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}}%
   \else
-    \underline{\makebox[#1][l]{\rule{0pt}{1.4\baselineskip}}}%
+    \fitblank@withspaces{\underline{\makebox[#1][l]{\rule{0pt}{1.4\baselineskip}}}}%
   \fi
 }
 \newcommand{\testqsep}{\vfill}
