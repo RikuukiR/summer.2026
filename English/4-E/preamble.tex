@@ -370,12 +370,12 @@
   \noindent\hspace{\dialogueblankindent}%
   \dialogueblank@print{\dialogueblankwidth}{#1}%
 }
-% 練習問題用（空欄を埋めやすいよう上下余白を広げる）
+% 練習問題用（空欄を埋めやすいよう上下余白を広げる・下線は行幅いっぱい）
 \newcommand{\dialogueblankpractice}[1]{%
-  \par\vspace{0.3em}%
+  \par\vspace{0.28em}%
   \noindent\hspace{\dialogueblankindent}%
-  \dialogueblank@print{\dialogueblankwidth}{#1}%
-  \par\vspace{0.2em}%
+  \dialogueblank@print{\dimexpr\linewidth-\dialogueblankindent\relax}{#1}%
+  \par\vspace{0.18em}%
 }
 % 矢印の直後など、同じ行に続けて使う版
 \newcommand{\dialogueblankinline}[1]{%
@@ -428,14 +428,14 @@
 \newlength{\praccolwd}
 \setlength{\praccolwd}{0.31\linewidth}
 \newcommand{\dialogueblankprac}[1]{%
-  \par\vspace{0.25em}%
+  \par\vspace{0.2em}%
   \noindent
   \ifshowanswer
-    \fitblank@withspaces{\underline{\makebox[\linewidth][l]{\hspace{0.5em}{\color{blue}\small #1}\hspace{0.5em}}}}%
+    \fitblank@withspaces{\underline{\makebox[\linewidth][l]{\hspace{0.35em}{\color{blue}\small #1}\hspace{0.35em}}}}%
   \else
-    \fitblank@withspaces{\underline{\makebox[\linewidth][l]{\hspace{0.5em}{\small\phantom{#1}}\hspace{0.5em}}}}%
+    \fitblank@withspaces{\underline{\makebox[\linewidth][l]{\hspace{0.35em}{\small\phantom{#1}}\hspace{0.35em}}}}%
   \fi
-  \par\vspace{0.32em}%
+  \par\vspace{0.26em}%
 }
 \newcommand{\praccell}[3]{%
   \begin{minipage}[t]{\praccolwd}

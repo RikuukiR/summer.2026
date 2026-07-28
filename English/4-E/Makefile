@@ -40,7 +40,7 @@ $(SHOWANSWER_STAMP): preamble.tex
 BOOKLET_SCRIPT = ../../scripts/make-booklet-pdf.sh
 $(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP)
 	@echo "=== Creating booklet PDF ($$(cat $(SHOWANSWER_STAMP))) ==="
-	bash $(BOOKLET_SCRIPT) --pad $(PDF) $(BOOKLET)
+	bash $(BOOKLET_SCRIPT) --pad --no-crop $(PDF) $(BOOKLET)
 	@python3 scripts/verify-pdf-sync.py
 
 .PHONY: booklet booklet-only student teacher test-4
