@@ -144,23 +144,69 @@
   \vspace{1.5em}%
 }
 
-% 例題環境（枠付き）- 【】内の番号を使用
+% 例題・練習問題カウンター（section ごとに 1 からリセット）
+\newcounter{examplecounter}
+\newcounter{exercisecounter}
+\renewcommand{\theexamplecounter}{\thesection.\arabic{examplecounter}}
+\renewcommand{\theexercisecounter}{\thesection.\arabic{exercisecounter}}
+\numberwithin{examplecounter}{section}
+\numberwithin{exercisecounter}{section}
+
+% 練習問題：外側二重枠（タイトルは左上の線上）
+\newtcolorbox{exercisebox}[1]{
+  enhanced,
+  colback=white,
+  boxrule=0pt,
+  frame hidden,
+  borderline={0.8pt}{0pt}{black},
+  borderline={0.8pt}{2.5pt}{black},
+  sharp corners,
+  left=10pt,
+  right=10pt,
+  top=10pt,
+  bottom=8pt,
+  coltitle=black,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={
+    xshift=4mm,
+    yshift=-\dimexpr 0.8pt+1.25pt\relax,
+  },
+  boxed title style={
+    boxrule=0pt,
+    colback=white,
+    colframe=white,
+    coltitle=black,
+    sharp corners,
+    top=2pt,
+    bottom=2pt,
+    left=2mm,
+    right=2mm,
+  },
+}
+
+% 例題環境 - itembox（一重枠・タイトル横から枠線開始）
 \newenvironment{example}[1][\relax]{%
+  \refstepcounter{examplecounter}%
   \vspace{2em}%
   \begin{itembox}[l]{\textbf{例題}%
-  \ifx#1\relax\else~\textbf{#1}\fi}%
+  \ifx#1\relax~\textbf{\theexamplecounter}\else~\textbf{#1}\fi}%
 }{%
   \end{itembox}%
   \vspace{1.5em}%
 }
 
-% 練習問題環境（枠付き）- 【】内の番号を使用
+% 練習問題環境 - 外側二重枠
 \newenvironment{exercise}[1][\relax]{%
+  \refstepcounter{exercisecounter}%
   \vspace{2em}%
-  \begin{itembox}[l]{\textbf{練習問題}%
-  \ifx#1\relax\else~\textbf{#1}\fi}%
+  \ifx#1\relax
+    \begin{exercisebox}{\textbf{練習問題}~\textbf{\theexercisecounter}}%
+  \else
+    \begin{exercisebox}{\textbf{練習問題}~\textbf{#1}}%
+  \fi
 }{%
-  \end{itembox}%
+  \end{exercisebox}%
   \vspace{1.5em}%
 }
 
