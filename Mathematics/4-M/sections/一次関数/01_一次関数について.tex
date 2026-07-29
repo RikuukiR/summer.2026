@@ -1,28 +1,24 @@
 % !TeX root = ../../main.tex
-\subsection{一次関数について}
+\subsection{1次関数}
 
-2つの数量 $x$，$y$ があり，$y$ が $x$ の一次式で表されるとき，
+\begin{definitionbox}{\textbf{1次関数}}
+    \label{def:一次関数}
+    $y$ が $x$ の関数で，$y$ が $x$ の1次式で表されるとき、\textbf{$y$ は $x$ の1次関数である}という.
+    一般に、1次関数は次のように表される。
+    \[\fitblankbf[]{y = ax + b}^{*} \qquad (a, b \text{は定数},\quad a \neq 0)\]
 
-\[y = ax + b \qquad (a \neq 0)\]
+    \vspace{0.5em}
+    このとき、$a$ を\fitblankbf[]{傾き} あるいは \fitblankbf[]{変化の割合}, $b$ を\fitblankbf[]{切片} という.
 
-という関係が成り立つ.
-
-\begin{definitionbox}{\textbf{一次関数}}
-    $y$ が $x$ の一次式 $y = ax + b$（$a \neq 0$）で表される関数を\textbf{一次関数}という.
-    $a$ を\textbf{傾き}，$b$ を\textbf{切片}という.
+    \vspace{1.5em}
+    また、$a = \dfrac{\fitblankbox{y \text{の増加量}}}{\fitblankbox{x \text{の増加量}}}$ で求めることができる。
 \end{definitionbox}
 
-\begin{definitionbox}{\textbf{正比例との関係}}
-    一次関数 $y = ax + b$ において $b = 0$ のとき，$y = ax$ となり，これは\textbf{正比例}である.
-\end{definitionbox}
-
-\begin{theorembox}{\textbf{一次関数のグラフ}}
-    $y = ax + b$ のグラフは\textbf{直線}である.
+\begin{theorembox}{\textbf{1次関数のグラフ}}
+    一次関数：$y = ax + b$ のグラフは \fitblankbf[]{切片} を通る \fitblankbf[]{直線}である.
     \begin{enumerate}
-        \item $a > 0$ のとき，グラフは\textbf{右上がり}である.
-        \item $a < 0$ のとき，グラフは\textbf{右下がり}である.
-        \item 切片は $b$ である（$x = 0$ のとき $y = b$）.
-        \item $A \leqq x \leqq B$ のとき，$y$ の変域は $C \leqq y \leqq D$ となる.
+        \item $a > 0$ のとき，グラフは\fitblankbf[]{右上がり}である.
+        \item $a < 0$ のとき，グラフは\fitblankbf[]{右下がり}である.
     \end{enumerate}
 \end{theorembox}
 
@@ -38,5 +34,12 @@
         \finalanswer{答え：傾き $2$，切片 $-1$}
     \end{hiddenanswer}
 \end{proof}
+
+\vfill
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.2em}
+\noindent
+$^{*}$ $b = 0$ のとき $\bm{y = ax}$ となり，$y$ は $x$ に比例する.すなわち、比例は1次関数の \uwave{特別な場合} である.
 
 \newpage
