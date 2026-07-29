@@ -195,7 +195,7 @@
   \ifshowanswer%
     \par\vspace{1em}%
     \noindent\textbf{【別解】}\par%
-    {\color{blue}\BODY\par\hfill$\square$}%
+    {\color{blue}\BODY\par}%
     \vspace{1em}%
   \fi%
 }
@@ -508,6 +508,37 @@
       \textcolor{blue}{#1}%
     \else
       \phantom{#1}%
+    \fi
+    \hspace{3em}%
+  }%
+  \par
+}
+
+% 「答え：」と答えを一体にして右端から 3em 内側へ配置（「答え：」は縦位置を揃える）
+% 使い方: \alignedfinalanswer{$4$ 分後}
+\newsavebox{\alignedfinalanswermeasurebox}
+\savebox{\alignedfinalanswermeasurebox}{%
+  \begin{tabular}{@{}r@{\hspace{0.35em}}l@{}}%
+    答え： & 分速 $\dfrac{3}{2}\ \mathrm{cm}$%
+  \end{tabular}%
+}
+\newlength{\alignedfinalanswerwidth}
+\setlength{\alignedfinalanswerwidth}{\wd\alignedfinalanswermeasurebox}
+\newcommand{\alignedfinalanswerbox}[1]{%
+  \makebox[\alignedfinalanswerwidth][l]{%
+    \begin{tabular}{@{}r@{\hspace{0.35em}}l@{}}%
+      答え： & #1%
+    \end{tabular}%
+  }%
+}
+\newcommand{\alignedfinalanswer}[1]{%
+  \par\vspace{0.5em}%
+  \noindent\hbox to \linewidth{%
+    \hss
+    \ifshowanswer
+      \textcolor{blue}{\alignedfinalanswerbox{#1}}%
+    \else
+      \phantom{\alignedfinalanswerbox{分速 $1.5\ \mathrm{cm}$}}%
     \fi
     \hspace{3em}%
   }%
