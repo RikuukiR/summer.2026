@@ -544,22 +544,6 @@
   \fi
 }
 
-% 証明環境の右下用の最終回答（証明ブロック内・右端から 3em 内側）
-% 使い方: \finalanswer{答え：220円}
-\newcommand{\finalanswer}[1]{%
-  \par\vspace{0.5em}%
-  \noindent\hbox to \linewidth{%
-    \hss
-    \ifshowanswer
-      \textcolor{blue}{#1}%
-    \else
-      \phantom{#1}%
-    \fi
-    \hspace{3em}%
-  }%
-  \par
-}
-
 % 「答え：」と答えを一体にして右端から 3em 内側へ配置（「答え：」は縦位置を揃える）
 % 使い方: \alignedfinalanswer{$4$ 分後}
 \newsavebox{\alignedfinalanswermeasurebox}
@@ -589,6 +573,12 @@
     \hspace{3em}%
   }%
   \par
+}
+
+% 証明環境の右下用の最終回答（\alignedfinalanswer と同形式）
+% 使い方: \finalanswer{$y = 2x$}  ※「答え：」は自動付与
+\newcommand{\finalanswer}[1]{%
+  \alignedfinalanswer{#1}%
 }
 
 % 数式ブロック用（align環境など内部で使用）
