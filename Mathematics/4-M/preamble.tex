@@ -248,13 +248,24 @@
 
 % 証明環境内の隠し解答ブロック
 % 使い方: \begin{hiddenanswer} ... \end{hiddenanswer}
-% 空欄時: 改ページしない範囲で \vfill により手書きスペースを確保 + 白文字でレイアウト保持
+%         \begin{hiddenanswer}[fill] ... \end{hiddenanswer}  ※ページ最後の問題のみ
+% 空欄時: 白文字で解答と同じレイアウトを保持（ページ数を解答版と揃える）
+% [fill]: 空欄時のみ、改ページしない範囲で解答欄上に残りスペースを確保
 % 解答版: 青文字で表示（preamble の \showanswertrue で切り替え）
-\NewEnviron{hiddenanswer}{%
+\newcommand{\answerpagefill}{%
+  \ifshowanswer
+  \else
+    \par\vspace{0pt plus 1fill}%
+  \fi
+}
+\NewEnviron{hiddenanswer}[1][]{%
   \ifshowanswer
     {\color{blue}\BODY}%
   \else
-    \par\vfill
+    \def\hiddenanswer@opt{#1}%
+    \ifx\hiddenanswer@opt\fill
+      \answerpagefill
+    \fi
     {\color{white}\BODY}%
   \fi
 }

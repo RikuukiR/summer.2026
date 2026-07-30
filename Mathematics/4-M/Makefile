@@ -29,16 +29,28 @@ $(PDF): $(TEX) preamble.tex $(SECTIONS)
 $(SHOWANSWER_STAMP): preamble.tex
 	@grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' > $@
 
-# Booklet PDF (A3 print, 2-up, fold to A4 booklet)
+# Booklet PDF (A3 2-up, fold to A4 booklet)
+# 共通: scripts/make-booklet-pdf.sh --pad（短辺とじ・偶数シート回転）
+# 印刷: A3・両面・短辺とじ → 真ん中で二つ折り（プリンターの冊子印刷はオフ）
 BOOKLET_SCRIPT = ../../scripts/make-booklet-pdf.sh
-$(BOOKLET): $(PDF) $(SHOWANSWER_STAMP)
+$(BOOKLET): $(PDF) $(TEX) preamble.tex $(SECTIONS) $(SHOWANSWER_STAMP)
 	@echo "=== Creating booklet PDF ($$(cat $(SHOWANSWER_STAMP))) ==="
-	bash $(BOOKLET_SCRIPT) $(PDF) $(BOOKLET)
+	bash $(BOOKLET_SCRIPT) --pad --no-crop $(PDF) $(BOOKLET)
+	@python3 scripts/verify-pdf-sync.py
+	@rm -f .crop-tmp*.pdf
 
-.PHONY: booklet booklet-only
+.PHONY: booklet booklet-only student teacher
 booklet: $(BOOKLET)
 
 booklet-only: $(BOOKLET)
+
+student:
+	@perl -i -pe 's/^\\showanswertrue/\\showanswerfalse/' preamble.tex
+	@$(MAKE) -B all
+
+teacher:
+	@perl -i -pe 's/^\\showanswerfalse/\\showanswertrue/' preamble.tex
+	@$(MAKE) -B all
 
 # Auto-watch and compile on file changes
 watch:
@@ -95,6 +107,8 @@ help:
 	@echo "  rebuild     - Clean and rebuild"
 	@echo "  answer      - Create answer version"
 	@echo "  booklet     - Create booklet PDF (synced with \\showanswer)"
+	@echo "  student     - 生徒用（\\showanswerfalse）で PDF を生成"
+	@echo "  teacher     - 先生用（\\showanswertrue）で PDF を生成"
 	@echo "  help        - Show this help"
 
-.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet booklet-only help
+.PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet booklet-only student teacher help

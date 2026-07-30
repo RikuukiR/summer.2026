@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Fix punctuation: half-width outside problem env, Japanese inside example/exercise."""
+"""Fix punctuation and spacing across LaTeX sources.
+
+- Half-width comma outside example/exercise; Japanese comma inside.
+- After `,` / `、`, insert half-width space before the following character.
+- Add half-width space before/after underline commands (fitblank, Blank),
+  except immediately before punctuation (、，,).
+"""
 from __future__ import annotations
 
 import re
@@ -11,6 +17,24 @@ PROBLEM_RE = re.compile(
 TECH_LINE = re.compile(
     r'^\s*\\(?:begin\{tikzpicture|draw|fill|node|coordinate|tikzset|path|resizebox|begin\{enumerate)'
 )
+TIKZ_BLOCK_RE = re.compile(
+    r'\\begin\{tikzpicture\}.*?\\end\{tikzpicture\}',
+    re.DOTALL,
+)
+UNDERLINE_CMD_RE = re.compile(
+    r'\\(?:fitblank(?:bf|box|fixed|blue|bfblue)?|Blank)\b'
+)
+SKIP_AFTER_COMMA = (
+    '\\\\',
+    '\\quad',
+    '\\qquad',
+    '\\hspace',
+    '\\newline',
+    '\\item',
+    '\\[',
+)
+NO_SPACE_BEFORE_UNDERLINE = frozenset(' \t\n{[(\\$')
+NO_SPACE_AFTER_UNDERLINE = frozenset(' \t\n、，,。.!?）)」』$^_%\\{：:')
 
 
 def find_problem_regions(content: str) -> list[tuple[int, int]]:
@@ -126,6 +150,168 @@ def fix_technical_commas(content: str) -> str:
     return '\n'.join(lines)
 
 
+def skip_bracket_group(text: str, start: int) -> int:
+    if start >= len(text) or text[start] != '[':
+        return start
+    depth = 0
+    i = start
+    while i < len(text):
+        ch = text[i]
+        if ch == '\\':
+            i += 2
+            continue
+        if ch == '[':
+            depth += 1
+        elif ch == ']':
+            depth -= 1
+            if depth == 0:
+                return i + 1
+        i += 1
+    return len(text)
+
+
+def skip_brace_group(text: str, start: int) -> int:
+    if start >= len(text) or text[start] != '{':
+        return start
+    depth = 0
+    i = start
+    while i < len(text):
+        ch = text[i]
+        if ch == '\\':
+            i += 2
+            continue
+        if ch == '{':
+            depth += 1
+        elif ch == '}':
+            depth -= 1
+            if depth == 0:
+                return i + 1
+        i += 1
+    return len(text)
+
+
+def should_space_after_comma(text: str, pos: int) -> bool:
+    after = text[pos:]
+    if not after or after[0] in ' \t\n':
+        return False
+    for skip in SKIP_AFTER_COMMA:
+        if after.startswith(skip):
+            return False
+    return True
+
+
+def fix_comma_spacing(text: str) -> str:
+    out: list[str] = []
+    i = 0
+    while i < len(text):
+        ch = text[i]
+        if ch in ',、':
+            out.append(ch)
+            i += 1
+            if should_space_after_comma(text, i):
+                if i >= len(text) or text[i] != ' ':
+                    out.append(' ')
+            continue
+        out.append(ch)
+        i += 1
+    return ''.join(out)
+
+
+def fix_commas_in_split_parts(parts: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    fixed: list[tuple[str, str]] = []
+    for i, (kind, chunk) in enumerate(parts):
+        if kind != 'text':
+            fixed.append((kind, chunk))
+            continue
+        chunk = fix_comma_spacing(chunk)
+        if chunk and chunk[-1] in ',、':
+            if i + 1 < len(parts) and parts[i + 1][0] == 'math':
+                chunk += ' '
+        fixed.append(('text', chunk))
+    return fixed
+
+
+def fix_colon_after_underline(text: str) -> str:
+    """Remove space before full-width colon immediately after underline commands."""
+    out: list[str] = []
+    i = 0
+    n = len(text)
+    while i < n:
+        match = UNDERLINE_CMD_RE.match(text, i)
+        if not match:
+            out.append(text[i])
+            i += 1
+            continue
+        cmd_start = i
+        i = match.end()
+        if i < n and text[i] == '[':
+            i = skip_bracket_group(text, i)
+        while i < n and text[i] == '{':
+            i = skip_brace_group(text, i)
+        out.append(text[cmd_start:i])
+        if i < n and text[i] == ' ' and i + 1 < n and text[i + 1] == '：':
+            i += 1
+    return ''.join(out)
+
+
+def fix_underline_spacing(text: str) -> str:
+    out: list[str] = []
+    i = 0
+    n = len(text)
+    while i < n:
+        match = UNDERLINE_CMD_RE.match(text, i)
+        if not match:
+            out.append(text[i])
+            i += 1
+            continue
+
+        if out and out[-1] not in NO_SPACE_BEFORE_UNDERLINE:
+            out.append(' ')
+
+        cmd_start = i
+        i = match.end()
+        if i < n and text[i] == '[':
+            i = skip_bracket_group(text, i)
+        while i < n and text[i] == '{':
+            i = skip_brace_group(text, i)
+
+        out.append(text[cmd_start:i])
+
+        if i < n and text[i] not in NO_SPACE_AFTER_UNDERLINE:
+            out.append(' ')
+
+    return ''.join(out)
+
+
+def protect_tikz_blocks(content: str) -> tuple[str, list[str]]:
+    blocks: list[str] = []
+
+    def repl(match: re.Match[str]) -> str:
+        blocks.append(match.group(0))
+        return f'@@TIKZ{len(blocks) - 1}@@'
+
+    protected = TIKZ_BLOCK_RE.sub(repl, content)
+    return protected, blocks
+
+
+def restore_tikz_blocks(content: str, blocks: list[str]) -> str:
+    for idx, block in enumerate(blocks):
+        content = content.replace(f'@@TIKZ{idx}@@', block)
+    return content
+
+
+def apply_spacing(content: str) -> str:
+    protected, blocks = protect_tikz_blocks(content)
+    parts = fix_commas_in_split_parts(split_math(protected))
+    out: list[str] = []
+    for kind, chunk in parts:
+        if kind == 'math':
+            out.append(chunk)
+        else:
+            out.append(fix_colon_after_underline(fix_underline_spacing(chunk)))
+    return restore_tikz_blocks(''.join(out), blocks)
+
+
 def main() -> None:
     root = Path(__file__).resolve().parent.parent
     targets = list((root / 'sections').rglob('*.tex')) + [root / 'main.tex']
@@ -134,7 +320,7 @@ def main() -> None:
         if not path.exists():
             continue
         original = path.read_text(encoding='utf-8')
-        updated = fix_technical_commas(process_content(original))
+        updated = apply_spacing(fix_technical_commas(process_content(original)))
         if updated != original:
             path.write_text(updated, encoding='utf-8')
             print(f'updated: {path.relative_to(root)}')

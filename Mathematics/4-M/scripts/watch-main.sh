@@ -4,6 +4,7 @@ set -u
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PDF="${ROOT}/main.pdf"
+BOOK="${ROOT}/main-book.pdf"
 
 build() {
   local before after
@@ -30,6 +31,7 @@ if [ "$build_status" -eq 1 ]; then
 fi
 
 "${ROOT}/scripts/refresh-pdf.sh" "$PDF"
+[ -f "$BOOK" ] && "${ROOT}/scripts/refresh-pdf.sh" "$BOOK"
 
 echo ""
 if [ -d "/Applications/Skim.app" ]; then
