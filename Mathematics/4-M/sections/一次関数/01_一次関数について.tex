@@ -13,25 +13,49 @@
     \vspace{1.5em}
     また、$a = \dfrac{\fitblankbox{y \text{の増加量}}}{\fitblankbox{x \text{の増加量}}}$ で求めることができる。
 \end{definitionbox}
+\vspace{-2.5em}
 
-\begin{theorembox}{\textbf{1次関数のグラフ}}
-    一次関数：$y = ax + b$ のグラフは \fitblankbf[]{切片} を通る \fitblankbf[]{直線}である.
-    \begin{enumerate}
-        \item $a > 0$ のとき，グラフは\fitblankbf[]{右上がり}である.
-        \item $a < 0$ のとき，グラフは\fitblankbf[]{右下がり}である.
-    \end{enumerate}
-\end{theorembox}
-
+% 例題3.1
 \begin{example}
-    一次関数 $y = 2x - 1$ について，傾きと切片を求めなさい.
+    グラフの傾きが $3$ で，点 $(-1,\ 5)$ を通る直線の式を求めなさい。
+\end{example}
+
+\vspace{-1.5em}
+\begin{proof}\mbox{}\\
+    傾きが $3$ であるから，直線の式は次のように表すことができる。
+    \[y = 3x + b\]
+
+    \begin{hiddenanswer}
+        $x = -1$, $y = 5$ をこの式に代入すると
+        \begin{align*}
+            5 &= 3 \times (-1) + b \\
+            b &= 8
+        \end{align*}
+        よって $y = 3x + 8$
+        \finalanswer{答え：$y = 3x + 8$}
+    \end{hiddenanswer}
+\end{proof}
+\vspace{-2em}
+
+% 例題3.2
+\begin{example}
+    $2$ 点 $(-5,\ 6)$, $(3,\ -2)$ を通る直線の式を求めなさい。
 \end{example}
 
 \begin{proof}\mbox{}\\
-    $y = ax + b$ の形にそろえて読み取る.
+    直線の傾きは $\dfrac{-2 - 6}{3 - (-5)} = -1$
+
+    \vspace{0.5em}
+    よって，直線の式は $y = -x + b$
 
     \begin{hiddenanswer}
-        傾きは $a = 2$，切片は $b = -1$ である.
-        \finalanswer{答え：傾き $2$，切片 $-1$}
+        $x = -5$, $y = 6$ をこの式に代入すると
+        \begin{align*}
+            6 &= -1 \times (-5) + b \\
+            b &= 1
+        \end{align*}
+        よって $y = -x + 1$
+        \finalanswer{答え：$y = -x + 1$}
     \end{hiddenanswer}
 \end{proof}
 
@@ -43,3 +67,279 @@
 $^{*}$ $b = 0$ のとき $\bm{y = ax}$ となり，$y$ は $x$ に比例する.すなわち、比例は1次関数の \uwave{特別な場合} である.
 
 \newpage
+
+\begin{theorembox}{\textbf{1次関数のグラフ}}
+    一次関数：$y = ax + b$ のグラフは \fitblankbf[]{切片} を通る \fitblankbf[]{直線}である.
+    \begin{enumerate}
+        \item $a > 0$ のとき，グラフは\fitblankbf[]{右上がり}である.
+        \item $a < 0$ のとき，グラフは\fitblankbf[]{右下がり}である.
+    \end{enumerate}
+\end{theorembox}
+
+\vspace{-2.5em}
+% 例題3.3
+\begin{example}
+    グラフが下の図のような直線になる $1$ 次関数の式をそれぞれ求めなさい。
+
+    \vspace{-0.3em}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.36, x=1cm, y=1cm]
+        \tikzset{
+            gline/.style={semithick},
+        }
+
+        % 格子
+        \draw[step=1, gray!40, very thin] (-7,-7) grid (7,7);
+
+        % 座標軸
+        \draw[thick] (-7,0) -- (7,0) node[right] {$x$};
+        \draw[thick] (0,-7) -- (0,7) node[above] {$y$};
+        \node[anchor=north east] at (-0.15,-0.15) {$O$};
+        \node[anchor=north] at (5,0) {$5$};
+        \node[anchor=north] at (-5,0) {$-5$};
+        \node[anchor=west] at (0,5) {$5$};
+        \node[anchor=east] at (0,-5) {$-5$};
+
+        % (1) y = -3x + 3
+        \draw[gline] ({-4/3},7) -- ({10/3},-7);
+        \draw[dotted] (1,0) -- (1,3) -- (0,3);
+        \fill (1,0) circle (1.4pt);
+        \fill (0,3) circle (1.4pt);
+        \node[anchor=west] at (3.5,-6.5) {{\small（1）}};
+
+        % (2) y = x + 2
+        \draw[gline] (-7,-5) -- (5,7);
+        \draw[dotted] (-2,0) -- (-2,2) -- (0,2);
+        \fill (-2,0) circle (1.4pt);
+        \fill (0,2) circle (1.4pt);
+        \node[anchor=west] at (5,6.5) {{\small（2）}};
+    \end{tikzpicture}
+    \end{center}
+    \vspace{-0.5em}
+\end{example}
+
+\vspace{-2em}
+\begin{proof}\mbox{}\\
+    \begin{hiddenanswer}
+        （1）点 $(0,\ 3)$ を通るから，切片は $3$
+
+        点 $(1,\ 0)$ も通るから，傾きは $\dfrac{0 - 3}{1 - 0} = \dfrac{-3}{1} = -3$
+
+        よって $y = -3x + 3$
+        \finalanswer{（1）$y = -3x + 3$}
+
+        （2）割愛
+        \finalanswer{（2）$y = x + 2$}
+    \end{hiddenanswer}
+\end{proof}
+
+\vspace{-2em}
+% 例題3.4
+\begin{example}
+    直線 $l$, $m$ が，それぞれ次の式で表されるとき，$l$, $m$ の交点の座標を求めなさい。
+
+        \[l: y = 3x + 5,\ m: y = -x + 3\]
+\end{example}
+
+\vspace{-2em}
+\begin{proof}\mbox{}\\
+    \begin{hiddenanswer}
+        \[
+        \begin{cases}
+            y = 3x + 5 \\
+            y = -x + 3
+        \end{cases}
+        \]
+        を解くと
+        \[x = -\dfrac{1}{2},\ y = \dfrac{7}{2}\]
+
+        よって，$l$, $m$ の交点の座標は $\left(-\dfrac{1}{2},\ \dfrac{7}{2}\right)$
+        \finalanswer{答え：$\left(-\dfrac{1}{2},\ \dfrac{7}{2}\right)$}
+    \end{hiddenanswer}
+\end{proof}
+\newpage
+
+% 練習問題3.1
+\begin{exercise}
+    \noindent
+    \begin{tabular}[t]{@{}p{0.50\linewidth}@{\hspace{1.2em}}p{0.44\linewidth}@{}}
+    \vspace{0pt}
+    右の図のように，直線 $y = \dfrac{1}{3}x + 4$ が $y$ 軸と点 A で交わっている。この直線と直線 $y = x$ の交点を P とする。
+    \vspace{0.5em}
+
+    \begin{enumerate}[label=(\arabic*), leftmargin=1.8em, itemsep=0.3em, topsep=0.2em, parsep=0pt]
+        \item 点 P の座標を求めなさい。
+        \item 点 O を通り，$\triangle OAP$ の面積を $2$ 等分する直線の式を求めなさい。
+    \end{enumerate}
+    &
+    \begin{minipage}[t]{\linewidth}
+    \vspace{0pt}
+    \centering
+    \begin{tikzpicture}[scale=0.48, x=1.25cm, y=1.25cm]
+        \tikzset{
+            gline/.style={semithick},
+        }
+
+        % 格子
+        \draw[step=1, gray!40, very thin] (0,0) grid (8,8);
+
+        % 座標軸
+        \draw[thick, ->] (0,0) -- (8.5,0) node[right] {$x$};
+        \draw[thick, ->] (0,0) -- (0,8.5) node[above] {$y$};
+        \node[anchor=north east] at (-0.12,-0.12) {$O$};
+
+        % △OAP
+        \fill[pattern=dots, pattern color=gray!55] (0,0) -- (0,4) -- (6,6) -- cycle;
+
+        % 直線
+        \draw[gline] (0,4) -- (8,{8/3+4});
+        \draw[gline] (0,0) -- (8,8);
+
+        % 点・ラベル
+        \node[anchor=east] at (-0.15,4) {$A$};
+        \node[anchor=south west] at (5.5,5) {$P$};
+        \node at (3.5,2) {$y = x$};
+        \node[anchor=west] at (0.8,6) {$y = \dfrac{1}{3}x + 4$};
+
+        % 交点・切片（最前面）
+        \fill (0,4) circle (2pt);
+        \fill (6,6) circle (2pt);
+    \end{tikzpicture}
+    \end{minipage}
+    \end{tabular}
+\end{exercise}
+
+\begin{proof}\mbox{}\\
+    \begin{hiddenanswer}
+        （1）連立方程式
+        \[
+        \begin{cases}
+            y = \dfrac{1}{3}x + 4 \\
+            y = x
+        \end{cases}
+        \]
+        を解くと $x = 6$, $y = 6$
+
+        よって，点 $P$ の座標は $(6,\ 6)$
+        \finalanswer{（1）$(6,\ 6)$}
+
+        （2）点 O を通り，$\triangle OAP$ の面積を $2$ 等分する直線は，線分 AP の中点を通る。
+
+        線分 AP の中点を $M$ とすると，$M$ の座標は
+        \[\dfrac{0 + 6}{2} = 3,\ \dfrac{4 + 6}{2} = 5\]
+        より $M$ の座標は $(3,\ 5)$
+
+        よって，直線 OM の傾きは $\dfrac{5}{3}$ であるから，求める直線の式は $y = \dfrac{5}{3}x$
+        \finalanswer{（2）$y = \dfrac{5}{3}x$}
+    \end{hiddenanswer}
+\end{proof}
+
+\newpage
+
+% 練習問題3.2
+\begin{exercise}
+    \noindent
+    \begin{tabular}[t]{@{}p{0.50\linewidth}@{\hspace{1em}}p{0.44\linewidth}@{}}
+    \vspace{0pt}
+    $\mathrm{AB} = 3\ \mathrm{cm}$，$\mathrm{BC} = 4\ \mathrm{cm}$ である長方形 $\mathrm{ABCD}$ の周上を，頂点 A から毎秒 $1\ \mathrm{cm}$ の速さで，点 D を通り点 C まで動く点 P がある。P が頂点 A を出発してから $x$ 秒後の四角形 $\mathrm{ABCP}$ の面積を $y\ \mathrm{cm}^2$ とするとき，次の問いに答えなさい。
+    \vspace{0.5em}
+
+    \begin{enumerate}[label=(\arabic*), leftmargin=1.8em, itemsep=0.35em, topsep=0.2em, parsep=0pt]
+        \item $0 \leqq x \leqq 4$ のとき，$y$ を $x$ の式で表しなさい。
+        \item $4 \leqq x \leqq 7$ のとき，$y$ を $x$ の式で表しなさい。
+        \item $0 \leqq x \leqq 7$ のときの $x$ と $y$ の関係をグラフに表しなさい。
+        \item $y = 8$ となる $x$ の値をすべて求めなさい。
+    \end{enumerate}
+    &
+    \begin{minipage}[t]{\linewidth}
+    \vspace{0pt}
+    \centering
+    % 長方形の図
+    \begin{tikzpicture}[scale=0.55, x=1cm, y=1cm]
+        \coordinate (A) at (0,3);
+        \coordinate (B) at (0,0);
+        \coordinate (C) at (4,0);
+        \coordinate (D) at (4,3);
+        \coordinate (P) at (1.2,3);
+
+        \fill[pattern=dots, pattern color=gray!55] (A) -- (B) -- (C) -- (P) -- cycle;
+        \draw[semithick] (A) -- (B) -- (C) -- (D) -- cycle;
+        \draw[semithick, -{Stealth[length=2mm]}] (P) -- (2.6,3);
+
+        \node[anchor=south east] at (A) {A};
+        \node[anchor=north east] at (B) {B};
+        \node[anchor=north west] at (C) {C};
+        \node[anchor=south west] at (D) {D};
+        \node[anchor=south] at (P) {P};
+
+        \draw[densely dashed] (-0.35,0) arc (180:90:0.35);
+        \node[anchor=east] at (-0.45,1.5) {$3\ \mathrm{cm}$};
+        \draw[densely dashed] (0,-0.35) arc (-90:0:0.35);
+        \node[anchor=north] at (2,-0.45) {$4\ \mathrm{cm}$};
+    \end{tikzpicture}
+
+    \vspace{0.8em}
+
+    % グラフ用の空欄
+    \begin{tikzpicture}[scale=0.38, x=1cm, y=1cm]
+        \draw[step=1, gray!40, very thin] (0,0) grid (8,14);
+        \draw[thick, ->] (0,0) -- (8.5,0) node[right] {$x$ (秒)};
+        \draw[thick, ->] (0,0) -- (0,14.5) node[above] {$y$ ($\mathrm{cm}^2$)};
+        \node[anchor=north east] at (-0.12,-0.12) {O};
+    \end{tikzpicture}
+    \end{minipage}
+    \end{tabular}
+\end{exercise}
+
+\begin{proof}\mbox{}\\
+    \begin{hiddenanswer}
+        （1）$0 \leqq x \leqq 4$ のとき
+
+        四角形 ABCP は $\mathrm{AP} \parallel \mathrm{BC}$ の台形で，$\mathrm{AP} = x\ \mathrm{cm}$ であるから，その面積は
+        \[\dfrac{1}{2} \times (x + 4) \times 3 = \dfrac{3}{2}x + 6\ (\mathrm{cm}^2)\]
+        よって $y = \dfrac{3}{2}x + 6$
+        \finalanswer{（1）$y = \dfrac{3}{2}x + 6$}
+
+        （2）$4 \leqq x \leqq 7$ のとき
+
+        四角形 ABCP は $\mathrm{AB} \parallel \mathrm{PC}$ の台形で，$\mathrm{PC} = 7 - x\ (\mathrm{cm})$ であるから，その面積は
+        \[\dfrac{1}{2} \times \{(7 - x) + 3\} \times 4 = -2x + 20\ (\mathrm{cm}^2)\]
+        よって $y = -2x + 20$
+        \finalanswer{（2）$y = -2x + 20$}
+
+        （3）（1），（2）より，$x$ と $y$ の関係をグラフに表すと，次のようになる。
+
+        \begin{center}
+        \begin{tikzpicture}[scale=0.42, x=1cm, y=1cm]
+            \draw[step=1, gray!40, very thin] (0,0) grid (8,14);
+            \draw[thick, ->] (0,0) -- (8.5,0) node[right] {$x$ (秒)};
+            \draw[thick, ->] (0,0) -- (0,14.5) node[above] {$y$ ($\mathrm{cm}^2$)};
+            \node[anchor=north east] at (-0.12,-0.12) {O};
+            \node[anchor=east] at (0,6) {$6$};
+            \node[anchor=east] at (0,12) {$12$};
+            \node[anchor=north] at (4,0) {$4$};
+            \node[anchor=north] at (7,0) {$7$};
+
+            \draw[semithick] (0,6) -- (4,12) -- (7,6);
+            \draw[dotted] (4,0) -- (4,12) -- (0,12);
+            \draw[dotted] (7,0) -- (7,6);
+            \fill (0,6) circle (1.6pt);
+            \fill (4,12) circle (1.6pt);
+            \fill (7,6) circle (1.6pt);
+        \end{tikzpicture}
+        \end{center}
+
+        （4）グラフより，$y = 8$ となるのは $0 \leqq x \leqq 4$ のときに $1$ 回，$4 \leqq x \leqq 7$ のときに $1$ 回あることがわかる。
+
+        $0 \leqq x \leqq 4$ のとき，$y = 8$ を $y = \dfrac{3}{2}x + 6$ に代入すると
+        \[8 = \dfrac{3}{2}x + 6\]
+        これを解くと $x = \dfrac{4}{3}$
+
+        $4 \leqq x \leqq 7$ のとき，$y = 8$ を $y = -2x + 20$ に代入すると
+        \[8 = -2x + 20\]
+        これを解くと $x = 6$
+
+        したがって，求める $x$ の値は $x = \dfrac{4}{3},\ 6$
+        \finalanswer{（4）$x = \dfrac{4}{3},\ 6$}
+    \end{hiddenanswer}
+\end{proof}
