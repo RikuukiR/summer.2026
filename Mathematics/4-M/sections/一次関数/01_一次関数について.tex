@@ -241,10 +241,12 @@ $^{*}$ $b = 0$ のとき $\bm{y = ax}$ となり，$y$ は $x$ に比例する.�
     \noindent
     \begin{tabular}[t]{@{}p{0.50\linewidth}@{\hspace{1em}}p{0.44\linewidth}@{}}
     \vspace{0pt}
-    $\mathrm{AB} = 3\ \mathrm{cm}$，$\mathrm{BC} = 4\ \mathrm{cm}$ である長方形 $\mathrm{ABCD}$ の周上を，頂点 A から毎秒 $1\ \mathrm{cm}$ の速さで，点 D を通り点 C まで動く点 P がある。P が頂点 A を出発してから $x$ 秒後の四角形 $\mathrm{ABCP}$ の面積を $y\ \mathrm{cm}^2$ とするとき，次の問いに答えなさい。
-    \vspace{0.5em}
+    $\mathrm{AB} = 3\ \mathrm{cm}$, $\mathrm{BC} = 4\ \mathrm{cm}$ である長方形 $\mathrm{ABCD}$ の周上を，
+    頂点 A から毎秒 $1\ \mathrm{cm}$ の速さで，点 D を通り点 C まで動く点 P がある。P が頂点 A を出発してから $x$ 秒後の
+    四角形 $\mathrm{ABCP}$ の面積を $y\ \mathrm{cm}^2$ とするとき，次の問いに答えなさい。
+    \vspace{0.3em}
 
-    \begin{enumerate}[label=(\arabic*), leftmargin=1.8em, itemsep=0.35em, topsep=0.2em, parsep=0pt]
+    \begin{enumerate}[label=(\arabic*), leftmargin=1.8em, itemsep=0.2em, topsep=0.15em, parsep=0pt]
         \item $0 \leqq x \leqq 4$ のとき，$y$ を $x$ の式で表しなさい。
         \item $4 \leqq x \leqq 7$ のとき，$y$ を $x$ の式で表しなさい。
         \item $0 \leqq x \leqq 7$ のときの $x$ と $y$ の関係をグラフに表しなさい。
@@ -255,33 +257,48 @@ $^{*}$ $b = 0$ のとき $\bm{y = ax}$ となり，$y$ は $x$ に比例する.�
     \vspace{0pt}
     \centering
     % 長方形の図
-    \begin{tikzpicture}[scale=0.55, x=1cm, y=1cm]
+    \begin{tikzpicture}[scale=0.48, x=1cm, y=1cm]
         \coordinate (A) at (0,3);
         \coordinate (B) at (0,0);
         \coordinate (C) at (4,0);
         \coordinate (D) at (4,3);
-        \coordinate (P) at (1.2,3);
+        \coordinate (P) at (2.8,3);
 
+        % 網掛け（四角形 ABCP のみ）
         \fill[pattern=dots, pattern color=gray!55] (A) -- (B) -- (C) -- (P) -- cycle;
-        \draw[semithick] (A) -- (B) -- (C) -- (D) -- cycle;
-        \draw[semithick, -{Stealth[length=2mm]}] (P) -- (2.6,3);
 
+        % 長方形
+        \draw[semithick] (A) -- (B) -- (C) -- (D) -- cycle;
+
+        % P から C への線分
+        \draw[semithick] (P) -- (C);
+
+        % 移動方向（AD の上）
+        \draw[very thick, -{Stealth[length=2.2mm, width=1.8mm]}] (3.05,3.22) -- (3.85,3.22);
+
+        % 点 P
+        \fill (P) circle (2pt);
+
+        % 頂点ラベル
         \node[anchor=south east] at (A) {A};
         \node[anchor=north east] at (B) {B};
         \node[anchor=north west] at (C) {C};
         \node[anchor=south west] at (D) {D};
         \node[anchor=south] at (P) {P};
 
-        \draw[densely dashed] (-0.35,0) arc (180:90:0.35);
-        \node[anchor=east] at (-0.45,1.5) {$3\ \mathrm{cm}$};
-        \draw[densely dashed] (0,-0.35) arc (-90:0:0.35);
-        \node[anchor=north] at (2,-0.45) {$4\ \mathrm{cm}$};
+        % 寸法（辺に沿った弧）
+        \draw[densely dashed]
+            (-0.32,3) .. controls (-0.68,1.5) .. (-0.32,0);
+        \node[anchor=east] at (-0.78,1.5) {$3\ \mathrm{cm}$};
+        \draw[densely dashed]
+            (0,-0.32) .. controls (2,-0.68) .. (4,-0.32);
+        \node[anchor=north] at (2,-0.78) {$4\ \mathrm{cm}$};
     \end{tikzpicture}
 
-    \vspace{0.8em}
+    \vspace{0.3em}
 
     % グラフ用の空欄
-    \begin{tikzpicture}[scale=0.38, x=1cm, y=1cm]
+    \begin{tikzpicture}[scale=0.30, x=1.2cm, y=0.55cm]
         \draw[step=1, gray!40, very thin] (0,0) grid (8,14);
         \draw[thick, ->] (0,0) -- (8.5,0) node[right] {$x$ (秒)};
         \draw[thick, ->] (0,0) -- (0,14.5) node[above] {$y$ ($\mathrm{cm}^2$)};
@@ -291,29 +308,59 @@ $^{*}$ $b = 0$ のとき $\bm{y = ax}$ となり，$y$ は $x$ に比例する.�
     \end{tabular}
 \end{exercise}
 
+\vspace{-2.5em}
 \begin{proof}\mbox{}\\
+    \vspace{-0.5em}
     \begin{hiddenanswer}
+        \noindent
+        \begin{tabular}[t]{@{}p{0.48\linewidth}@{\hspace{0.8em}}p{0.48\linewidth}@{}}
+        \begin{minipage}[t]{\linewidth}
         （1）$0 \leqq x \leqq 4$ のとき
 
-        四角形 ABCP は $\mathrm{AP} \parallel \mathrm{BC}$ の台形で，$\mathrm{AP} = x\ \mathrm{cm}$ であるから，その面積は
-        \[\dfrac{1}{2} \times (x + 4) \times 3 = \dfrac{3}{2}x + 6\ (\mathrm{cm}^2)\]
+        四角形 ABCP は $\mathrm{AP} /\!/ \mathrm{BC}$ の台形で，$\mathrm{AP} = x\ \mathrm{cm}$ であるから
+        \[\dfrac{1}{2} \times (x + 4) \times 3 = \dfrac{3}{2}x + 6\]
         よって $y = \dfrac{3}{2}x + 6$
+        \vspace{-0.3em}
         \finalanswer{（1）$y = \dfrac{3}{2}x + 6$}
-
+        \end{minipage}
+        &
+        \begin{minipage}[t]{\linewidth}
         （2）$4 \leqq x \leqq 7$ のとき
 
-        四角形 ABCP は $\mathrm{AB} \parallel \mathrm{PC}$ の台形で，$\mathrm{PC} = 7 - x\ (\mathrm{cm})$ であるから，その面積は
-        \[\dfrac{1}{2} \times \{(7 - x) + 3\} \times 4 = -2x + 20\ (\mathrm{cm}^2)\]
+        四角形 ABCP は $\mathrm{AB} /\!/ \mathrm{PC}$ の台形で，$\mathrm{PC} = 7 - x\ \mathrm{cm}$ であるから
+        \[\dfrac{1}{2} \times \{(7 - x) + 3\} \times 4 = -2x + 20\]
         よって $y = -2x + 20$
+        \vspace{-0.3em}
         \finalanswer{（2）$y = -2x + 20$}
+        \end{minipage}
+        \end{tabular}
 
+        \vspace{-0.3em}
         （3）（1），（2）より，$x$ と $y$ の関係をグラフに表すと，次のようになる。
 
-        \begin{center}
-        \begin{tikzpicture}[scale=0.42, x=1cm, y=1cm]
+        \vspace{-0.3em}
+        \noindent
+        \begin{tabular}[t]{@{}l@{\hspace{1.2em}}p{0.42\linewidth}@{}}
+        \begin{minipage}[t]{0.52\linewidth}
+        （4）グラフより，$y = 8$ となるのは $0 \leqq x \leqq 4$ のときに $1$ 回，$4 \leqq x \leqq 7$ のときに $1$ 回ある。
+
+        $0 \leqq x \leqq 4$ のとき，$8 = \dfrac{3}{2}x + 6$ より $x = \dfrac{4}{3}$
+
+        $4 \leqq x \leqq 7$ のとき，$8 = -2x + 20$ より $x = 6$
+
+        したがって，求める $x$ の値は $x = \dfrac{4}{3},\ 6$
+        \vspace{-0.3em}
+        \finalanswer{（4）$x = \dfrac{4}{3},\ 6$}
+        \end{minipage}
+        &
+        \begin{minipage}[t]{\linewidth}
+        \vspace{0pt}
+        \centering
+        \resizebox{\linewidth}{!}{%
+        \begin{tikzpicture}[x=1cm, y=0.55cm]
             \draw[step=1, gray!40, very thin] (0,0) grid (8,14);
-            \draw[thick, ->] (0,0) -- (8.5,0) node[right] {$x$ (秒)};
-            \draw[thick, ->] (0,0) -- (0,14.5) node[above] {$y$ ($\mathrm{cm}^2$)};
+            \draw[thick, ->] (0,0) -- (8.5,0) node[right] {\small $x$ (秒)};
+            \draw[thick, ->] (0,0) -- (0,14.5) node[above] {\small $y$ ($\mathrm{cm}^2$)};
             \node[anchor=north east] at (-0.12,-0.12) {O};
             \node[anchor=east] at (0,6) {$6$};
             \node[anchor=east] at (0,12) {$12$};
@@ -326,20 +373,9 @@ $^{*}$ $b = 0$ のとき $\bm{y = ax}$ となり，$y$ は $x$ に比例する.�
             \fill (0,6) circle (1.6pt);
             \fill (4,12) circle (1.6pt);
             \fill (7,6) circle (1.6pt);
-        \end{tikzpicture}
-        \end{center}
-
-        （4）グラフより，$y = 8$ となるのは $0 \leqq x \leqq 4$ のときに $1$ 回，$4 \leqq x \leqq 7$ のときに $1$ 回あることがわかる。
-
-        $0 \leqq x \leqq 4$ のとき，$y = 8$ を $y = \dfrac{3}{2}x + 6$ に代入すると
-        \[8 = \dfrac{3}{2}x + 6\]
-        これを解くと $x = \dfrac{4}{3}$
-
-        $4 \leqq x \leqq 7$ のとき，$y = 8$ を $y = -2x + 20$ に代入すると
-        \[8 = -2x + 20\]
-        これを解くと $x = 6$
-
-        したがって，求める $x$ の値は $x = \dfrac{4}{3},\ 6$
-        \finalanswer{（4）$x = \dfrac{4}{3},\ 6$}
+        \end{tikzpicture}%
+        }
+        \end{minipage}
+        \end{tabular}
     \end{hiddenanswer}
 \end{proof}
