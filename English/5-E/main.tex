@@ -1,0 +1,43 @@
+\documentclass[12pt,a4paper]{jsarticle}
+\usepackage[margin=20truemm]{geometry}
+
+% 大見出し「1」、小見出し「1.1」形式
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\input{preamble.tex}
+
+% カウンターの初期値を設定
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+\setcounter{definition}{0}
+\setcounter{theorem}{0}
+\setcounter{technique}{0}
+
+\title{【2026年度】 第5回 英語}                % タイトル
+\author{}                     % 著者（空白でOK）
+\date{}                       % 日付（空白）
+
+\begin{document}
+\vspace{-3.5em}
+\begin{center}
+{\LARGE 【中学英語】（単元名を入力）}
+\end{center}
+\vspace{-1.5em}
+
+% --- 著者と日付を右寄せで表示 ---
+\begin{flushright}
+  菅原\ 陸\hspace{1.5zw}{\small\textsf{Riku Sugawara}}\\
+  07.2026
+\end{flushright}
+\vspace{-3.5em}
+
+% ========================================
+% 各セクションの読み込み
+% ========================================
+
+\section{サンプル}\vspace{-0.5em}
+
+\input{sections/サンプル/サンプルについて.tex}
+
+\end{document}

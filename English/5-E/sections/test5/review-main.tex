@@ -1,0 +1,24 @@
+\input{test-setup.tex}
+
+% 復習テスト：1枚・小問間 \vfill で用紙を使い切る（3-E 方式 + 問5〜7用余白調整）
+\linespread{1.0}\selectfont
+\setlength{\parskip}{0pt}
+\makeatletter
+\renewcommand{\testblank@line}[2]{%
+  \par\vspace{0.28em}%
+  \noindent
+  \ifshowanswer
+    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
+  \else
+    \underline{\makebox[#1][l]{\rule{0pt}{1.5\baselineskip}}}%
+  \fi
+}
+\newcommand{\testqsep}{\vfill}
+\newcommand{\testqsepsmall}{\vspace{0.1em plus 0.35fil}}
+\newcommand{\testsectsep}{\vspace{0.5em}}
+\makeatother
+
+\begin{document}
+\ifshowanswer\else\enlargethispage{1\baselineskip}\fi
+\input{第5回 復習テスト.tex}
+\end{document}
