@@ -1,0 +1,46 @@
+\documentclass[12pt, a4paper]{jsarticle}
+\usepackage[margin=20truemm]{geometry}
+
+% 大見出し「1」, 小見出し「1.1」形式
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\input{preamble.tex}
+
+% 図形の性質と合同：定理・定義番号を section ごとに（幾何1 由来）
+\numberwithin{theorem}{section}
+\numberwithin{definition}{section}
+\renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
+\renewcommand{\thedefinition}{\arabic{section}.\arabic{definition}}
+
+% カウンターの初期値を設定
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+\setcounter{definition}{0}
+\setcounter{theorem}{0}
+\setcounter{technique}{0}
+
+\title{【2026年度】 数学}
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{center}
+{\LARGE 【中学数学】 図形の性質と合同}
+\end{center}
+
+\vspace{5mm}
+\begin{flushright}
+  菅原\ 陸\hspace{1.5zw}{\small\textsf{Riku Sugawara}}\\[1.2em]
+  07.2026
+\end{flushright}
+
+% 幾何1：図形の性質と合同（j-mathematics よりコピー）
+\input{sections/01_平行線と角.tex}
+\input{sections/02_多角形の内角と外角.tex}
+\input{sections/03_三角形の合同.tex}
+\input{sections/04_証明.tex}
+
+\bookletpadpages
+\end{document}

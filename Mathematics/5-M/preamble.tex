@@ -1,0 +1,693 @@
+\usepackage{amsmath}
+\usepackage{ascmac}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{amssymb}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{tikz}
+\usepackage{textcomp}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipdfmx]{xcolor}
+\usepackage{environ}
+\usetikzlibrary{intersections,calc,arrows.meta,patterns}
+
+% 行間を少し広げる
+\linespread{1.15}
+
+% 分数を常に大きく表示
+\everymath{\displaystyle}
+
+% 数式環境前後の空白を調整（ドキュメント開始時に適用）
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{1pt}%
+  \setlength{\belowdisplayskip}{6pt}%
+  \setlength{\abovedisplayshortskip}{1pt}%
+  \setlength{\belowdisplayshortskip}{3pt}%
+}
+
+% 平均記号のバーを長くするコマンド
+\newcommand{\mean}[1]{\overline{#1}}
+
+% 太字の数式（\bm + \dfrac 対応）
+% 使用法: \bmdmath{a = \dfrac{y}{x}}
+\newcommand{\bmdmath}[1]{%
+  \begingroup
+  \def\everymath{}%
+  \ensuremath{\bm{#1}}%
+  \endgroup
+}
+
+% 分数の穴埋めコマンド（下線なし）
+% 分数用コマンド（表専用 - 分子を空欄にしてレイアウト保持）
+\newcommand{\fracblank}[2]{%
+  \ifshowanswer
+    \textcolor{blue}{\frac{#1}{#2}}%  解答版：青色
+  \else
+    \frac{\phantom{#1}}{#2}%  空欄版：分子を透明化、レイアウト保持
+  \fi
+}
+
+% enumerate環境のデフォルト設定（（１）、（２）形式）
+\setlist[enumerate,1]{label=（\arabic*）, leftmargin=*, labelsep=0.5em}
+\setlist[enumerate,2]{label=（\alph*）, leftmargin=*, labelsep=0.5em}
+
+\usepackage[normalem]{ulem} % 下線用
+\usepackage{stackengine} % 追加
+
+% 文中の波線強調（分数など：波線を分数の直下に近づけて表示）
+\newcommand{\uwaveemph}[1]{%
+  \setbox0=\hbox{#1}%
+  \stackunder[1pt]{\box0}{\uwave{\rule{\wd0}{0pt}}}%
+}
+
+% 丸囲み文字コマンド
+\newcommand{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
+
+% 定理スタイルのカスタマイズ（最後のピリオドを削除）
+\newtheoremstyle{myplain}
+  {3pt}   % Space above
+  {3pt}   % Space below
+  {\itshape}  % Body font
+  {}  % Indent amount
+  {\bfseries} % Theorem head font
+  {}  % Punctuation after theorem head (空にしてピリオドを削除)
+  {.5em}  % Space after theorem head
+  {}  % Theorem head spec
+
+\newtheoremstyle{mydefinition}
+  {3pt}   % Space above
+  {3pt}   % Space below
+  {}  % Body font
+  {}  % Indent amount
+  {\bfseries} % Theorem head font
+  {}  % Punctuation after theorem head (空にしてピリオドを削除)
+  {.5em}  % Space after theorem head
+  {}  % Theorem head spec
+
+\theoremstyle{mydefinition}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Definition}
+\theoremstyle{myplain}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+
+\newcounter{technique}
+
+% 定理・定義番号を subsection ごとにリセット（1.1.1 形式）
+\numberwithin{theorem}{subsection}
+\numberwithin{definition}{subsection}
+\numberwithin{technique}{subsection}
+
+% 定理番号を「1.1.1」形式に
+\renewcommand{\thetheorem}{\thesubsection.\arabic{theorem}}
+\renewcommand{\thedefinition}{\thesubsection.\arabic{definition}}
+\renewcommand{\thetechnique}{\thesubsection.\arabic{technique}}
+
+% 式番号を「1.1」形式に（sectionごとにリセット）
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+
+% ========================================
+% 問題環境の設定
+% ========================================
+% 問題番号カウンター（単純な連番: 1, 2, 3, ...）
+\newcounter{problemcounter}
+\renewcommand{\theproblemcounter}{\arabic{problemcounter}}
+
+% 問題環境（枠なし、シンプル）
+\newenvironment{problem}[1][\relax]{%
+  \refstepcounter{problemcounter}%
+  \vspace{2em}%
+  \noindent%
+  \textbf{問題\theproblemcounter}%
+  \ifx#1\relax\else~\textbf{#1}\fi%
+  \par\vspace{0.8em}%
+  \noindent%
+}{%
+  \par\vspace{2em}%
+}
+
+% 問題環境（枠付き）
+\newenvironment{problembox}[1][\relax]{%
+  \refstepcounter{problemcounter}%
+  \vspace{2em}%
+  \begin{itembox}[l]{\textbf{問題\theproblemcounter}%
+  \ifx#1\relax\else~\textbf{#1}\fi}%
+}{%
+  \end{itembox}%
+  \vspace{1.5em}%
+}
+
+% 例題・練習問題カウンター（section ごとに 1 からリセット）
+\newcounter{examplecounter}
+\newcounter{exercisecounter}
+\renewcommand{\theexamplecounter}{\thesection.\arabic{examplecounter}}
+\renewcommand{\theexercisecounter}{\thesection.\arabic{exercisecounter}}
+\numberwithin{examplecounter}{section}
+\numberwithin{exercisecounter}{section}
+
+% 練習問題：外側二重枠（タイトルは左上の線上）
+\newtcolorbox{exercisebox}[1]{
+  enhanced,
+  colback=white,
+  boxrule=0pt,
+  frame hidden,
+  borderline={0.8pt}{0pt}{black},
+  borderline={0.8pt}{2.5pt}{black},
+  sharp corners,
+  left=10pt,
+  right=10pt,
+  top=10pt,
+  bottom=8pt,
+  coltitle=black,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={
+    xshift=4mm,
+    yshift=-\dimexpr 0.8pt+1.25pt\relax,
+  },
+  boxed title style={
+    boxrule=0pt,
+    colback=white,
+    colframe=white,
+    coltitle=black,
+    sharp corners,
+    top=2pt,
+    bottom=2pt,
+    left=2mm,
+    right=2mm,
+  },
+}
+
+% 例題環境 - itembox（一重枠・タイトル横から枠線開始）
+\newenvironment{example}[1][\relax]{%
+  \refstepcounter{examplecounter}%
+  \vspace{2em}%
+  \begin{itembox}[l]{\textbf{例題}%
+  \ifx#1\relax~\textbf{\theexamplecounter}\else~\textbf{#1}\fi}%
+}{%
+  \end{itembox}%
+  \vspace{1.5em}%
+}
+
+% 練習問題環境 - 外側二重枠
+\newenvironment{exercise}[1][\relax]{%
+  \refstepcounter{exercisecounter}%
+  \vspace{2em}%
+  \ifx#1\relax
+    \begin{exercisebox}{\textbf{練習問題}~\textbf{\theexercisecounter}}%
+  \else
+    \begin{exercisebox}{\textbf{練習問題}~\textbf{#1}}%
+  \fi
+}{%
+  \end{exercisebox}%
+  \vspace{1.5em}%
+}
+
+% 解答環境
+\newenvironment{solution}{%
+  \vspace{1em}%
+  \noindent%
+  \ifshowanswer%
+    \textbf{【解答】}\\%
+  \fi%
+}{%
+  \par\vspace{1em}%
+}
+
+% 問題専用の解答環境（常に空欄、手書きスペース確保）
+% 使い方: \begin{problemsolution}[高さ] ... \end{problemsolution}
+% デフォルト高さは15cm
+% ※最後の空白は手動で \vspace{5\baselineskip} を追加してください
+% 空欄時: 解答内容を白色で出力し、証明終了記号（□）を同じ位置に配置
+\NewEnviron{problemsolution}[1][15cm]{%
+  \begin{proof}\mbox{}\\%
+  \ifshowanswer%
+    {\color{blue}\BODY}%
+  \else%
+    {\color{white}\BODY}%
+  \fi%
+  \end{proof}%
+}
+
+% 別解環境（解答表示時のみ表示、ピリオドなし）
+\NewEnviron{altproof}{%
+  \ifshowanswer%
+    \par\vspace{1em}%
+    \noindent\textbf{【別解】}\par%
+    {\color{blue}\BODY\par}%
+    \vspace{1em}%
+  \fi%
+}
+
+% 証明環境内の隠し解答ブロック
+% 使い方: \begin{hiddenanswer} ... \end{hiddenanswer}
+%         \begin{hiddenanswer}[fill] ... \end{hiddenanswer}  ※ページ最後の問題のみ
+% 空欄時: 白文字で解答と同じレイアウトを保持（ページ数を解答版と揃える）
+% [fill]: 空欄時のみ、改ページしない範囲で解答欄上に残りスペースを確保
+% 解答版: 青文字で表示（preamble の \showanswertrue で切り替え）
+\newcommand{\answerpagefill}{%
+  \ifshowanswer
+  \else
+    \par\vspace{0pt plus 1fill}%
+  \fi
+}
+\NewEnviron{hiddenanswer}[1][]{%
+  \ifshowanswer
+    {\color{blue}\BODY}%
+  \else
+    \def\hiddenanswer@opt{#1}%
+    \ifx\hiddenanswer@opt\fill
+      \answerpagefill
+    \fi
+    {\color{white}\BODY}%
+  \fi
+}
+
+% ========================================
+% 冊子用ページ調整（中綴じ：末尾に白ページを追加して4の倍数に）
+% ========================================
+\makeatletter
+\newcount\booklet@last
+\newcount\booklet@rem
+\newcount\booklet@pad
+\newcommand{\bookletpadpages}{%
+  \booklet@last=\c@page
+  \ifdim\pagetotal=\z@
+    \advance\booklet@last by -1
+  \fi
+  \booklet@rem=\booklet@last
+  \booklet@pad=\booklet@last
+  \divide\booklet@pad by 4
+  \multiply\booklet@pad by 4
+  \advance\booklet@rem by -\booklet@pad
+  \ifnum\booklet@rem=\z@
+    \booklet@pad=\z@
+  \else
+    \booklet@pad=4
+    \advance\booklet@pad by -\booklet@rem
+  \fi
+  \loop\ifnum\booklet@pad>\z@
+    \advance\booklet@pad by -1
+    \newpage
+    \thispagestyle{empty}%
+    \vbox to \textheight{}%
+  \repeat
+}
+\makeatother
+
+% ========================================
+% 解答表示の切り替え設定
+% ========================================
+% 解答を表示したい場合：\showanswertrue
+% 解答を隠したい場合：\showanswerfalse
+\newif\ifshowanswer
+% ←ここを \showanswertrue に変更すると解答が表示されます
+\showanswertrue
+% 穴埋めコマンドの修正版（upLaTeX対応）
+\newcommand{\Blank}[2][3cm]{%
+  ~%
+  \ifshowanswer
+    \stackon[1pt]{\uline{\makebox[#1][l]{\hphantom{あ}}}}{{\normalsize\sffamily #2}}%
+  \else
+    \uline{\makebox[#1][l]{\hphantom{あ}}}%
+  \fi
+  ~%
+}
+
+\newlength{\fitblanksidepad}
+\newlength{\fitblankminwidth}
+\newlength{\fitblanknumpad}
+\newlength{\fitblanknummin}
+\newlength{\fitblankautopad}
+\setlength{\fitblanksidepad}{6em}
+\setlength{\fitblankminwidth}{14em}
+\setlength{\fitblanknumpad}{1.2em}
+\setlength{\fitblanknummin}{3.5em}
+\setlength{\fitblankautopad}{3.5em}
+
+\makeatletter
+\newlength{\fitblankinnerpad}
+\newlength{\fitblankwidth}
+\setlength{\fitblankinnerpad}{1.5zw}
+
+\newcommand{\fitblankinner}[1]{%
+  \hspace{\fitblankinnerpad}#1\hspace{\fitblankinnerpad}%
+}
+\newcommand{\fitblankautounderline}[2]{%
+  \sbox0{#2}%
+  \setlength{\fitblankwidth}{\dimexpr\wd0+\fitblankautopad+2\fitblankinnerpad\relax}%
+  \underline{\makebox[\fitblankwidth][c]{\fitblankinner{#1}}}%
+}
+\newcommand{\fitblankautobox}[2]{%
+  \sbox0{#2}%
+  \setlength{\fitblankwidth}{\dimexpr\wd0+\fitblankautopad+2\fitblankinnerpad\relax}%
+  \makebox[\fitblankwidth][c]{\fitblankinner{#1}}%
+}
+\newcommand{\fitblankunderline}[2]{%
+  \sbox0{#2}%
+  \ifdim\wd0<2em
+    % 数字など短い答え：コンパクトな下線
+    \setlength{\fitblankwidth}{\dimexpr\wd0+2\fitblanknumpad+2\fitblankinnerpad\relax}%
+    \ifdim\fitblankwidth<\fitblanknummin
+      \setlength{\fitblankwidth}{\fitblanknummin}%
+    \fi
+  \else
+    % 語句など長い答え：十分な長さの下線
+    \setlength{\fitblankwidth}{\dimexpr\wd0+2\fitblanksidepad+2\fitblankinnerpad\relax}%
+    \ifdim\fitblankwidth<\fitblankminwidth
+      \setlength{\fitblankwidth}{\fitblankminwidth}%
+    \fi
+  \fi
+  \underline{\makebox[\fitblankwidth][c]{\fitblankinner{#1}}}%
+}
+\makeatother
+
+% 正解に合わせて自動で空欄を作る（em単位版）- 太字表示に統一、青字で表示
+% 使用法: \fitblank[答え]{} / \fitblank[]{答え}（答え幅＋約3.5文字分） / \fitblank[答え]{幅}
+\newcommand{\fitblank}[2][\relax]{%
+  \if\relax\detokenize{#1}\relax
+    \ifshowanswer
+      \fitblankautounderline{{\color{blue}\ensuremath{\bm{#2}}}}{\ensuremath{\bm{#2}}}%
+    \else
+      \fitblankautounderline{\phantom{\ensuremath{\bm{#2}}}}{\ensuremath{\bm{#2}}}%
+    \fi
+  \else
+    \if\relax\detokenize{#2}\relax
+      \ifshowanswer
+        \fitblankautounderline{{\color{blue}\ensuremath{\bm{#1}}}}{\ensuremath{\bm{#1}}}%
+      \else
+        \fitblankautounderline{\phantom{\ensuremath{\bm{#1}}}}{\ensuremath{\bm{#1}}}%
+      \fi
+    \else
+      \ifshowanswer
+        \underline{\makebox[#2em][c]{\fitblankinner{\color{blue}\ensuremath{\bm{#1}}}}}%
+      \else
+        \underline{\makebox[#2em][c]{\fitblankinner{\phantom{\ensuremath{\bm{#1}}}}}}%
+      \fi
+    \fi
+  \fi
+}
+
+% 太文字版の空欄コマンド（数式と文字の両方に対応、青字で表示）
+% 使用法: \fitblankbf[答え]{} / \fitblankbf[]{答え}（答え幅＋約3.5文字分） / \fitblankbf[答え]{幅}
+%        {\color{red}\fitblankbf[答え]{幅}} - 色を上書き（赤など）
+\newcommand{\fitblankbf}[2][\relax]{%
+  \if\relax\detokenize{#1}\relax
+    \ifshowanswer
+      \fitblankautounderline{{\color{blue}\ensuremath{\bm{#2}}}}{\ensuremath{\bm{#2}}}%
+    \else
+      \fitblankautounderline{\phantom{\ensuremath{\bm{#2}}}}{\ensuremath{\bm{#2}}}%
+    \fi
+  \else
+    \if\relax\detokenize{#2}\relax
+      \ifshowanswer
+        \fitblankautounderline{{\color{blue}\ensuremath{\bm{#1}}}}{\ensuremath{\bm{#1}}}%
+      \else
+        \fitblankautounderline{\phantom{\ensuremath{\bm{#1}}}}{\ensuremath{\bm{#1}}}%
+      \fi
+    \else
+      \ifshowanswer
+        \underline{\makebox[#2em][c]{\fitblankinner{\color{blue}\ensuremath{\bm{#1}}}}}%
+      \else
+        \underline{\makebox[#2em][c]{\fitblankinner{\phantom{\ensuremath{\bm{#1}}}}}}%
+      \fi
+    \fi
+  \fi
+}
+
+% 下線なしの太字空欄（分数内など、下線と分数線が重なる場合に使用）
+% 使用法: \fitblankbox{答え}
+\newcommand{\fitblankbox}[1]{%
+  \ifshowanswer
+    \fitblankautobox{{\color{blue}\ensuremath{\bm{#1}}}}{\ensuremath{\bm{#1}}}%
+  \else
+    \fitblankautobox{\phantom{\ensuremath{\bm{#1}}}}{\ensuremath{\bm{#1}}}%
+  \fi
+}
+
+% 固定幅版の空欄コマンド（下線の長さを揃えたい場合に使用）
+% 使用法: \fitblankfixed[答え]{幅}
+\newcommand{\fitblankfixed}[2][\relax]{%
+  \ifx#1\relax
+    % 答えが指定されていない場合
+    \underline{\hspace*{#2em}}%
+  \else
+    \ifshowanswer
+      \underline{\makebox[#2em][c]{\fitblankinner{\color{blue}\ensuremath{\bm{#1}}}}}%
+    \else
+      \underline{\makebox[#2em][c]{\fitblankinner{\phantom{\ensuremath{\bm{#1}}}}}}%
+    \fi
+  \fi
+}
+
+
+% ========================================
+% tcolorbox環境（背景パターンで区別）
+% ========================================
+
+% 定義環境（赤系：薄い赤背景 + 赤枠）- 自動番号付き
+% 注: #1はラベル（オプション）、#2はタイトル（必須）
+\newtcolorbox{definitionbox}[2][]{
+    enhanced,
+    colback=red!5,
+    colframe=red!70!black,
+    boxrule=0.8pt,
+    sharp corners,
+    left=10pt, right=10pt, top=8pt, bottom=8pt,
+    fonttitle=\bfseries,
+    code={\refstepcounter{definition}\if\relax\detokenize{#1}\relax\else\label{#1}\fi}, % #1が空でない場合のみラベル設定
+    title={Definition \thedefinition\if\relax\detokenize{#2}\relax\else\quad\textbf{#2}\fi}
+}
+
+% 定理環境（青系：薄い青背景 + 青枠）- 自動番号付き
+% 注: #1はラベル（オプション）、#2はタイトル（必須）
+\newtcolorbox{theorembox}[2][]{
+    enhanced,
+    colback=blue!5,
+    colframe=blue!70!black,
+    boxrule=1pt,
+    sharp corners,
+    left=10pt, right=10pt, top=8pt, bottom=8pt,
+    fonttitle=\bfseries,
+    code={\refstepcounter{theorem}\if\relax\detokenize{#1}\relax\else\label{#1}\fi}, % #1が空でない場合のみラベル設定
+    title={Theorem \thetheorem\if\relax\detokenize{#2}\relax\else\quad\textbf{#2}\fi}
+}
+
+% 問題環境（濃い灰色背景 + 太線）
+\newtcolorbox{problembox2}[1][]{
+    enhanced,
+    colback=black!10,
+    colframe=black,
+    boxrule=1.2pt,
+    sharp corners,
+    left=10pt, right=10pt, top=8pt, bottom=8pt,
+    fonttitle=\bfseries,
+    title=#1
+}
+
+% テクニック環境（緑系：薄い緑背景 + 緑枠）- 自動番号付き
+% 注: #1はラベル（オプション）、#2はタイトル（必須）
+\newtcolorbox{techniquebox}[2][]{
+    enhanced,
+    colback=green!5,
+    colframe=green!70!black,
+    boxrule=0.8pt,
+    sharp corners,
+    left=10pt, right=10pt, top=8pt, bottom=8pt,
+    fonttitle=\bfseries,
+    code={\refstepcounter{technique}\if\relax\detokenize{#1}\relax\else\label{#1}\fi},
+    title={Technique \thetechnique\if\relax\detokenize{#2}\relax\else\quad\textbf{#2}\fi}
+}
+
+% techniquebox 内の番号付き行（tabular + 矢印揃え）
+% 使用法:
+%   \begin{techniquetable}[左列幅]
+%     \techniquerow{説明}{式}
+%   \end{techniquetable}
+\newcounter{techniquerow}
+\newcommand{\techniquetablestretch}{1}
+\newcommand{\techniquetablesetup}[1]{\renewcommand{\techniquetablestretch}{#1}}
+\newenvironment{techniquetable}[1][0.58\linewidth]{%
+  \setcounter{techniquerow}{0}%
+  \renewcommand{\arraystretch}{\techniquetablestretch}%
+  \begin{tabular}{@{}c@{}>{\raggedright\arraybackslash}p{#1}@{\hspace{0.5em}}c@{\hspace{0.5em}}l@{}}%
+}{%
+  \end{tabular}%
+}
+\newcommand{\techniquerow}[2]{%
+  \stepcounter{techniquerow}%
+  （\arabic{techniquerow}） & #1 & $\Longrightarrow$ & #2 \\[0.35em]%
+}
+
+% ========================================
+% 手書き用空欄コマンド（下線なし、スペース確保）
+% ========================================
+
+% 解答ブロック全体の表示/非表示
+% 使い方: \answerblock{解答内容}
+\newcommand{\answerblock}[1]{%
+  \ifshowanswer
+    \textcolor{blue}{#1}%  解答を青色で表示
+  \else
+    % 空欄時は何も表示しない
+  \fi
+}
+
+% ========================================
+% answer用コマンド（レイアウト基準は答えの幅、空欄時も幅を確保）
+% ========================================
+
+% インライン用（テキスト・数式両用）
+% 使い方: \answertext{答え}
+% 空欄時: 答えの幅 + 両端に1em（1文字分）の余白
+\newcommand{\answertext}[1]{%
+  \ifshowanswer
+    \textcolor{blue}{#1}%  解答を青色で表示
+  \else
+    \hspace{1em}\phantom{#1}\hspace{1em}%  空欄時は答えの幅 + 両端1em
+  \fi
+}
+
+% 「答え：」と答えを一体にして右端から 3em 内側へ配置（「答え：」は縦位置を揃える）
+% 使い方: \alignedfinalanswer{$4$ 分後}
+\newsavebox{\alignedfinalanswermeasurebox}
+\savebox{\alignedfinalanswermeasurebox}{%
+  \begin{tabular}{@{}r@{\hspace{0.35em}}l@{}}%
+    答え： & 分速 $\dfrac{3}{2}\ \mathrm{cm}$%
+  \end{tabular}%
+}
+\newlength{\alignedfinalanswerwidth}
+\setlength{\alignedfinalanswerwidth}{\wd\alignedfinalanswermeasurebox}
+\newcommand{\alignedfinalanswerbox}[1]{%
+  \makebox[\alignedfinalanswerwidth][l]{%
+    \begin{tabular}{@{}r@{\hspace{0.35em}}l@{}}%
+      答え： & #1%
+    \end{tabular}%
+  }%
+}
+\newcommand{\alignedfinalanswer}[1]{%
+  \par\vspace{0.5em}%
+  \noindent\hbox to \linewidth{%
+    \hss
+    \ifshowanswer
+      \textcolor{blue}{\alignedfinalanswerbox{#1}}%
+    \else
+      \phantom{\alignedfinalanswerbox{分速 $1.5\ \mathrm{cm}$}}%
+    \fi
+    \hspace{3em}%
+  }%
+  \par
+}
+
+% 証明環境の右下用の最終回答（\alignedfinalanswer と同形式）
+% 使い方: \finalanswer{$y = 2x$}  ※「答え：」は自動付与
+\newcommand{\finalanswer}[1]{%
+  \alignedfinalanswer{#1}%
+}
+
+% 数式ブロック用（align環境など内部で使用）
+% 使い方: \answermath{数式}
+% 空欄時: 答えの幅 + 両端に2em（2文字分）の余白
+\newcommand{\answermath}[1]{%
+  \ifshowanswer
+    {\color{blue}#1}%  数式を青色で表示
+  \else
+    \hspace{2em}\phantom{#1}\hspace{2em}%  空欄時は答えの幅 + 両端2em
+  \fi
+}
+
+% 表専用コマンド（空欄にしてレイアウト保持）
+% 使い方: \answertable{答え}
+% 空欄版：透明化してレイアウト保持
+\newcommand{\answertable}[1]{%
+  \ifshowanswer
+    \textcolor{blue}{#1}%  解答版：青色で表示
+  \else
+    \phantom{#1}%  空欄版：透明化、レイアウト保持
+  \fi
+}
+
+% ========================================
+% blank用コマンド（解答時も余白あり版）
+% ※通常は answer用コマンドを使用してください
+% ========================================
+
+% インライン用（テキスト・数式両用）
+% 使い方: \blanktext{答え}
+% 解答時・空欄時とも: 答えの幅 + 両端に0.5em空白
+\newcommand{\blanktext}[1]{%
+  \ifshowanswer
+    \hspace{0.5em}\textcolor{blue}{#1}\hspace{0.5em}%
+  \else
+    \hspace{0.5em}\phantom{#1}\hspace{0.5em}%
+  \fi
+}
+
+% 数式ブロック用（align環境など内部で使用）
+% 使い方: \blankmath{数式}
+% 解答時・空欄時とも: 答えの幅 + 左1.5em、右2.5em空白
+\newcommand{\blankmath}[1]{%
+  \ifshowanswer
+    \hspace{1.5em}{\color{blue}#1}\hspace{2.5em}%
+  \else
+    \hspace{1.5em}\phantom{#1}\hspace{2.5em}%
+  \fi
+}
+
+% 手書きスペース確保版（指定した高さの空白を作る）
+% 使い方: \answerspace[高さ]{解答内容}
+% 高さのデフォルトは5cm
+\newcommand{\answerspace}[2][5cm]{%
+  \ifshowanswer
+    \textcolor{blue}{#2}%  解答を青色で表示
+  \else
+    \vspace{#1}%  指定した高さの空白を確保
+  \fi
+}
+
+% 既存の青色空欄コマンド（下線付き版も追加）
+% 青色版の fitblank
+\newcommand{\fitblankblue}[2][\relax]{%
+  \ifx#1\relax
+    % 答えが指定されていない場合
+    \underline{\hspace*{#2em}}%
+  \else
+    % 答えが指定されている場合
+    \ifshowanswer
+      \textcolor{blue}{\underline{\makebox[#2em][c]{#1}}}%
+    \else
+      \underline{\hspace*{#2em}}%
+    \fi
+  \fi
+}
+
+% 青色太文字版
+\newcommand{\fitblankbfblue}[2][\relax]{%
+  \ifx#1\relax
+    \underline{\hspace*{#2em}}%
+  \else
+    \ifshowanswer
+      \textcolor{blue}{\underline{\makebox[#2em][c]{\textbf{#1}}}}%
+    \else
+      \underline{\hspace*{#2em}}%
+    \fi
+  \fi
+}
+
+% 分数の青色版
+% 分数用コマンド（表専用 - 分子を空欄にしてレイアウト保持）
+\newcommand{\fracblankblue}[2]{%
+  \ifshowanswer
+    \textcolor{blue}{\frac{#1}{#2}}%  解答版：青色
+  \else
+    \frac{\phantom{#1}}{#2}%  空欄版：分子を透明化、レイアウト保持
+  \fi
+}
+
