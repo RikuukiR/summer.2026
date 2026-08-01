@@ -33,6 +33,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Introduction: 最終振り返りシートをビルド",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/build-final-review-sheet.sh",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Introduction: 外部PDFを開いてリアルタイム更新",
       "type": "shell",
       "command": "${workspaceFolder}/scripts/watch-introduction.sh",

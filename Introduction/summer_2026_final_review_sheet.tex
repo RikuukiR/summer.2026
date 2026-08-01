@@ -1,0 +1,66 @@
+% !TEX program = uplatex
+% !TEX root = summer_2026_final_review_sheet.tex
+\documentclass[12pt,a4paper]{jsarticle}
+
+\usepackage{newtxtext,newtxmath}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{xparse}
+\usepackage{ulem}
+\geometry{margin=15mm}
+
+\setlength{\parindent}{0pt}
+\setlength{\baselineskip}{1.25em}
+\setlength{\extrarowheight}{0.35em}
+\setlist[enumerate]{leftmargin=1.8em, itemsep=2.5em, topsep=0.45em, parsep=0.4em, partopsep=0pt}
+
+\newlength{\fieldboxrule}
+\newlength{\fieldboxsep}
+\setlength{\fieldboxrule}{0.4pt}
+\setlength{\fieldboxsep}{3pt}
+
+\newcommand{\fieldbox}[2]{%
+  \begingroup
+  \setlength{\fboxsep}{\fieldboxsep}%
+  \setlength{\fboxrule}{\fieldboxrule}%
+  \fbox{%
+    \makebox[\dimexpr#1-2\fieldboxsep-2\fieldboxrule\relax][l]{\rule{0pt}{#2}}%
+  }%
+  \endgroup
+}
+
+\newcommand{\fitblank}[1]{\fieldbox{#1zw}{1.85em}}
+\newcommand{\choicecircle}{\makebox[1.3em][c]{\large ○}}
+\newcommand{\namefield}[1][5.5cm]{\underline{\makebox[#1][l]{\rule{0pt}{1.85em}}}}
+% 得点欄（下線）。第1引数=高さ（省略時 1.55em）、第2引数=下線の幅（省略時 1.35cm）
+\NewDocumentCommand{\scorebox}{O{1.55em} O{1.35cm}}{%
+  \makebox[\dimexpr#2+0.6cm\relax][c]{\underline{\rule{0pt}{#1}\hspace{#2}}\,/\,100}%
+}
+\NewDocumentCommand{\totalscorebox}{O{1.55em} O{1.35cm}}{%
+  \makebox[\dimexpr#2+0.6cm\relax][c]{\underline{\rule{0pt}{#1}\hspace{#2}}\,/\,500}%
+}
+% 記入欄（枠線）。第1引数=幅（省略時 0.95\linewidth）、第2引数=高さ（省略時 1.85em）
+\NewDocumentCommand{\sheetline}{O{0.95\linewidth} O{1.85em}}{%
+  \fieldbox{#1}{#2}%
+}
+\newcommand{\scoretable}{%
+  \renewcommand{\arraystretch}{1.55}%
+  \begin{tabular}{C{1.85cm}C{1.85cm}C{1.85cm}C{1.85cm}C{1.85cm}C{2.55cm}}
+  \toprule
+  国語 & 数学 & 英語 & 理科 & 社会 & 合計 \\
+  \midrule
+  \scorebox & \scorebox & \scorebox & \scorebox & \scorebox & \totalscorebox \\
+  \bottomrule
+  \end{tabular}%
+}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\pagestyle{empty}
+
+\begin{document}
+\input{sections/summary/最終振り返りシート_T.tex}
+% \input{sections/summary/最終振り返りシート_S.tex}
+\end{document}
