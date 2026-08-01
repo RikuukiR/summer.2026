@@ -12,27 +12,10 @@ if [[ -n "$TEX" ]]; then
   TEST5_DIR="${ROOT}/sections/test5"
   if [[ "$TEX_DIR" == "$TEST5_DIR" || "$TEX_DIR" == "$TEST5_DIR"/* ]]; then
     MODE="$(grep -E '^\\showanswer(true|false)' preamble.tex | tail -1 | tr -d ' \t' || true)"
-    case "$(basename "$TEX")" in
-      第5回\ 復習テスト.tex|review-main.tex)
-        echo "=== 第5回 復習テスト ビルド開始 (${MODE:-unknown}) ==="
-        bash "${ROOT}/scripts/build-test-5.sh" review
-        echo "=== 完了: sections/test5/第5回 復習テスト.pdf を更新しました ==="
-        "${ROOT}/scripts/refresh-pdf.sh" "${TEST5_DIR}/第5回 復習テスト.pdf"
-        ;;
-      test-setup.tex)
-        echo "=== 第5回 テスト類 ビルド開始 (${MODE:-unknown}) ==="
-        bash "${ROOT}/scripts/build-test-5.sh" all
-        echo "=== 完了: sections/test5/ のテスト PDF を更新しました ==="
-        "${ROOT}/scripts/refresh-pdf.sh" "${TEST5_DIR}/第5回 確認テスト.pdf"
-        "${ROOT}/scripts/refresh-pdf.sh" "${TEST5_DIR}/第5回 復習テスト.pdf"
-        ;;
-      *)
-        echo "=== 第5回 確認テスト ビルド開始 (${MODE:-unknown}) ==="
-        bash "${ROOT}/scripts/build-test-5.sh" confirm
-        echo "=== 完了: sections/test5/第5回 確認テスト.pdf を更新しました ==="
-        "${ROOT}/scripts/refresh-pdf.sh" "${TEST5_DIR}/第5回 確認テスト.pdf"
-        ;;
-    esac
+    echo "=== 最終テスト ビルド開始 (${MODE:-unknown}) ==="
+    bash "${ROOT}/scripts/build-test-5.sh"
+    echo "=== 完了: sections/test5/最終テスト.pdf を更新しました ==="
+    "${ROOT}/scripts/refresh-pdf.sh" "${TEST5_DIR}/最終テスト.pdf"
     exit 0
   fi
 fi

@@ -121,7 +121,7 @@ help:
 	@echo "  booklet     - Create main-book.pdf (A3 面付け・短辺とじ)"
 	@echo "  student     - 生徒用（\\showanswerfalse）で PDF 2種を生成"
 	@echo "  teacher     - 先生用（\\showanswertrue）で PDF 2種を生成"
-	@echo "  test-5      - Create sections/test5/ の確認・復習テスト PDF"
+	@echo "  test-5      - Create sections/test5/最終テスト.pdf"
 	@echo "  help        - Show this help"
 
 .PHONY: all watch watch-inotify watch-poll clean cleanall rebuild answer booklet booklet-only student teacher test-5 help
