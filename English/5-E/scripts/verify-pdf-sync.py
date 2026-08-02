@@ -21,6 +21,11 @@ STUDENT_MAX_LEN = 3500
 TEACHER_MIN_LEN = 3800
 # 本文がこれ未満のときは解答有無のヒューリスティックをスキップ（新規プロジェクト用）
 MIN_CONTENT_FOR_ANSWER_CHECK = 3500
+ANSWER_MARKERS = ("【3A解答】", "【3B解答】", "【解答】")
+
+
+def has_answer_markers(text: str) -> bool:
+    return any(marker in text for marker in ANSWER_MARKERS)
 
 
 def read_preamble_showanswer() -> str:
@@ -53,8 +58,11 @@ def main() -> None:
 
     preamble_mode = read_preamble_showanswer()
     stamp_mode = read_stamp_showanswer()
-    main_len = len(extract_text(MAIN))
-    book_len = len(extract_text(BOOK))
+    main_text = extract_text(MAIN)
+    book_text = extract_text(BOOK)
+    main_len = len(main_text)
+    book_len = len(book_text)
+    answers_visible = has_answer_markers(main_text)
     delta = abs(main_len - book_len)
 
     print(f"preamble.tex: \\showanswer{preamble_mode}")
@@ -90,7 +98,7 @@ def main() -> None:
         )
         return
 
-    if preamble_mode == "false" and main_len > TEACHER_MIN_LEN:
+    if preamble_mode == "false" and answers_visible:
         print(
             "ERROR: preamble は \\showanswerfalse ですが、"
             "PDF に解答が含まれている可能性があります。"
@@ -98,6 +106,22 @@ def main() -> None:
             file=sys.stderr,
         )
         sys.exit(1)
+
+    if preamble_mode == "true" and not answers_visible:
+        print(
+            "ERROR: preamble は \\showanswertrue ですが、"
+            "PDF に解答が反映されていない可能性があります。"
+            " make -B all を実行してください。",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if preamble_mode == "false" and main_len > TEACHER_MIN_LEN:
+        print(
+            "OK: 両 PDF は同期済み（preamble 設定: 解答非表示、"
+            "埋め込み PDF により文字数チェックはスキップ）"
+        )
+        return
 
     if preamble_mode == "true" and main_len < STUDENT_MAX_LEN:
         print(
