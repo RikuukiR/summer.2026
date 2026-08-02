@@ -20,7 +20,7 @@ SYNC_TOLERANCE = 80
 STUDENT_MAX_LEN = 3500
 TEACHER_MIN_LEN = 3800
 # 本文がこれ未満のときは解答有無のヒューリスティックをスキップ（新規プロジェクト用）
-MIN_CONTENT_FOR_ANSWER_CHECK = 500
+MIN_CONTENT_FOR_ANSWER_CHECK = 3500
 
 
 def read_preamble_showanswer() -> str:
