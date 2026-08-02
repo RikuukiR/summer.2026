@@ -27,6 +27,16 @@
 \newif\ifshowanswer
 \showanswertrue
 
+% 第1ページフッター（reading.tex で \renewcommand して内容を設定）
+\usepackage{fancyhdr}
+\newcommand{\readingpageonefooter}{}
+\fancypagestyle{readingpageone}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\readingpageonefooter}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
 % 行間を少し広げる
 \linespread{1.15}
 
