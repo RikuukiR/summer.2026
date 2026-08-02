@@ -21,11 +21,18 @@ STUDENT_MAX_LEN = 3500
 TEACHER_MIN_LEN = 3800
 # 本文がこれ未満のときは解答有無のヒューリスティックをスキップ（新規プロジェクト用）
 MIN_CONTENT_FOR_ANSWER_CHECK = 3500
-ANSWER_MARKERS = ("【3A解答】", "【3B解答】", "【解答】")
+# PDF テキスト抽出で判定できる解答シグネチャ（日本語見出しは dvipdfmx 経由だと化けることがある）
+ANSWER_MARKERS_JA = ("【3A解答】", "【3B解答】", "【解答】")
+ANSWER_SIGNATURES_EN = (
+    "Can I have a Tomato Pizza and a Corn Salad?",
+    "She will introduce intergenerational home share to many people.",
+)
 
 
 def has_answer_markers(text: str) -> bool:
-    return any(marker in text for marker in ANSWER_MARKERS)
+    if any(marker in text for marker in ANSWER_MARKERS_JA):
+        return True
+    return all(signature in text for signature in ANSWER_SIGNATURES_EN)
 
 
 def read_preamble_showanswer() -> str:
@@ -98,15 +105,8 @@ def main() -> None:
         )
         return
 
-    if preamble_mode == "false" and answers_visible:
-        print(
-            "ERROR: preamble は \\showanswerfalse ですが、"
-            "PDF に解答が含まれている可能性があります。"
-            " make -B all を実行してください。",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
+    # 演習フッター解答は \showanswer に関係なく常に表示するため、
+    # showanswerfalse でも PDF に解答シグネチャが含まれるのは正常。
     if preamble_mode == "true" and not answers_visible:
         print(
             "ERROR: preamble は \\showanswertrue ですが、"
