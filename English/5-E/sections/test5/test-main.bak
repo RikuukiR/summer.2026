@@ -8,20 +8,27 @@
 \renewcommand{\testblank@line}[2]{%
   \par\vspace{0.65em}%
   \noindent
-  \def\testblank@ans{#2}%
-  \ifx\testblank@ans\empty
-    \testblank@emptyline{#1}%
+  \ifshowanswer
+    \underline{\makebox[#1][l]{{\color{blue}\textbf{#2}}}}%
   \else
-    \underline{\makebox[#1][l]{\testblank@content{#2}}}%
+    \underline{\makebox[#1][l]{\rule{0pt}{1.55\baselineskip}}}%
   \fi
 }
 \renewcommand{\testblankwide}[2][\relax]{%
   \par\vspace{0.45em}%
   \noindent
   \ifx#1\relax
-    \testblank@line{#2}{}%
+    \ifshowanswer
+      \testblank@line{#2}{}%
+    \else
+      \underline{\makebox[#2][l]{\rule{0pt}{1.72\baselineskip}}}%
+    \fi
   \else
-    \underline{\makebox[#2][l]{\testblank@content{#1}}}%
+    \ifshowanswer
+      \underline{\makebox[#2][l]{{\color{blue}\textbf{#1}}}}%
+    \else
+      \underline{\makebox[#2][l]{\rule{0pt}{1.72\baselineskip}}}%
+    \fi
   \fi
 }
 \newcommand{\testqsep}{\vfill}
@@ -32,18 +39,26 @@
 \newcommand{\testquestionwide}{\needspace{14\baselineskip}}
 % リスニング：選択肢記入欄
 \newcommand{\listeningchoice}[2][\relax]{%
-  \ifx#1\relax
-    \underline{\makebox[#2][c]{\rule{0pt}{1.55\baselineskip}}}%
+  \ifshowanswer
+    \ifx#1\relax
+      \underline{\makebox[#2][c]{\rule{0pt}{1.55\baselineskip}}}%
+    \else
+      \underline{\makebox[#2][c]{\textcolor{blue}{\textbf{#1}}}}%
+    \fi
   \else
-    \underline{\makebox[#2][c]{\testblank@content{#1}}}%
+    \underline{\makebox[#2][c]{\rule{0pt}{1.55\baselineskip}}}%
   \fi
 }
 % リスニング：空欄補充欄
 \newcommand{\listeningblank}[2][\relax]{%
-  \ifx#1\relax
-    \underline{\makebox[#2][l]{\rule{0pt}{1.55\baselineskip}}}%
+  \ifshowanswer
+    \ifx#1\relax
+      \underline{\makebox[#2][l]{\rule{0pt}{1.55\baselineskip}}}%
+    \else
+      \underline{\makebox[#2][l]{\textcolor{blue}{\textbf{#1}}}}%
+    \fi
   \else
-    \underline{\makebox[#2][l]{\testblank@content{#1}}}%
+    \underline{\makebox[#2][l]{\rule{0pt}{1.55\baselineskip}}}%
   \fi
 }
 \makeatother
