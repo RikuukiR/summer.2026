@@ -76,6 +76,18 @@
     \underline{\makebox[#2][l]{\testblank@content{#1}}}%
   \fi
 }
+\newlength{\listeningqFourBlankA}
+\newlength{\listeningqFourBlankB}
+\newcommand{\listeningqFourBlankSetup}{%
+  \setlength{\listeningqFourBlankA}{0.5\linewidth}%
+  \settowidth{\@tempdima}{No.\,1\quad He enjoyed it in a tent on }%
+  \setlength{\listeningqFourBlankB}{\@tempdima}%
+  \addtolength{\listeningqFourBlankB}{0.5\linewidth}%
+  \settowidth{\@tempdima}{No.\,2\quad He }%
+  \addtolength{\listeningqFourBlankB}{-\@tempdima}%
+  \settowidth{\@tempdima}{ and ate them with Tomoya.}%
+  \addtolength{\listeningqFourBlankB}{-\@tempdima}%
+}
 
 % 問23：番号付き空欄・語数カウント記入欄
 \newlength{\wordslotw}
@@ -95,11 +107,15 @@
   \fi
 }
 \newcommand{\wordslot}[1]{%
-  \def\compos@word{#1}%
-  \ifx\compos@word\empty
-    \underline{\hspace{\wordslotw}}%
+  \ifshowanswer
+    \def\compos@word{#1}%
+    \ifx\compos@word\empty
+      \underline{\hspace{\wordslotw}}%
+    \else
+      \underline{\makebox[\wordslotw][c]{\testblank@content{#1}}}%
+    \fi
   \else
-    \underline{\makebox[\wordslotw][c]{\testblank@content{#1}}}%
+    \underline{\hspace{\wordslotw}}%
   \fi
 }
 \newcommand{\wordentryrowsix}[7]{%
@@ -117,5 +133,28 @@
     #1語%
   \fi
   \par\vspace{1.5em}%
+}
+% 問23 enumerate 用（\fitblankbf の代わりに \showanswer 連動）
+\newcommand{\testfitblank@inline}[1]{%
+  \underline{\hspace{2em}\testblank@content{#1}\hspace{2em}}%
+}
+\newcommand{\testfitblank@fixed}[2]{%
+  \underline{\makebox[#2em][l]{\testblank@content{#1}}}%
+}
+\newcommand{\testfitblank@wide}[1]{%
+  \underline{\hspace{3em}\testblank@content{#1}\hspace{3em}}%
+}
+\newcommand{\testfitblankbf}[2][\relax]{%
+  \def\testfitblank@opt{#1}%
+  \def\testfitblank@mand{#2}%
+  \ifx\testfitblank@mand\empty
+    \testfitblank@wide{#1}%
+  \else
+    \ifx\testfitblank@opt\empty
+      \testfitblank@inline{#2}%
+    \else
+      \testfitblank@fixed{#1}{#2}%
+    \fi
+  \fi
 }
 \makeatother
