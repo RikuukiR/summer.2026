@@ -1,14 +1,16 @@
 \documentclass[12pt,a4paper]{jsarticle}
 \usepackage[margin=20truemm]{geometry}
+\usepackage{fancybox}
+\usepackage{needspace}
 
 \input{../../preamble.tex}
 
 \pagestyle{empty}
 
-% テスト類：本文はやや広め、残り余白は問題間の \vfill で均等配分
-\linespread{1.1}\selectfont
+\linespread{1.03}\selectfont
+\setlength{\parskip}{0pt}
 
-% テスト用：大きな解答欄（preamble.tex の \showanswerfalse / \showanswertrue で表示切替）
+% テスト用：解答欄（\showanswerfalse / \showanswertrue で表示切替）
 % 空欄版は \phantom で解答版と同じ行数・高さを確保
 \makeatletter
 \newcommand{\testblank@content}[1]{%
@@ -22,7 +24,7 @@
   \underline{\makebox[#1][l]{\rule{0pt}{1.55\baselineskip}}}%
 }
 \newcommand{\testblank@line}[2]{%
-  \par\vspace{0.4em}%
+  \par\vspace{0.9em}%
   \noindent
   \def\testblank@ans{#2}%
   \ifx\testblank@ans\empty
@@ -45,34 +47,75 @@
     \underline{\makebox[#2][l]{\testblank@content{#1}}}%
   \fi
 }
-\newcommand{\testnameblank}{\underline{\hspace{14em}}}
-\newcommand{\testscoreblank}{\underline{\hspace{8em}}}
-% 「」内に生徒が日本語を書く空欄（第2引数=幅、第1引数=解答例）
-\newcommand{\testjablank}[2][\relax]{%
-  \ifx#1\relax
-    「\testblankinline{#2}」%
-  \else
-    「\testblankinline[#1]{#2}」%
-  \fi
-}
-% 問5〜7向け：日本語空欄をやや大きく
-\newcommand{\testjablankwide}[2][\relax]{%
-  \par\vspace{0.08em}%
-  \noindent
-  \ifx#1\relax
-    「\testblankinline{#2}」%
-  \else
-    「\underline{\makebox[#2][l]{\testblank@content{#1}}}」%
-  \fi
-}
-% 問5〜7向け：英文解答欄をやや大きく
 \newcommand{\testblankwide}[2][\relax]{%
-  \par\vspace{0.2em}%
+  \par\vspace{0.9em}%
   \noindent
   \ifx#1\relax
     \testblank@line{#2}{}%
   \else
     \underline{\makebox[#2][l]{\testblank@content{#1}}}%
   \fi
+}
+\newcommand{\testnameblank}{\underline{\hspace{14em}}}
+\newcommand{\testqsep}{\vfill}
+\newcommand{\testqseplistening}{\vspace{1.35em}}
+\newcommand{\testsectsep}{\vspace{0.85em}}
+\newcommand{\testquestion}{\needspace{6\baselineskip}}
+\newcommand{\testquestionwide}{\needspace{10\baselineskip}}
+\newcommand{\listeningchoice}[2][\relax]{%
+  \ifx#1\relax
+    \underline{\makebox[#2][c]{\rule{0pt}{1.55\baselineskip}}}%
+  \else
+    \underline{\makebox[#2][c]{\testblank@content{#1}}}%
+  \fi
+}
+\newcommand{\listeningblank}[2][\relax]{%
+  \ifx#1\relax
+    \underline{\makebox[#2][l]{\rule{0pt}{1.55\baselineskip}}}%
+  \else
+    \underline{\makebox[#2][l]{\testblank@content{#1}}}%
+  \fi
+}
+
+% 問23：番号付き空欄・語数カウント記入欄
+\newlength{\wordslotw}
+\setlength{\wordslotw}{0.185\linewidth}
+\newcommand{\compnumblank}[2][\relax]{%
+  \ifx#1\relax
+    \stackon[0.15ex]{\underline{\hspace{3.8em}}}{\scriptsize(#2)}%
+  \else
+    \stackon[0.15ex]{\underline{\makebox[3.8em][c]{\testblank@content{#1}}}}{\scriptsize(#2)}%
+  \fi
+}
+\newcommand{\compnumblankwide}[2][\relax]{%
+  \ifx#1\relax
+    \stackon[0.15ex]{\underline{\hspace{0.48\linewidth}}}{\scriptsize(#2)}%
+  \else
+    \stackon[0.15ex]{\underline{\makebox[0.48\linewidth][l]{\testblank@content{#1}}}}{\scriptsize(#2)}%
+  \fi
+}
+\newcommand{\wordslot}[1]{%
+  \def\compos@word{#1}%
+  \ifx\compos@word\empty
+    \underline{\hspace{\wordslotw}}%
+  \else
+    \underline{\makebox[\wordslotw][c]{\testblank@content{#1}}}%
+  \fi
+}
+\newcommand{\wordentryrowsix}[7]{%
+  \noindent
+  \wordslot{#2}\hspace{0.55em}%
+  \wordslot{#3}\hspace{0.55em}%
+  \wordslot{#4}\hspace{0.55em}%
+  \wordslot{#5}\hspace{0.55em}%
+  \wordslot{#6}\hspace{0.55em}%
+  \wordslot{#7}%
+  \hfill
+  \ifnum#1=24\relax
+    \textbf{24語}%
+  \else
+    #1語%
+  \fi
+  \par\vspace{1.5em}%
 }
 \makeatother

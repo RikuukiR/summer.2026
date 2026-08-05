@@ -1,24 +1,31 @@
 #!/usr/bin/env bash
-# sections/test5/ 配下の最終テスト PDF を生成
+# sections/test5/ 配下の最終テスト PDF（nor / adv）を生成
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TEST_DIR="${ROOT}/sections/test5"
-MAIN_TEX="test-main.tex"
-PDF_NAME="最終テスト.pdf"
 
-cd "$TEST_DIR"
+build_one() {
+  local main_tex="$1"
+  local pdf_name="$2"
+  cd "$TEST_DIR"
+  rm -f "${main_tex%.tex}.aux" "${main_tex%.tex}.log" "${main_tex%.tex}.dvi"
+  uplatex -synctex=1 -interaction=nonstopmode -file-line-error "$main_tex"
+  uplatex -synctex=1 -interaction=nonstopmode -file-line-error "$main_tex"
+  dvipdfmx "${main_tex%.tex}.dvi"
+  mv -f "${main_tex%.tex}.pdf" "${TEST_DIR}/${pdf_name}"
+  rm -f "${main_tex%.tex}.aux" "${main_tex%.tex}.log" "${main_tex%.tex}.dvi" "${main_tex%.tex}.synctex.gz"
+}
 
 MODE="$(grep -E '^\\showanswer(true|false)' "${ROOT}/preamble.tex" | tail -1 | tr -d ' \t' || true)"
 echo "=== 最終テスト ビルド開始 (${MODE:-unknown}) ==="
 
-rm -f "${MAIN_TEX%.tex}.aux" "${MAIN_TEX%.tex}.log" "${MAIN_TEX%.tex}.dvi"
+build_one "test-main-nor.tex" "最終テスト_nor.pdf"
+echo "=== 完了: ${TEST_DIR}/最終テスト_nor.pdf ==="
 
-uplatex -synctex=1 -interaction=nonstopmode -file-line-error "$MAIN_TEX"
-uplatex -synctex=1 -interaction=nonstopmode -file-line-error "$MAIN_TEX"
-dvipdfmx "${MAIN_TEX%.tex}.dvi"
-mv -f "${MAIN_TEX%.tex}.pdf" "${TEST_DIR}/${PDF_NAME}"
+build_one "test-main-adv.tex" "最終テスト_adv.pdf"
+echo "=== 完了: ${TEST_DIR}/最終テスト_adv.pdf ==="
 
-rm -f "${MAIN_TEX%.tex}.aux" "${MAIN_TEX%.tex}.log" "${MAIN_TEX%.tex}.dvi" "${MAIN_TEX%.tex}.synctex.gz"
-
-echo "=== 完了: ${TEST_DIR}/${PDF_NAME} ==="
+# 後方互換: test-main.tex → 最終テスト_nor.pdf を 最終テスト.pdf にもコピー
+cp -f "${TEST_DIR}/最終テスト_nor.pdf" "${TEST_DIR}/最終テスト.pdf"
+echo "=== 完了: ${TEST_DIR}/最終テスト.pdf（nor 版） ==="
