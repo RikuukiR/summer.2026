@@ -7,12 +7,6 @@
 
 \input{preamble.tex}
 
-% 図形の性質と合同：定理・定義番号を section ごとに（幾何1 由来）
-\numberwithin{theorem}{section}
-\numberwithin{definition}{section}
-\renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
-\renewcommand{\thedefinition}{\arabic{section}.\arabic{definition}}
-
 % カウンターの初期値を設定
 \setcounter{section}{0}
 \setcounter{subsection}{0}
@@ -27,20 +21,31 @@
 \begin{document}
 
 \begin{center}
-{\LARGE 【中学数学】 図形の性質と合同}
+{\LARGE 【中学数学】図形の性質と合同}
 \end{center}
 
 \vspace{5mm}
 \begin{flushright}
   菅原\ 陸\hspace{1.5zw}{\small\textsf{Riku Sugawara}}\\[1.2em]
-  07.2026
+  08.2026
 \end{flushright}
 
-% 幾何1：図形の性質と合同（j-mathematics よりコピー）
-\input{sections/01_平行線と角.tex}
-\input{sections/02_多角形の内角と外角.tex}
-\input{sections/03_三角形の合同.tex}
-\input{sections/04_証明.tex}
+\section{平行線と角}
+
+\setcounter{subsection}{0}
+\input{sections/平行線と角/01_平行線と角について.tex}
+
+\section{多角形の内角と外角}
+
+\input{sections/多角形の内角と外角/01_多角形の内角と外角について.tex}
+
+\section{三角形の合同}
+
+\input{sections/三角形の合同/01_三角形の合同について.tex}
+
+\section{証明}
+
+\input{sections/証明/01_証明について.tex}
 
 \bookletpadpages
 \end{document}

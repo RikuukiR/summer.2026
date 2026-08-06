@@ -109,6 +109,20 @@
 \renewcommand{\thedefinition}{\thesubsection.\arabic{definition}}
 \renewcommand{\thetechnique}{\thesubsection.\arabic{technique}}
 
+% 図番号（subsection ごとに 1.1.1, 1.1.2, ... 形式）
+\newcounter{matfigure}
+\numberwithin{matfigure}{subsection}
+\renewcommand{\thematfigure}{\thesubsection.\arabic{matfigure}}
+
+% 図のキャプション（番号自動付与 + \label）
+% 使用法: \figcap{fig:ラベル}{タイトル}
+\newcommand{\figcap}[2]{%
+  \par\vspace{0.4em}%
+  \refstepcounter{matfigure}%
+  \label{#1}%
+  {\small 図~\thematfigure~#2}%
+}
+
 % 式番号を「1.1」形式に（sectionごとにリセット）
 \numberwithin{equation}{section}
 \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
@@ -189,8 +203,7 @@
 \newenvironment{example}[1][\relax]{%
   \refstepcounter{examplecounter}%
   \vspace{2em}%
-  \begin{itembox}[l]{\textbf{例題}%
-  \ifx#1\relax~\textbf{\theexamplecounter}\else~\textbf{#1}\fi}%
+  \begin{itembox}[l]{\textbf{例題}~\textbf{\theexamplecounter}}%
 }{%
   \end{itembox}%
   \vspace{1.5em}%
